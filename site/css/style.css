@@ -502,6 +502,10 @@ div.layered__fg--tags { overflow: visible; }
 .bullets li::before { content: "●"; color: #e0e0e0; margin-right: 0.3em; }
 .prose ul { margin-top: 1.2em; }
 
+/* ---------- short pages (404): footer pinned to the bottom of the window ---------- */
+.page-short { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }
+.page-short main { flex: 1; }
+
 /* ---------- footer ---------- */
 .footer { padding-top: 186px; padding-bottom: 24px; font-size: var(--fs-small); line-height: 1.25; color: var(--text-muted); }
 .footer p:first-child { grid-column: span 2; }
