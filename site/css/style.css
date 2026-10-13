@@ -321,9 +321,11 @@ ul { list-style: none; }
 .case-nav__link:focus-visible .case-nav__title { text-decoration: underline; }
 .case-nav__link:focus-visible { outline: none; }
 @media (max-width: 640px) {
-  /* phones: stacked, both read like label + value rows */
-  .case-nav { flex-direction: column; row-gap: 24px; }
-  .case-nav__link--next { grid-template-columns: var(--label) auto; text-align: left; }
+  /* phones (Figma: Mobile-prev/next): side by side, label above title,
+     Prev on the left, Next on the right; each takes half and wraps if needed */
+  .case-nav { align-items: flex-start; }
+  .case-nav__link { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .case-nav__link--next { align-items: flex-end; text-align: right; }
   .case-nav__link--next .label { order: -1; }
 }
 
