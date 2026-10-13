@@ -454,7 +454,7 @@ div.layered__fg--tags { overflow: visible; }
   border-radius: var(--radius); overflow: hidden;
   background: var(--layer-bg, #f5f5f5);
 }
-.screens > img { display: block; width: var(--screen-w, 18.83%); height: auto; }   /* 315 / 1673 */
+.screens > img { display: block; width: var(--screen-w, 18.83%); height: auto; border-radius: var(--screen-radius, 0); }   /* 315 / 1673 */
 @media (max-width: 1100px) {
   .screens { aspect-ratio: 4 / 3; gap: 4%; }
   .screens > img { width: 25%; }
@@ -464,8 +464,8 @@ div.layered__fg--tags { overflow: visible; }
   .screens > img { width: 40%; }
   .screens > img:nth-child(n + 3) { display: none; }   /* phones: first two screens only */
   /* .screens--all: every screen stays visible, three across (e.g. Adidas question flow) */
-  .screens--all { aspect-ratio: 1 / 1; gap: 3.5%; }
-  .screens--all > img { width: 29%; }
+  .screens--all { aspect-ratio: 1 / 1; gap: var(--screens-gap-sm, 3.5%); }
+  .screens--all > img { width: var(--screen-w-sm, 29%); }
   .screens--all > img:nth-child(n + 3) { display: block; }
 }
 
