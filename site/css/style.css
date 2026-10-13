@@ -1,0 +1,534 @@
+/* Values taken from Figma: "Philip Readman Portfolio" → Webpages-Claude → Home (1770 wide) */
+
+:root {
+  /* colour */
+  --bg: #fafafa;
+  --text: #1e251d;
+  --text-muted: #7e7e7e;
+  --pill: #e9e9e9;
+  --pill-hover: #dedede;
+  --note-bg: #f7f0bf;            /* Moments. Context. Form. */
+  --note-bg-proactive: #bfe3f0;  /* Proactive + Reactive */
+  --note-bg-agent: #d7f0bf;      /* Agent UX */
+  --note-radius: 4px;
+  --brand-linkedin: #0a66c2;     /* LinkedIn blue */
+  --brand-soundcloud: #ff5500;   /* SoundCloud orange */
+  --dot: #101010;
+
+  /* type */
+  --font: "Switzer", "Helvetica Neue", Arial, sans-serif;
+  --fs-body: 22px;      /* Switzer Medium 22 / 120% */
+  --fs-small: 11px;     /* Switzer Medium 11 / 125% */
+  --fs-pill: 10px;      /* Switzer Semibold 10 / 115% */
+
+  /* layout: 6 columns, 16 gap, 48 side margin */
+  --margin: 48px;
+  --gap: 16px;
+  --card-gap: 32px;   /* space between work cards */
+  --label: 140px;       /* label column inside each block */
+  --pill-size: 56px;
+  --radius: 8px;
+  --section: 160px;   /* vertical gap between sections */
+  --intro-gap: 96px;  /* intro line → cards / case hero */
+  --shadow-screen: 0 18px 50px -4px rgb(0 0 0 / 0.06);  /* Figma effect style Shadow/Screen: desktop screens on large case panels */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-weight: 500;
+  font-size: var(--fs-body);
+  line-height: 1.2;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+img, video { display: block; }
+ul { list-style: none; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: var(--gap);
+  padding-inline: var(--margin);
+}
+
+/* ---------- dark case pages (e.g. Petalite: Figma page fill #2A2F33) ----------
+   Text reverses to white; labels lift to #9BA0A3 to stay readable (5:1).
+   Nav pills and the hover badge stay light with dark ink. */
+.theme-dark {
+  --bg: #2a2f33; --text: #ffffff; --text-muted: #9ba0a3;
+  --stroke-soft: rgb(255 255 255 / 0.15);   /* Petalite only (for now): 1px inside stroke on panels and screens */
+}
+/* Adidas Outdoor (Figma: Case/AdidasOD): near-black page, panels #1E1E1F */
+.theme-adidas { --bg: #171718; }
+/* Bullet dots in running text take the label colour (Figma: ● #9BA0A3) */
+.theme-dark .bullets li::before, .dot { color: var(--text-muted); }
+.theme-dark .pill, .theme-dark .hover-badge:not([data-brand]) { color: #1e251d; }
+/* Figma: Case/Petalite menu, pill fill #E9E9E9 at 40% (dot and labels stay solid) */
+.theme-dark .pill { background: rgb(233 233 233 / 0.4); }
+.theme-dark .pill:hover { background: rgb(233 233 233 / 0.5); }
+
+/* ---------- nav pills ---------- */
+/* Nav scrolls up with the page until it's 32px from the top of the window,
+   then sticks. */
+:root { --nav-top: 73px; --nav-stick: 32px; }
+.nav {
+  position: sticky; top: var(--nav-stick); z-index: 15;
+  margin: var(--nav-top) 0 0 var(--margin);
+  width: max-content;   /* only the pills catch clicks, not a full-width bar */
+  height: var(--pill-size);   /* fixed, so shrinking the pills never shifts the page */
+  display: flex; align-items: flex-start; gap: 6px;
+  transition: gap 300ms ease;
+}
+.pill {
+  width: var(--pill-size); height: var(--pill-size);
+  border-radius: 50%;
+  background: var(--pill);
+  display: grid; place-items: center;
+  font-size: var(--fs-pill); font-weight: 600; line-height: 1.15;
+  overflow: hidden;
+  transition: background-color 200ms ease, width 300ms ease, height 300ms ease, color 200ms ease, opacity 300ms ease;
+}
+.pill:hover { background: var(--pill-hover); }
+.pill:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.pill--dot::before { content: ""; width: 4px; height: 4px; background: var(--dot); transition: opacity 200ms ease; }
+
+/* Compact nav (Figma: menu-sml). JS adds .is-compact while scrolling down, and
+   .is-over-work while Home's carousel sits behind the nav. Scrolling up (outside
+   the carousel), hovering or keyboard focus brings back the full size. */
+:root { --pill-sml: 18px; }
+.nav:is(.is-compact, .is-over-work):not(:hover):not(:focus-within) { gap: 3px; }
+.nav:is(.is-compact, .is-over-work):not(:hover):not(:focus-within) .pill { width: var(--pill-sml); height: var(--pill-sml); color: transparent; opacity: 0.85; }
+.nav:is(.is-compact, .is-over-work):not(:hover):not(:focus-within) .pill--dot::before { opacity: 0; }
+/* Current page or section: the circle eases into a square on load (Figma: selected state, radius 0) */
+.pill[aria-current] {
+  border-radius: 0;
+  animation: pill-select 0.8s ease 0.15s both;
+}
+@keyframes pill-select { from { border-radius: 50%; } }
+
+/* ---------- intro ---------- */
+.intro { padding-top: 34px; }
+.intro p { grid-column: 1 / span 4; }
+
+/* ---------- work carousel ---------- */
+.work {
+  margin-top: var(--intro-gap);
+  display: flex;
+  gap: var(--card-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--margin);
+  padding-inline: var(--margin);
+  scrollbar-width: none;
+  cursor: grab;
+}
+.work::-webkit-scrollbar { display: none; }
+.work.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.work.is-dragging * { pointer-events: none; }
+.card {
+  /* two cards fill the content width, like the Figma frame */
+  flex: 0 0 calc((100vw - var(--margin) * 2 - var(--card-gap)) / 2);
+  aspect-ratio: 829 / 966;
+  border-radius: var(--radius);
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  background: var(--pill);
+}
+.card img { width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.card__link { display: block; height: 100%; }
+.card__link:focus-visible { outline: 2px solid #fff; outline-offset: -6px; border-radius: var(--radius); }  /* inside: the card clips overflow */
+/* Petalite card: showreel video framed on a dark ground */
+.card--petalite { background: #292f32; }
+.card--petalite video {
+  position: absolute;
+  left: 9.66%; top: 28.78%;
+  width: 80.8%; aspect-ratio: 669 / 410;
+  object-fit: cover;
+  border-radius: 16px;
+  /* Figma: 1px inside stroke, white at 10% */
+  outline: 1px solid rgb(255 255 255 / 0.1);
+  outline-offset: -1px;
+}
+
+/* ---------- pinned horizontal scroll (desktop) ----------
+   JS adds .is-pinned to <html> on wide screens without reduced motion.
+   The section gets a height of (100vh + horizontal travel); the inner
+   sticky frame holds the cards while vertical scroll drives them sideways. */
+:root {
+  --pin-space: 56px;
+  --card-max: 900px;
+  /* empty space above/below the cards once they hit the max height */
+  --pin-extra: max(0px, (100vh - var(--pin-space) * 2 - var(--card-max)) / 2);
+}
+.is-pinned .work-pin { margin-top: calc(var(--intro-gap) - var(--pin-space) - var(--pin-extra)); }
+.is-pinned .work-sticky {
+  position: sticky; top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex; align-items: center;
+}
+.is-pinned .work {
+  margin-top: 0;
+  overflow: visible;
+  scroll-snap-type: none;
+  cursor: auto;
+  will-change: transform;
+}
+.is-pinned .card {
+  /* Fit the window, capped at 900px so big screens show more cards */
+  height: min(calc(100vh - var(--pin-space) * 2), var(--card-max));
+  flex-basis: auto;
+  width: auto;
+}
+/* margin rather than padding: it can go negative on very tall screens */
+.is-pinned .bio { padding-top: 0; margin-top: calc(var(--section) - var(--pin-space) - var(--pin-extra)); }
+
+/* Terrex card: looping trail footage at 10%, 0.8× speed behind the product finder
+   panel, as in Figma (Frame 15780). Positions are % of the 828 × 966 card. */
+.card--terrex { background: #1a1b18; }
+.card--terrex video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.1;
+}
+.card--terrex .card__panel {
+  position: absolute;
+  left: 8.45%; top: 25.88%;
+  width: 82.13%; height: auto;
+  object-fit: initial;
+}
+
+/* ---------- side project (Home) ----------
+   Figma: Home-notes → Notes. Text is a normal label + value block (first two columns);
+   the card runs from the second block's value column to 140px short of the right edge. */
+.side-project { align-items: start; }
+.side-project .block { align-items: start; }
+.side-project .label { padding-top: 9px; }   /* Figma: label sits 9px below the title's top */
+.side-project__title { font: inherit; }
+.side-project__title + p { margin-top: 18px; }
+.side-project__tools { margin-top: 23px; font-size: var(--fs-small); line-height: 1.25; color: var(--text-muted); }
+.side-project__tools span { margin-inline: 4px; }
+.side-project__card {
+  grid-column: 3 / -1; margin: 0 var(--label);
+  position: relative; aspect-ratio: 829 / 700;
+  border-radius: var(--radius); overflow: hidden;
+  background: #64795b;
+}
+.side-project__screen {
+  position: absolute;
+  left: 6.152%; top: 18%;
+  width: 87.696%; aspect-ratio: 727 / 449;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px 4px rgb(0 0 0 / 0.06);   /* Figma drop shadow */
+}
+/* Figma video fill crop (QT-clip 1): the window shows 77.26% × 80.33% of the
+   recording, from 11.95% / 13.35% in, i.e. the app without browser chrome or desktop */
+.side-project__screen video {
+  position: absolute;
+  left: -15.464%; top: -16.618%;     /* -0.11947 / 0.77260, -0.13349 / 0.80327 */
+  width: 129.433%; height: 124.491%; /* 1 / 0.77260, 1 / 0.80327 */
+  object-fit: cover;
+}
+@media (max-width: 1100px) {
+  .side-project__card { grid-column: 1 / -1; margin: 0; }
+}
+
+/* ---------- bio ---------- */
+.bio { padding-top: var(--section); }
+.bio p { grid-column: 1 / span 4; }
+
+/* ---------- label + value blocks ---------- */
+.blocks { padding-top: var(--section); row-gap: 48px; }
+.block {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: var(--label) 1fr;
+  align-items: baseline;
+}
+.label { font-size: var(--fs-small); font-weight: 500; line-height: 1.25; color: var(--text-muted); }
+
+/* hover badge: one grey circle that follows the pointer, offset right and
+   above the cursor tip (JS sets --x / --y and data-icon) */
+.hover-link { display: inline-block; }
+.hover-link:focus-visible { outline: none; text-decoration: underline; }
+.hover-badge {
+  --x: -100px; --y: -100px;
+  --badge-offset: 41px;   /* distance right of and above the cursor tip (48 less 15%) */
+  position: fixed; left: 0; top: 0; z-index: 20;
+  width: var(--pill-size); height: var(--pill-size);
+  border-radius: 50%;
+  background: var(--pill);
+  color: var(--text);
+  display: grid; place-items: center;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  translate: calc(var(--x) + var(--badge-offset)) calc(var(--y) - var(--badge-offset) - var(--pill-size) / 2);
+  opacity: 0; scale: 0.85;
+  transition: opacity 180ms ease, scale 220ms cubic-bezier(.2, .8, .2, 1);
+}
+.hover-badge.is-visible { opacity: 1; scale: 1; }
+.hover-badge svg { width: 16px; height: 16px; grid-area: 1 / 1; display: none; }
+.hover-badge[data-icon="eye"] .hover-badge__eye,
+.hover-badge[data-icon="arrow"] .hover-badge__arrow,
+.hover-badge[data-icon="prev"] .hover-badge__prev,
+.hover-badge[data-icon="next"] .hover-badge__next { display: block; }
+/* "Coming soon" instead of the eye on cards without a case page yet */
+.hover-badge__soon { display: none; grid-area: 1 / 1; max-width: 40px; font-size: var(--fs-pill); font-weight: 600; line-height: 1.15; text-align: center; }
+.hover-badge[data-icon="soon"] .hover-badge__soon { display: block; }
+/* brand links (data-brand): solid brand colour, white icon, no blend
+   (difference would invert the colour) */
+.hover-badge[data-brand] { mix-blend-mode: normal; color: #fff; }
+.hover-badge[data-brand="linkedin"] { background: var(--brand-linkedin); }
+.hover-badge[data-brand="soundcloud"] { background: var(--brand-soundcloud); }
+@media (hover: none) { .hover-badge { display: none; } }
+/* Touch screens have no hover badge, so those cards carry the label themselves:
+   the same small circle, centred on the card */
+.card__soon { display: none; }
+@media (hover: none) {
+  .card__soon {
+    position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+    width: var(--pill-size); height: var(--pill-size); border-radius: 50%;
+    display: grid; place-items: center; padding: 0 8px;
+    background: var(--pill); color: var(--text);
+    font-size: var(--fs-pill); font-weight: 600; line-height: 1.15; text-align: center;
+    pointer-events: none;
+  }
+}
+.hover-link { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.hover-link:hover { text-decoration: underline; }
+
+/* ---------- case study prev / next ----------
+   Figma: Case/SR → Next. Prev sits like a label + value block (title at the 140px
+   value column); Next mirrors it on the right. Hover: title underline + badge arrow. */
+.case-nav {
+  padding: var(--section) var(--margin) 0;
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--gap);
+}
+.case-nav__link { display: grid; align-items: baseline; }
+.case-nav__link--prev { grid-template-columns: var(--label) auto; }
+.case-nav__link--next { grid-template-columns: auto var(--label); text-align: right; }
+.case-nav__title { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.case-nav__link:hover .case-nav__title,
+.case-nav__link:focus-visible .case-nav__title { text-decoration: underline; }
+.case-nav__link:focus-visible { outline: none; }
+@media (max-width: 640px) {
+  /* phones: stacked, both read like label + value rows */
+  .case-nav { flex-direction: column; row-gap: 24px; }
+  .case-nav__link--next { grid-template-columns: var(--label) auto; text-align: left; }
+  .case-nav__link--next .label { order: -1; }
+}
+
+/* ---------- notes: sticky-note pop-up ----------
+   Figma: Home-notes frame. The note sits beside the Notes list, its edge on
+   the second block's value column (text inset by the 16px padding). */
+.note-trigger {
+  font: inherit; color: inherit; text-align: left;
+  background: none; border: 0; padding: 0;
+  cursor: pointer;
+}
+.note-trigger[aria-expanded="true"] { color: var(--text-muted); }
+
+.notes .block { position: relative; }
+.note {
+  position: absolute; z-index: 14;
+  /* block width + gap + label column: the note's edge sits on the second block's
+     value column, in line with the Quiet Table card (its text is inset 16px) */
+  left: calc(100% + var(--gap) + var(--label));
+  top: -125px;
+  /* Figma width (546) at every desktop size; shrinks only if the close
+     button would cross the right margin */
+  width: min(546px, 100vw - var(--margin) * 2 - 100% - var(--gap) - var(--label) - 63px);
+  padding: 16px;
+  background: var(--note-bg);
+  border-radius: var(--note-radius);
+  color: var(--text);
+}
+.note[hidden] { display: none; }
+.note[data-note="proactive"] { background: var(--note-bg-proactive); }
+.note[data-note="agent"] { background: var(--note-bg-agent); }
+.note.is-entering { animation: note-in 200ms cubic-bezier(.2, .8, .2, 1); }
+@keyframes note-in { from { opacity: 0; transform: translateY(6px); } }
+.note:focus { outline: none; }
+.note__close {
+  position: absolute; top: 0; left: calc(100% + 7px);
+  width: var(--pill-size); height: var(--pill-size);
+  border: 0; border-radius: 50%;
+  background: var(--pill); color: var(--text);
+  display: grid; place-items: center;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+.note__close:hover { background: var(--pill-hover); }
+.note__close:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.note__close svg { width: 16px; height: 16px; }
+
+/* ---------- about page ---------- */
+/* Opening text starts one section gap below the nav (Figma: y 290) */
+.page-intro { padding-top: var(--section); }
+.page-intro .prose { grid-column: 1 / span 4; }
+.prose p + p { margin-top: 1.2em; }   /* one blank line between paragraphs */
+.block--wide { grid-column: span 4; }
+
+/* ---------- case study pages ---------- */
+/* Hero: one full-width block (image or video, no carousel), 96px below the intro */
+.case-hero { margin-top: var(--intro-gap); padding-inline: var(--margin); }
+.case-hero > img,
+.case-hero > video { display: block; width: 100%; height: auto; aspect-ratio: 1673 / 966; object-fit: cover; border-radius: var(--radius); }
+
+/* Layered media: a background (flat colour, image or video) with a foreground
+   element on top, so each can be sized per screen. Most case images use this.
+   Set per image on the .layered element:
+     --ratio          frame shape on desktop (Figma frame w / h)
+     --layer-bg       background colour
+     --fg-w | --fg-h  foreground width OR height, as % of the frame (set one)
+     --fg-ratio       foreground shape (w / h)
+     --fg-radius      foreground corners at Figma size, as % of its width / height
+     --fg-shadow      foreground drop shadow (Figma values)
+     --ratio-sm, --fg-w-sm | --fg-h-sm   tablet and phone (frame defaults to 4:5)
+   Add .layered--bottom or .layered--top to anchor the foreground to that edge. */
+.layered {
+  position: relative;
+  aspect-ratio: var(--ratio, 1673 / 966);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--layer-bg, #141414);
+}
+.layered__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.layered__fg {
+  position: absolute; left: var(--fg-cx, 50%); top: var(--fg-cy, 50%);   /* centre point; Figma offsets set --fg-cx / --fg-cy */
+  translate: -50% -50%;
+  width: var(--fg-w, auto); height: var(--fg-h, auto);
+  aspect-ratio: var(--fg-ratio);
+  object-fit: cover;
+  border-radius: var(--fg-radius, 0);
+  box-shadow: var(--fg-shadow, none);
+  outline: var(--fg-outline, none); outline-offset: -1px;   /* Figma 1px inside stroke */
+}
+.layered--bottom .layered__fg { top: auto; bottom: 0; translate: -50% 0; }
+.layered--top .layered__fg { top: 0; translate: -50% 0; }
+/* A foreground made of an image with a video set into it (e.g. a UI card) */
+div.layered__fg { overflow: hidden; }
+.layered__fg > img { display: block; width: 100%; height: 100%; }
+.layered__fg > video {
+  position: absolute;
+  left: var(--v-x); top: var(--v-y); width: var(--v-w); height: var(--v-h);
+  object-fit: cover;
+  border-radius: var(--v-radius, 0);
+}
+
+.layered__fg > .fg-icon { position: absolute; height: auto; aspect-ratio: 1; pointer-events: none; }
+
+/* Tags set on a foreground photo (e.g. collector usernames): centred on --x/--y (% of the
+   photo), scaled with it (--w) but never below 75% of their desktop size (--pw), so they
+   stay readable on phones; they may then overhang the photo, so it doesn't clip them.
+   [data-reveal]: they fade in, staggered, the first time the panel is in view (JS). */
+div.layered__fg--tags { overflow: visible; }
+.layered__fg > img.fg-tag {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
+  width: max(var(--w), var(--pw) * 0.75); height: auto;
+  pointer-events: none;
+  transition: opacity 0.6s ease, translate 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 140ms);
+}
+.reveal-wait .fg-tag { opacity: 0; translate: 0 8px; }
+
+/* A row of separate screens on a flat panel (e.g. three phone screens).
+   Desktop matches Figma: screens 315 wide, 164 apart, in a 1673 × 966 panel. */
+.screens {
+  display: flex; justify-content: center; align-items: center;
+  gap: var(--screens-gap, 9.8%);              /* 164 / 1673 */
+  aspect-ratio: 1673 / 966;
+  border-radius: var(--radius); overflow: hidden;
+  background: var(--layer-bg, #f5f5f5);
+}
+.screens > img { display: block; width: var(--screen-w, 18.83%); height: auto; }   /* 315 / 1673 */
+@media (max-width: 1100px) {
+  .screens { aspect-ratio: 4 / 3; gap: 4%; }
+  .screens > img { width: 25%; }
+}
+@media (max-width: 640px) {
+  .screens { aspect-ratio: 4 / 5; gap: 6%; }
+  .screens > img { width: 40%; }
+  .screens > img:nth-child(n + 3) { display: none; }   /* phones: first two screens only */
+  /* .screens--all: every screen stays visible, three across (e.g. Adidas question flow) */
+  .screens--all { aspect-ratio: 1 / 1; gap: 3.5%; }
+  .screens--all > img { width: 29%; }
+  .screens--all > img:nth-child(n + 3) { display: block; }
+}
+
+/* Panel stroke (Figma: 1px inside, white 15%), Petalite only for now: --stroke-soft is set by .theme-dark */
+.layered--outline, .media-img--outline { outline: 1px solid var(--stroke-soft); outline-offset: -1px; }
+/* A full panel that is one flat image (composed crops, journey maps) */
+.media-img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+/* Three panels in a row (Figma: 536.3 × 700 each, 32 apart); one column on phones */
+.media-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); }
+@media (max-width: 640px) { .media-trio { grid-template-columns: 1fr; } }
+
+/* A label + text block inside the image stack (Figma: AdidasOD 7): 80px from the
+   images either side (48 here + the 32 stack gap), on the page's 6-column grid */
+.case-media .media-text { padding: 48px 0; }
+/* Quote attribution (Figma: Switzer Medium 11 / 120%, #9BA0A3), one body-size line below the quote */
+.quote-cite { display: block; margin-top: var(--fs-body); font-size: var(--fs-small); line-height: 1.2; color: var(--text-muted); }
+
+/* Case image stack: 160px below the text, 32px between images */
+.case-media { padding: var(--section) var(--margin) 0; display: grid; gap: var(--card-gap); }
+.media-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--card-gap); }
+
+@media (max-width: 1100px) {
+  .layered { aspect-ratio: var(--ratio-sm, 4 / 5); }
+  .layered__fg { width: var(--fg-w-sm, auto); height: var(--fg-h-sm, auto); }
+}
+@media (max-width: 640px) {
+  .media-pair { grid-template-columns: 1fr; }
+}
+
+/* Label + text blocks: 160px below the hero, 64px between blocks */
+.case-text { padding-top: var(--section); row-gap: 64px; }
+/* small value text, set like a label (Figma: Credits) */
+.prose--small { font-size: var(--fs-small); line-height: 1.25; color: var(--text-muted); }
+.bullets li::before { content: "●"; color: #e0e0e0; margin-right: 0.3em; }
+.prose ul { margin-top: 1.2em; }
+
+/* ---------- footer ---------- */
+.footer { padding-top: 186px; padding-bottom: 24px; font-size: var(--fs-small); line-height: 1.25; color: var(--text-muted); }
+.footer p:first-child { grid-column: span 2; }
+.footer p:last-child { grid-column: span 4; }
+
+/* ---------- tablet ---------- */
+@media (max-width: 1100px) {
+  /* No room beside the list: JS moves the note into the tapped <li> and it expands inline */
+  .notes .block { position: static; }
+  .note { position: relative; left: auto; top: auto; width: calc(100vw - var(--margin) * 2); margin: 12px 0 16px calc(var(--label) * -1); padding-right: 80px; }
+  .note__close { left: auto; right: 12px; top: 12px; }
+  :root { --margin: 32px; --section: 120px; }
+  .intro p, .bio p, .page-intro .prose, .block--wide { grid-column: 1 / -1; }
+  .block { grid-column: span 3; }
+  .card { flex-basis: calc((100vw - var(--margin) * 2 - var(--card-gap)) / 1.6); }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 640px) {
+  :root { --margin: 16px; --gap: 8px; --card-gap: 16px; --fs-body: 18px; --section: 96px; --label: 100px; }
+  :root { --nav-top: 24px; --nav-stick: 16px; }
+  .intro { padding-top: 24px; }
+  .work { margin-top: 56px; }
+  .card { flex-basis: calc(100vw - var(--margin) * 2 - 32px); }
+  .block { grid-column: 1 / -1; }
+  .footer { padding-top: 120px; row-gap: 4px; }
+  .footer p:first-child, .footer p:last-child { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-badge, .pill, .pill--dot::before, .nav, .note__close { transition: none; }
+  .pill[aria-current] { animation: none; }
+  .note.is-entering { animation: none; }
+}

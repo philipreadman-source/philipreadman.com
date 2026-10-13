@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node serve.mjs",
+    "images": "node tools/optimise-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

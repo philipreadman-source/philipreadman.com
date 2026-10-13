@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Philip Readman — Product Design</title>
+  <meta name="description" content="Product Design for companies that need to scale, adapt and explore.">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@500,600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-dark.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-light.png" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="pill pill--dot" href="index.html" aria-label="Home" aria-current="page"></a>
+  <a class="pill" href="about.html">About</a>
+  <a class="pill" href="#">Archive</a>
+</nav>
+
+<main>
+  <section class="intro grid">
+    <p>Product Design for companies that need to scale, adapt and explore.</p>
+  </section>
+
+  <section class="work-pin" aria-label="Selected work">
+  <div class="work-sticky">
+  <div class="work" tabindex="0">
+    <figure class="card" data-card="SR" data-icon="eye"><a class="card__link" href="case/sr.html"><img src="img/card-1.jpg" alt="SuperRare case study" draggable="false"></a></figure>
+    <figure class="card card--petalite" data-card="Petalite" data-icon="eye">
+      <a class="card__link" href="case/petalite.html" aria-label="Petalite EV case study">
+        <video src="video/intro.mp4" poster="img/card-2-poster.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+      </a>
+    </figure>
+    <figure class="card card--terrex" data-card="Adi-OD" data-icon="eye">
+      <a class="card__link" href="case/adidasod.html" aria-label="Adidas Outdoor case study">
+        <video src="video/terrex.mp4" poster="img/terrex-poster.jpg" autoplay muted loop playsinline preload="auto" data-rate="0.8" aria-hidden="true"></video>
+        <img class="card__panel" src="img/terrex-panel.jpg" alt="" loading="lazy" draggable="false">
+      </a>
+    </figure>
+    <figure class="card" data-card="Adi-AC" data-icon="soon"><img src="img/card-4.jpg" alt="Terrex × Outdooractive: Choose your next adventure (case study coming soon)" loading="lazy" draggable="false"><span class="card__soon" aria-hidden="true">Coming soon</span></figure>
+    <figure class="card" data-card="Dobbin" data-icon="soon"><img src="img/card-6.jpg" alt="Dobbin: agent workflow map (case study coming soon)" loading="lazy" draggable="false"><span class="card__soon" aria-hidden="true">Coming soon</span></figure>
+    <figure class="card" data-card="Rovio" data-icon="soon"><img src="img/card-7.jpg" alt="Angry Birds 2 (case study coming soon)" loading="lazy" draggable="false"><span class="card__soon" aria-hidden="true">Coming soon</span></figure>
+    <figure class="card" data-card="Archive" data-icon="soon"><img src="img/card-8.jpg" alt="Polestar 2 website (case study coming soon)" loading="lazy" draggable="false"><span class="card__soon" aria-hidden="true">Coming soon</span></figure>
+  </div>
+  </div>
+  </section>
+
+  <section class="bio grid" id="about">
+    <p>Amsterdam-based product design specialist creating well-crafted digital products on visual systems that scale. Over the last 15 years, I've led and worked in multidisciplinary teams, shipping work for industry-leading companies and for startups searching for product-market fit. My main goal is to create work that's simple, yet impactful, this usually means systems need to be easily understood and the visual execution stands the test of time. I work best as a senior IC or in a hands-on leadership role, where I can foster an environment for collaboration and exploration.</p>
+  </section>
+
+  <section class="blocks grid" aria-label="Capabilities">
+    <div class="block">
+      <h2 class="label">Product Design</h2>
+      <ul>
+        <li>Creative &amp; Design Direction</li>
+        <li>Product Vision &amp; IA</li>
+        <li>User Centred Design</li>
+        <li>User Interface Design</li>
+        <li>Interaction Design</li>
+        <li>Prototyping</li>
+        <li>Design Systems</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h2 class="label">AI</h2>
+      <ul>
+        <li>Prompt Driven Development</li>
+        <li>Built experiences</li>
+        <li>Motion &amp; Interaction</li>
+        <li>Agentic Flows &amp; UX</li>
+        <li>Scaling Design Systems</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="blocks grid notes" aria-label="Notes">
+    <div class="block">
+      <h2 class="label">Notes</h2>
+      <ul>
+        <li><button class="hover-link note-trigger" type="button" data-icon="eye" data-note="moments" aria-expanded="false" aria-controls="note-panel">Moments. Context. Form.</button></li>
+        <li><button class="hover-link note-trigger" type="button" data-icon="eye" data-note="proactive" aria-expanded="false" aria-controls="note-panel">Proactive + Reactive</button></li>
+        <li><button class="hover-link note-trigger" type="button" data-icon="eye" data-note="agent" aria-expanded="false" aria-controls="note-panel">Agent UX</button></li>
+      </ul>
+
+      <!-- One shared sticky note; JS fills it from the matching <template> -->
+      <div class="note" id="note-panel" role="dialog" aria-modal="false" aria-label="Note" tabindex="-1" hidden>
+        <div class="note__body"></div>
+        <button class="note__close" type="button" aria-label="Close note">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </button>
+      </div>
+
+      <template data-note="moments">
+        <p>Moments. Context. Form. Products work hard, utilitarian, functional, serve a purpose. Memorable product experiences do that, and more. Moments: A window of opportunity within the UX where a person feels something. Pick 3 to work with, be sensitive. Context: Match moments with the right context. Form: Consider the surface area, timing and delivery. The best products combine, moments, form and context. Add emotion to the functional. Iterate.</p>
+      </template>
+      <template data-note="proactive">
+        <p>Present a vision of the future, have tomorrow planned. React to change, market, customer, external factors. Do just enough work to move forward. Too little is vague and scope drifts, too much is waste and creates noise. Create space to think &amp; zoom out. Listen to signals, be in the room to pick them up. Your sales people are frontline researchers. Your soft skills are also hard skills. Navigating change, fostering creativity and managing expectation is by design. Prototype. Prototype. Prototype.</p>
+      </template>
+      <template data-note="agent">
+        <p>The future of agentic powered user experiences is not purely interacting with a chat-box. It is also not fully agentic. Efficiency and precision come from the user and the product having shared information, context and data. The best products will utilise agents when needed, with control, enabling them to enrich the UX and form new patterns and UI where applicable.</p>
+      </template>
+    </div>
+  </section>
+
+  <!-- Side project (Figma: Home-notes → Notes 4604:66706). Text in the first block,
+       the Quiet Table card (moved out of the work carousel) from the second block's value column. -->
+  <section class="blocks grid side-project" aria-label="Side project">
+    <div class="block">
+      <h2 class="label">Side Project</h2>
+      <div class="side-project__text">
+      <h3 class="side-project__title">Quiet Table</h3>
+      <p>A taste-driven restaurant finder for you and your mates. The idea started off as an experiment to find the edges of where agentic conversational UI and traditional UX flows overlap.</p>
+      <p class="side-project__tools">Astryx Design System <span aria-hidden="true">•</span> Clerk User Management <span aria-hidden="true">•</span> V0 Hosting <span aria-hidden="true">•</span> Cursor</p>
+      </div>
+    </div>
+    <figure class="side-project__card">
+      <!-- Long-form walkthrough from Philip's export (1814 × 1080, 60fps), still moments cut
+           (84s → 74s), played at 1.1×. The window crops it to the app, as the masked video
+           fill does in Figma (QT-clip 1). -->
+      <div class="side-project__screen">
+        <video poster="img/qt-long-poster.jpg" autoplay muted loop playsinline preload="metadata" data-rate="1.1" aria-label="Quiet Table walkthrough: finding a restaurant with an AI assistant">
+          <source src="video/qt-long-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source src="video/qt-long-h264.mp4" type="video/mp4">
+        </video>
+      </div>
+    </figure>
+  </section>
+
+  <section class="blocks grid contact" aria-label="Contact">
+    <div class="block">
+      <h2 class="label">Contact</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="mailto:philip.readman@gmail.com">Email</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="linkedin" href="https://www.linkedin.com/in/philipreadman" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="block">
+      <h2 class="label">Other</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="https://www.are.na/philip-readman/iphone-pics-j_ziewlfnwm" target="_blank" rel="noopener">Are.na</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="soundcloud" href="https://soundcloud.com/philr9945" target="_blank" rel="noopener">SoundCloud</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer grid">
+  <p>Philip Readman Design 2026</p>
+  <p>The work is mysterious and important.</p>
+</footer>
+
+<!-- Hover badge: one circle that follows the pointer over .hover-link elements -->
+<div class="hover-badge" aria-hidden="true">
+  <!-- Cards without a case page yet (data-icon="soon") -->
+  <span class="hover-badge__soon">Coming soon</span>
+  <svg class="hover-badge__eye" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.375 7.768a.67.67 0 0 0 0 .464 7.167 7.167 0 0 0 13.25 0 .67.67 0 0 0 0-.464 7.167 7.167 0 0 0-13.25 0Z"/><circle cx="8" cy="8" r="2"/></svg>
+  <svg class="hover-badge__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8.667 3.333h4v4M12.667 3.333l-9.334 9.334"/></svg>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

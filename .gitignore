@@ -1,0 +1,11 @@
+# Local only: dependencies, Figma exports, master videos, notes
+/node_modules/
+/raw/
+/video/
+/content/
+.DS_Store
+
+# Old video test encodes and unused files inside the site
+site/_cal/
+site/video/petalite/available.mp4
+site/img/petalite/available-poster.jpg
