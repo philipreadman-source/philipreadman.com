@@ -210,8 +210,7 @@ ul { list-style: none; }
    Figma: Home-notes → Notes. Text is a normal label + value block (first two columns);
    the card runs from the second block's value column to 140px short of the right edge. */
 .side-project { align-items: start; }
-.side-project .block { align-items: start; }
-.side-project .label { padding-top: 9px; }   /* Figma: label sits 9px below the title's top */
+/* label on the title's baseline, like every other block */
 .side-project__title { font: inherit; }
 .side-project__title + p { margin-top: 18px; }
 .side-project__tools { margin-top: 23px; font-size: var(--fs-small); line-height: 1.25; color: var(--text-muted); }
@@ -333,6 +332,9 @@ ul { list-style: none; }
    Figma: Home-notes frame. The note sits beside the Notes list, its edge on
    the second block's value column (text inset by the 16px padding). */
 .note-trigger {
+  /* block, so a title that wraps still gives its first line to the label's baseline
+     (inline-block buttons align by their last line) */
+  display: block;
   font: inherit; color: inherit; text-align: left;
   background: none; border: 0; padding: 0;
   cursor: pointer;
