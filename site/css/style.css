@@ -540,6 +540,14 @@ div.layered__fg--tags { overflow: visible; }
   .footer p:first-child, .footer p:last-child { grid-column: 1 / -1; }
 }
 
+/* ---------- fade up (JS adds .fade-up, then .is-shown on first view) ---------- */
+.fade-up { opacity: 0; translate: 0 12px; }
+.fade-up.is-shown {
+  opacity: 1; translate: none;   /* none, not 0: no lingering stacking layer (the Notes pop-up must overlap later sections) */
+  transition: opacity 0.7s ease, translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--fade-delay, 0ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hover-badge, .pill, .pill--dot::before, .nav, .note__close { transition: none; }
   .pill[aria-current] { animation: none; }

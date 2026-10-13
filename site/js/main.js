@@ -331,6 +331,26 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
   });
 }
 
+// ---------- fade up: page sections rise gently into place the first time they're seen ----------
+// Same motion language as [data-reveal] above. Hidden only when JS runs; never replays;
+// skipped with reduced motion. Items that arrive together follow each other 70ms apart.
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+  const targets = document.querySelectorAll([
+    ".intro p", ".page-intro", ".case-hero", ".work-pin", ".bio p",
+    ".blocks .block", ".side-project__card", ".case-media > *", ".case-nav",
+  ].join(","));
+  const fadeIO = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.style.setProperty("--fade-delay", `${i++ * 70}ms`);
+      e.target.classList.add("is-shown");
+      fadeIO.unobserve(e.target);
+    });
+  }, { rootMargin: "0px 0px -6% 0px" });
+  targets.forEach((el) => { el.classList.add("fade-up"); fadeIO.observe(el); });
+}
+
 // ---------- video playback speeds ----------
 // data-rate on a <video> slows (or speeds) it; browsers reset playbackRate on load.
 document.querySelectorAll("video[data-rate]").forEach((v) => {
