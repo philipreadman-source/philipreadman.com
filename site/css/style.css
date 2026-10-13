@@ -519,8 +519,11 @@ div.layered__fg--tags { overflow: visible; }
   .note__close { left: auto; right: 12px; top: 12px; }
   :root { --margin: 32px; --section: 120px; }
   .intro p, .bio p, .page-intro .prose, .block--wide { grid-column: 1 / -1; }
-  .block { grid-column: span 3; }
+  /* blocks stack one per row, label beside text, as on phones (pairs of blocks felt cramped here) */
+  .block { grid-column: 1 / -1; }
   .card { flex-basis: calc((100vw - var(--margin) * 2 - var(--card-gap)) / 1.6); }
+  /* case images: 16px between panels, as on phones */
+  .case-media, .media-pair, .media-trio { --card-gap: 16px; }
 }
 
 /* ---------- phone ---------- */
