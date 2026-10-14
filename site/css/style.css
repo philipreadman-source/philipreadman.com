@@ -437,6 +437,11 @@ div.layered__fg { overflow: hidden; }
 
 .layered__fg > .fg-icon { position: absolute; height: auto; aspect-ratio: 1; pointer-events: none; }
 
+/* Free layers: several images in one panel, each placed by its centre (--cx, --cy) and width (--w),
+   all as % of the panel. Phones can resize one on its own with --w-sm (e.g. a button made larger). */
+.layered > .layer { position: absolute; left: var(--cx); top: var(--cy); translate: -50% -50%; width: var(--w); height: auto; }
+@media (max-width: 640px) { .layered > .layer { width: var(--w-sm, var(--w)); } }
+
 /* Tags set on a foreground photo (e.g. collector usernames): centred on --x/--y (% of the
    photo), scaled with it (--w) but never below 75% of their desktop size (--pw), so they
    stay readable on phones; they may then overhang the photo, so it doesn't clip them.

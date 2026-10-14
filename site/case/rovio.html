@@ -107,13 +107,18 @@
     </div>
 
     <!-- 4 -->
-    <img class="media-img" src="../img/rovio/s4-1x.jpg" srcset="../img/rovio/s4-1x.jpg 1673w, ../img/rovio/s4-2x.jpg 3346w"
-         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Meet the Rovians: team profiles" width="1673" height="966" loading="lazy" decoding="async">
+    <img class="media-img media-img--fill-sm" style="--pos-sm: 55% 50%;" src="../img/rovio/s4-1x.jpg" srcset="../img/rovio/s4-1x.jpg 1673w, ../img/rovio/s4-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc((100vw - 32px) * 1.48), calc(100vw - 96px)" alt="Meet the Rovians: team profiles" width="1673" height="966" loading="lazy" decoding="async">
 
     <!-- 5 -->
     <div class="media-pair">
-      <img class="media-img" src="../img/rovio/s5a-1x.jpg" srcset="../img/rovio/s5a-1x.jpg 821w, ../img/rovio/s5a-2x.jpg 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Character art with a View traineeships button" width="821" height="700" loading="lazy" decoding="async">
+      <!-- 5a as layers (Figma: head 551 wide, button 245 wide, both centred) so the button can grow 40% on phones -->
+      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #f0f1f3;">
+        <img class="layer" style="--cx: 50%; --cy: 50.14%; --w: 67.11%;" src="../img/rovio/s5a-head-1x.png" srcset="../img/rovio/s5a-head-1x.png 551w, ../img/rovio/s5a-head-2x.png 1102w"
+             sizes="(max-width: 640px) 62vw, 31vw" alt="Rovio character art" width="551" height="495" loading="lazy" decoding="async">
+        <img class="layer" style="--cx: 50%; --cy: 77.5%; --w: 29.84%; --w-sm: 41.78%;" src="../img/rovio/s5a-button-1x.png" srcset="../img/rovio/s5a-button-1x.png 245w, ../img/rovio/s5a-button-2x.png 490w"
+             sizes="(max-width: 640px) 39vw, 14vw" alt="View traineeships button" width="245" height="47" loading="lazy" decoding="async">
+      </div>
       <img class="media-img" src="../img/rovio/s5b-1x.jpg" srcset="../img/rovio/s5b-1x.jpg 821w, ../img/rovio/s5b-2x.jpg 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Traineeships at Rovio" width="821" height="700" loading="lazy" decoding="async">
     </div>
