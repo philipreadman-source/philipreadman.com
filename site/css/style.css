@@ -447,6 +447,8 @@ div.layered__fg { overflow: hidden; }
    The panel isolates the blend so it only mixes with the layers beneath it. */
 /* A layer placed by its top edge (--top, % of the panel); anything past the bottom is clipped by the panel */
 .layered > .layer--top { top: var(--top); translate: -50% 0; }
+/* …or one that sits exactly on the panel's bottom edge */
+.layered > .layer--bottom { top: auto; bottom: 0; translate: -50% 0; }
 .layered--isolate { isolation: isolate; }
 .layered > .layer--circle { aspect-ratio: 1; border-radius: 50%; object-fit: cover; opacity: 0.9; mix-blend-mode: exclusion; }
 
