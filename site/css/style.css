@@ -68,6 +68,8 @@ ul { list-style: none; }
 .theme-adidas { --bg: #171718; }
 /* Rovio (Figma: Case/Rovio): light grey page */
 .theme-rovio { --bg: #f5f5f5; }
+/* Archive (Figma: Work/Archive): light grey page */
+.theme-archive { --bg: #f5f5f5; }
 /* Bullet dots in running text take the label colour (Figma: ● #9BA0A3) */
 .theme-dark .bullets li::before, .dot { color: var(--text-muted); }
 .theme-dark .pill, .theme-dark .hover-badge:not([data-brand]) { color: #1e251d; }
@@ -441,6 +443,10 @@ div.layered__fg { overflow: hidden; }
    all as % of the panel. Phones can resize one on its own with --w-sm (e.g. a button made larger). */
 .layered > .layer { position: absolute; left: var(--cx); top: var(--cy); translate: -50% -50%; width: var(--w); height: auto; }
 @media (max-width: 640px) { .layered > .layer { width: var(--w-sm, var(--w)); } }
+/* A round layer blended into the panel (Archive 13a: Air Max video, Figma Exclusion at 90%).
+   The panel isolates the blend so it only mixes with the layers beneath it. */
+.layered--isolate { isolation: isolate; }
+.layered > .layer--circle { aspect-ratio: 1; border-radius: 50%; object-fit: cover; opacity: 0.9; mix-blend-mode: exclusion; }
 
 /* Tags set on a foreground photo (e.g. collector usernames): centred on --x/--y (% of the
    photo), scaled with it (--w) but never below 75% of their desktop size (--pw), so they
@@ -500,6 +506,9 @@ div.layered__fg--tags { overflow: visible; }
 .case-media .media-text { padding: 48px 0; }
 /* Quote attribution (Figma: Switzer Medium 11 / 120%, #9BA0A3), one body-size line below the quote */
 .quote-cite { display: block; margin-top: var(--fs-body); font-size: var(--fs-small); line-height: 1.2; color: var(--text-muted); }
+
+/* Archive: the image stack follows the intro directly, so 96px like the hero on case pages */
+.case-media.case-media--after-intro { padding-top: var(--intro-gap); }
 
 /* Case image stack: 160px below the text, 32px between images */
 .case-media { padding: var(--section) var(--margin) 0; display: grid; gap: var(--card-gap); }
