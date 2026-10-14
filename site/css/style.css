@@ -445,6 +445,8 @@ div.layered__fg { overflow: hidden; }
 @media (max-width: 640px) { .layered > .layer { width: var(--w-sm, var(--w)); top: var(--cy-sm, var(--cy)); } }
 /* A round layer blended into the panel (Archive 13a: Air Max video, Figma Exclusion at 90%).
    The panel isolates the blend so it only mixes with the layers beneath it. */
+/* A layer that sits exactly on the panel's bottom edge (runs off it, no gap from rounding) */
+.layered > .layer--bottom { top: auto; bottom: 0; translate: -50% 0; }
 .layered--isolate { isolation: isolate; }
 .layered > .layer--circle { aspect-ratio: 1; border-radius: 50%; object-fit: cover; opacity: 0.9; mix-blend-mode: exclusion; }
 
