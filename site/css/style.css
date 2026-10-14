@@ -442,7 +442,7 @@ div.layered__fg { overflow: hidden; }
 /* Free layers: several images in one panel, each placed by its centre (--cx, --cy) and width (--w),
    all as % of the panel. Phones can resize one on its own with --w-sm (e.g. a button made larger). */
 .layered > .layer { position: absolute; left: var(--cx); top: var(--cy); translate: -50% -50%; width: var(--w); height: auto; }
-@media (max-width: 640px) { .layered > .layer { width: var(--w-sm, var(--w)); } }
+@media (max-width: 640px) { .layered > .layer { width: var(--w-sm, var(--w)); top: var(--cy-sm, var(--cy)); } }
 /* A round layer blended into the panel (Archive 13a: Air Max video, Figma Exclusion at 90%).
    The panel isolates the blend so it only mixes with the layers beneath it. */
 .layered--isolate { isolation: isolate; }
