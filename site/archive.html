@@ -118,14 +118,10 @@
       <img class="media-img" src="img/archive/13b-1x.jpg" srcset="img/archive/13b-1x.jpg 821w, img/archive/13b-2x.jpg 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Zen logo" width="821" height="700" loading="lazy" decoding="async">
     </div>
-    <!-- 14: HBO Mosaic scroll (Mosaic_Scroll.m4v cropped to the browser window), full window height (soft top edge trimmed),
-         placed as in Figma: 1364 wide from (154, 190); the panel clips what runs past its bottom edge -->
-    <!-- exception: keeps the desktop shape on phones too (card height left too much space above) -->
-    <div class="layered" style="--ratio: 1673 / 966; --ratio-sm: 1673 / 966; --layer-bg: #eeeeee;">
-      <video class="layer layer--top" style="--cx: 49.97%; --top: 19.669%; --w: 81.53%; aspect-ratio: 1436 / 1018; object-fit: cover;" poster="img/archive/mosaic-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="HBO Mosaic, by Steven Soderbergh: scrolling the website, from the title to the cast and sign-up">
-        <source src="video/archive/mosaic-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-        <source src="video/archive/mosaic-h264.mp4" type="video/mp4">
-      </video>
+    <!-- 14: HBO Mosaic scroll, Philip's own export (HhyoM5tJiy52bmaUAe7yVl6Vq4A.mp4, 1280 × 720, used as supplied):
+         the whole panel, browser window on #424242. Keeps the desktop shape on phones too. -->
+    <div class="layered" style="--ratio: 1673 / 966; --ratio-sm: 1673 / 966; --layer-bg: #424242;">
+      <video class="layered__bg" poster="img/archive/mosaic-poster.jpg" src="video/archive/mosaic.mp4" autoplay muted loop playsinline preload="metadata" aria-label="HBO Mosaic, by Steven Soderbergh: scrolling the website, from the title to the cast and sign-up"></video>
     </div>
     <!-- 15 -->
     <div class="media-pair">
