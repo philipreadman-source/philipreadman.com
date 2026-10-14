@@ -488,6 +488,8 @@ div.layered__fg--tags { overflow: visible; }
    reads bigger (e.g. Rovio timeline). --pos-sm sets what stays in view. */
 @media (max-width: 640px) {
   .media-img--fill-sm { aspect-ratio: 821 / 700; object-fit: cover; object-position: var(--pos-sm, 50% 50%); }
+  /* …or keep the whole image at full width, centred, with the panel colour above and below */
+  .media-img--box-sm { aspect-ratio: 821 / 700; object-fit: contain; background: var(--box-bg, transparent); }
 }
 /* Three panels in a row (Figma: 536.3 × 700 each, 32 apart); one column on phones */
 .media-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); }
