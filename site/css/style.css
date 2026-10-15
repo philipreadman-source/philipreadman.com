@@ -340,12 +340,10 @@ ul { list-style: none; }
   font: inherit; color: inherit; text-align: left;
   background: none; border: 0; padding: 0;
   cursor: pointer;
+  /* underlined at every size, so the titles read as things that open */
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
 }
 .note-trigger[aria-expanded="true"] { color: var(--text-muted); }
-/* Tablet and phone: no hover badge to hint they open, so the note titles carry an underline */
-@media (max-width: 1100px) {
-  .note-trigger { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-}
 
 .notes .block { position: relative; }
 .note {
