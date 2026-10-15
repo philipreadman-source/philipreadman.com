@@ -374,7 +374,20 @@ document.querySelectorAll("video[data-rate]").forEach((v) => {
   v.addEventListener("loadedmetadata", apply);
 });
 
-// ---------- reduced motion: no autoplaying video ----------
-if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  document.querySelectorAll("video[autoplay]").forEach((v) => { v.pause(); v.removeAttribute("autoplay"); });
+// ---------- videos: load and play only when near the screen ----------
+// Videos carry data-autoplay (not autoplay) and preload="none", so nothing downloads
+// on page load. Each starts about a screen before it comes into view (half a screen
+// sideways, for the carousel), so it's already running on arrival, and pauses once
+// well out of view. The poster shows until then. Reduced motion: posters only.
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const videos = document.querySelectorAll("video[data-autoplay]");
+  const play = (v) => { const p = v.play(); if (p) p.catch(() => {}); };
+  if ("IntersectionObserver" in window) {
+    const videoIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => (e.isIntersecting ? play(e.target) : e.target.pause()));
+    }, { rootMargin: "100% 50% 100% 50%" });
+    videos.forEach((v) => videoIO.observe(v));
+  } else {
+    videos.forEach(play);
+  }
 }
