@@ -354,10 +354,9 @@ ul { list-style: none; }
      value column, in line with the Quiet Table card (its text is inset 16px) */
   left: calc(100% + var(--gap) + var(--label));
   top: -125px;
-  /* Figma width (546) at every desktop size; shrinks only if the close
-     button would cross the right margin */
-  width: min(546px, 100vw - var(--margin) * 2 - 100% - var(--gap) - var(--label) - 63px);
-  padding: 16px;
+  /* Figma width (546) at every desktop size; shrinks only if it would cross the right margin */
+  width: min(546px, 100vw - var(--margin) * 2 - 100% - var(--gap) - var(--label));
+  padding: 16px 48px 16px 16px;   /* right: clear of the close × */
   background: var(--note-bg);
   border-radius: var(--note-radius);
   color: var(--text);
@@ -368,16 +367,17 @@ ul { list-style: none; }
 .note.is-entering { animation: note-in 200ms cubic-bezier(.2, .8, .2, 1); }
 @keyframes note-in { from { opacity: 0; transform: translateY(6px); } }
 .note:focus { outline: none; }
+/* close: a plain × inside the card, top right (32px hit area, faint circle on hover) */
 .note__close {
-  position: absolute; top: 0; left: calc(100% + 7px);
-  width: var(--pill-size); height: var(--pill-size);
+  position: absolute; top: 8px; right: 8px;
+  width: 32px; height: 32px;
   border: 0; border-radius: 50%;
-  background: var(--pill); color: var(--text);
+  background: transparent; color: var(--text);
   display: grid; place-items: center;
   cursor: pointer;
   transition: background-color 200ms ease;
 }
-.note__close:hover { background: var(--pill-hover); }
+.note__close:hover { background: rgb(0 0 0 / 0.06); }
 .note__close:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 .note__close svg { width: 16px; height: 16px; }
 
@@ -564,7 +564,8 @@ div.layered__fg--tags { overflow: visible; }
   /* No room beside the list: JS moves the note into the tapped <li> and it expands inline */
   .notes .block { position: static; }
   .note { position: relative; left: auto; top: auto; width: calc(100vw - var(--margin) * 2); margin: 12px 0 16px calc(var(--label) * -1); padding-right: 80px; }
-  .note__close { left: auto; right: 12px; top: 12px; }
+  .note__close { right: 12px; top: 12px; width: var(--pill-size); height: var(--pill-size); background: var(--pill); }   /* round and touch-sized here */
+  .note__close:hover { background: var(--pill-hover); }
   :root { --margin: 32px; --section: 120px; }
   .intro p, .bio p, .page-intro .prose, .block--wide { grid-column: 1 / -1; }
   /* blocks stack one per row, label beside text, as on phones (pairs of blocks felt cramped here) */
@@ -572,6 +573,40 @@ div.layered__fg--tags { overflow: visible; }
   .card { flex-basis: calc((100vw - var(--margin) * 2 - var(--card-gap)) / 1.6); }
   /* case images: 16px between panels, as on phones */
   .case-media, .media-pair, .media-trio { --card-gap: 16px; }
+}
+
+/* ---------- Home + About on small desktops ----------
+   Side-by-side blocks wrap too much below 1440, so these pages stack their content from
+   there, on an 8-column grid (its columns are close to the 140px label here): label in
+   column 1, text from column 2. Type, margins and section gaps stay desktop, and the nav
+   and carousel stay on the 6-column grid, so only the content's arrangement changes. */
+@media (min-width: 1101px) and (max-width: 1440px) {
+  .stack-early :is(.intro, .bio, .page-intro, .blocks) { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  /* long paragraphs: columns 1–6; the profile (bio) 1–7 */
+  .stack-early :is(.intro p, .page-intro .prose) { grid-column: 1 / span 6; }
+  .stack-early .bio p { grid-column: 1 / span 7; }
+  /* blocks: one per row, sharing the page columns (subgrid) so the label is column 1 */
+  .stack-early .block { grid-column: 1 / -1; grid-template-columns: subgrid; }
+  .stack-early .block > .label { grid-column: 1; }
+  .stack-early .block > :not(.label) { grid-column: 2 / -1; }
+  /* footer on the same 8 columns: the second line starts at column 5, under Other */
+  .stack-early .footer { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .stack-early .footer p:first-of-type { grid-column: 1 / span 4; }
+  .stack-early .footer p:last-child { grid-column: 5 / span 4; }
+  /* capabilities (Product Design, AI) and contact (Contact, Other): side by side, label + three columns each */
+  .stack-early :is(.capabilities, .contact) > .block { grid-column: span 4; }
+  /* side project: label + text in columns 1–4, the video card beside it from column 5,
+     as wide as the Notes pop-up (546 at most) */
+  .stack-early .side-project > .block { grid-column: 1 / span 4; }
+  .stack-early .side-project > .block > :not(.label) { grid-column: 2 / span 3; padding-right: 24px; }
+  .stack-early .side-project__card { grid-column: 5 / span 4; margin: 0; width: 100%; max-width: 546px; }
+  /* Notes: the pop-up stays desktop, from column 5 (Figma width, 546, as a maximum).
+     It's placed within the list, which spans columns 2–8 (7 columns) */
+  .stack-early .note {
+    --col: calc((100% - 6 * var(--gap)) / 7);
+    left: calc(3 * (var(--col) + var(--gap)));
+    width: min(546px, 4 * var(--col) + 3 * var(--gap));
+  }
 }
 
 /* ---------- phone ---------- */
