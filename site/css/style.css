@@ -577,8 +577,16 @@ div.layered__fg--tags { overflow: visible; }
   transition-delay: var(--fade-delay, 0ms);
 }
 
+/* ---------- image loading: images still downloading are hidden over their panel colour,
+   then fade in at the fade-up opacity timing. A filter, not opacity, so it stacks with
+   .fade-up; an animation, not a transition, so it leaves elements' own transitions alone. */
+.img-wait { filter: opacity(0); }
+.img-in { animation: img-in 0.7s ease; }
+@keyframes img-in { from { filter: opacity(0); } }
+
 @media (prefers-reduced-motion: reduce) {
   .hover-badge, .pill, .pill--dot::before, .nav, .note__close { transition: none; }
   .pill[aria-current] { animation: none; }
   .note.is-entering { animation: none; }
+  .img-in { animation: none; }
 }

@@ -351,6 +351,21 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
   targets.forEach((el) => { el.classList.add("fade-up"); fadeIO.observe(el); });
 }
 
+// ---------- image loading: fade in once downloaded ----------
+// Only images not yet loaded when the script runs (cached ones show at once); an image
+// that fails to load is shown anyway, so it never stays hidden.
+document.querySelectorAll("main img").forEach((img) => {
+  if (img.complete && img.naturalWidth) return;
+  img.classList.add("img-wait");
+  const done = () => {
+    img.classList.remove("img-wait");
+    img.classList.add("img-in");
+    img.addEventListener("animationend", () => img.classList.remove("img-in"), { once: true });
+  };
+  img.addEventListener("load", done, { once: true });
+  img.addEventListener("error", done, { once: true });
+});
+
 // ---------- video playback speeds ----------
 // data-rate on a <video> slows (or speeds) it; browsers reset playbackRate on load.
 document.querySelectorAll("video[data-rate]").forEach((v) => {
