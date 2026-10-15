@@ -382,12 +382,21 @@ document.querySelectorAll("video[data-rate]").forEach((v) => {
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const videos = document.querySelectorAll("video[data-autoplay]");
   const play = (v) => { const p = v.play(); if (p) p.catch(() => {}); };
+  const near = new Set();   // videos currently near the screen
   if ("IntersectionObserver" in window) {
     const videoIO = new IntersectionObserver((entries) => {
-      entries.forEach((e) => (e.isIntersecting ? play(e.target) : e.target.pause()));
+      entries.forEach((e) => {
+        if (e.isIntersecting) { near.add(e.target); play(e.target); }
+        else { near.delete(e.target); e.target.pause(); }
+      });
     }, { rootMargin: "100% 50% 100% 50%" });
     videos.forEach((v) => videoIO.observe(v));
   } else {
-    videos.forEach(play);
+    videos.forEach((v) => { near.add(v); play(v); });
   }
+  // iPhone Low Power Mode (and some data savers) refuse to start a video until the
+  // visitor has touched the page. Any tap is that permission, so retry the ones nearby
+  // that were refused; later videos then start as they come near.
+  const retry = () => near.forEach((v) => { if (v.paused) play(v); });
+  ["touchend", "click", "keydown"].forEach((t) => document.addEventListener(t, retry, { passive: true }));
 }
