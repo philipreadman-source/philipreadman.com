@@ -337,7 +337,7 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
   const targets = document.querySelectorAll([
     ".intro p", ".page-intro", ".case-hero", ".work-pin", ".bio p",
-    ".blocks .block", ".side-project__card", ".case-media > *", ".case-nav",
+    ".blocks .block", ".side-project__card", ".case-media > *", ".case-nav", ".footer__photo",
   ].join(","));
   const fadeIO = new IntersectionObserver((entries) => {
     let i = 0;
