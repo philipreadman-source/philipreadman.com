@@ -572,6 +572,18 @@ div.layered__fg--tags { overflow: visible; }
   .case-media, .media-pair, .media-trio { --card-gap: 16px; }
 }
 
+/* ---------- every page on small desktops: Contact row + footer ----------
+   The page bottoms match Home's small-desktop layout everywhere: 8 columns, Contact and
+   Other side by side (labels in columns 1 and 5), footer line at column 5 */
+@media (min-width: 1101px) and (max-width: 1440px) {
+  .contact, .footer { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .contact > .block { grid-column: span 4; grid-template-columns: subgrid; }
+  .contact > .block > .label { grid-column: 1; }
+  .contact > .block > :not(.label) { grid-column: 2 / -1; }
+  .footer p:first-of-type { grid-column: 1 / span 4; }
+  .footer p:last-child { grid-column: 5 / span 4; }
+}
+
 /* ---------- Home + About on small desktops ----------
    Side-by-side blocks wrap too much below 1440, so these pages stack their content from
    there, on an 8-column grid (its columns are close to the 140px label here): label in
@@ -588,10 +600,6 @@ div.layered__fg--tags { overflow: visible; }
   .stack-early .block > :not(.label) { grid-column: 2 / -1; }
   /* long paragraphs in a block (About: Co-Founded) end with the profile, at column 7 */
   .stack-early .block--wide > .prose { grid-column: 2 / span 6; }
-  /* footer on the same 8 columns: the second line starts at column 5, under Other */
-  .stack-early .footer { grid-template-columns: repeat(8, minmax(0, 1fr)); }
-  .stack-early .footer p:first-of-type { grid-column: 1 / span 4; }
-  .stack-early .footer p:last-child { grid-column: 5 / span 4; }
   /* About portrait: columns 7–8, bottom right as on desktop */
   .stack-early .footer__photo { width: calc((100% - 2 * var(--margin) - 7 * var(--gap)) / 4 + var(--gap)); }
   /* capabilities (Product Design, AI) and contact (Contact, Other): side by side, label + three columns each */
