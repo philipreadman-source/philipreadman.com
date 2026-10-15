@@ -276,6 +276,8 @@ ul { list-style: none; }
   opacity: 0; scale: 0.85;
   transition: opacity 180ms ease, scale 220ms cubic-bezier(.2, .8, .2, 1);
 }
+/* Prev points back, so its badge mirrors to the left of the pointer (Next stays right) */
+.hover-badge[data-icon="prev"] { translate: calc(var(--x) - var(--badge-offset) - var(--pill-size)) calc(var(--y) - var(--badge-offset) - var(--pill-size) / 2); }
 .hover-badge.is-visible { opacity: 1; scale: 1; }
 .hover-badge svg { width: 16px; height: 16px; grid-area: 1 / 1; display: none; }
 .hover-badge[data-icon="eye"] .hover-badge__eye,
@@ -308,24 +310,34 @@ ul { list-style: none; }
 .hover-link:hover { text-decoration: underline; }
 
 /* ---------- case study prev / next ----------
-   Figma: Case/SR → Next. Prev sits like a label + value block (title at the 140px
-   value column); Next mirrors it on the right. Hover: title underline + badge arrow. */
+   Figma: Case/SR → Next. Two grey blocks side by side (the card gap between), each one
+   whole link: label 16px in from the outer edge, title on the 140px label line, both on
+   the bottom. Fill and fade as the nav pills; dark pages use the nav's dark-page pills. */
 .case-nav {
   padding: var(--section) var(--margin) 0;
-  display: flex; justify-content: space-between; align-items: baseline; gap: var(--gap);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--card-gap);
 }
-.case-nav__link { display: grid; align-items: baseline; }
-.case-nav__link--prev { grid-template-columns: var(--label) auto; }
-.case-nav__link--next { grid-template-columns: auto var(--label); text-align: right; }
-.case-nav__title { text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.case-nav__link:hover .case-nav__title,
-.case-nav__link:focus-visible .case-nav__title { text-decoration: underline; }
-.case-nav__link:focus-visible { outline: none; }
+.case-nav__link {
+  display: grid; align-items: baseline; align-content: end;
+  min-height: 192px; padding: 16px 16px 32px;
+  border-radius: var(--radius);
+  background: var(--pill);
+  transition: background-color 200ms ease;
+}
+.case-nav__link:hover { background: var(--pill-hover); }
+.case-nav__link:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.case-nav__link--prev { grid-template-columns: calc(var(--label) - 16px) auto; }
+.case-nav__link--next { grid-template-columns: auto calc(var(--label) - 16px); text-align: right; }
+.case-nav__link--next .label { text-align: right; }
+/* dark pages: the nav pills' light fill, but much fainter (big areas would pop more than the nav); names white */
+.theme-dark .case-nav__link { background: rgb(233 233 233 / 0.15); color: #fff; }
+.theme-dark .case-nav__link:hover { background: rgb(233 233 233 / 0.2); }
+.theme-dark .case-nav__link .label { color: rgb(255 255 255 / 0.7); }
 @media (max-width: 640px) {
-  /* phones (Figma: Mobile-prev/next): side by side, label above title,
+  /* phones (Figma: Mobile-prev/next): still side by side; label above title,
      Prev on the left, Next on the right; each takes half and wraps if needed */
-  .case-nav { align-items: flex-start; }
-  .case-nav__link { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .case-nav { gap: var(--card-gap); }
+  .case-nav__link { min-height: 120px; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; padding: 16px; }
   .case-nav__link--next { align-items: flex-end; text-align: right; }
   .case-nav__link--next .label { order: -1; }
 }
@@ -582,6 +594,11 @@ div.layered__fg--tags { overflow: visible; }
   .contact > .block > :not(.label) { grid-column: 2 / -1; }
   .footer p:first-of-type { grid-column: 1 / span 4; }
   .footer p:last-child { grid-column: 5 / span 4; }
+  /* Prev / Next titles on column 2 (Next mirrored), in line with the Contact links.
+     Each block is (page − 32) / 2 wide with 16px padding, so in its own content box
+     column 1 + the gap, less the padding, comes to 25% − 2px */
+  .case-nav__link--prev { grid-template-columns: calc(25% - 2px) auto; }
+  .case-nav__link--next { grid-template-columns: auto calc(25% - 2px); }
 }
 
 /* ---------- Home + About on small desktops ----------
