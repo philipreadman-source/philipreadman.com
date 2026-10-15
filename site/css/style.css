@@ -580,19 +580,29 @@ div.layered__fg--tags { overflow: visible; }
    and carousel stay on the 6-column grid, so only the content's arrangement changes. */
 @media (min-width: 1101px) and (max-width: 1440px) {
   .stack-early :is(.intro, .bio, .page-intro, .blocks) { grid-template-columns: repeat(8, minmax(0, 1fr)); }
-  /* long paragraphs: columns 1–6; the profile (bio) 1–7 */
-  .stack-early :is(.intro p, .page-intro .prose) { grid-column: 1 / span 6; }
-  .stack-early .bio p { grid-column: 1 / span 7; }
+  /* long paragraphs: the top intro line 1–6; the profile (Home bio, About intro) 1–7 */
+  .stack-early .intro p { grid-column: 1 / span 6; }
+  .stack-early :is(.bio p, .page-intro .prose) { grid-column: 1 / span 7; }
   /* blocks: one per row, sharing the page columns (subgrid) so the label is column 1 */
   .stack-early .block { grid-column: 1 / -1; grid-template-columns: subgrid; }
   .stack-early .block > .label { grid-column: 1; }
   .stack-early .block > :not(.label) { grid-column: 2 / -1; }
+  /* long paragraphs in a block (About: Co-Founded) end with the profile, at column 7 */
+  .stack-early .block--wide > .prose { grid-column: 2 / span 6; }
   /* footer on the same 8 columns: the second line starts at column 5, under Other */
   .stack-early .footer { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   .stack-early .footer p:first-of-type { grid-column: 1 / span 4; }
   .stack-early .footer p:last-child { grid-column: 5 / span 4; }
+  /* About portrait: columns 7–8, bottom right as on desktop */
+  .stack-early .footer__photo { width: calc((100% - 2 * var(--margin) - 7 * var(--gap)) / 4 + var(--gap)); }
   /* capabilities (Product Design, AI) and contact (Contact, Other): side by side, label + three columns each */
   .stack-early :is(.capabilities, .contact) > .block { grid-column: span 4; }
+  /* About only: Contact in columns 1–3 and Other from column 4 (links from 5), so the
+     links stay clear of the portrait in columns 7–8 */
+  .page-about .contact > .block:first-child { grid-column: 1 / span 3; }
+  .page-about .contact > .block:last-child { grid-column: 4 / span 3; }
+  .page-about .footer p:first-of-type { grid-column: 1 / span 3; }
+  .page-about .footer p:last-child { grid-column: 4 / span 3; }   /* under Other */
   /* side project: label + text in columns 1–4, the video card beside it from column 5,
      as wide as the Notes pop-up (546 at most) */
   .stack-early .side-project > .block { grid-column: 1 / span 4; }
