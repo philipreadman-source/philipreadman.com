@@ -215,8 +215,6 @@ ul { list-style: none; }
    the card runs from the second block's value column to 140px short of the right edge. */
 .side-project { align-items: start; }
 /* label on the title's baseline, like every other block */
-.side-project__title { font: inherit; }
-.side-project__title + p { margin-top: 18px; }
 .side-project__tools { margin-top: 23px; font-size: var(--fs-small); line-height: 1.25; color: var(--text-muted); }
 .side-project__tools span { margin-inline: 4px; }
 .side-project__card {
