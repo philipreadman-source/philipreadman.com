@@ -553,7 +553,15 @@ div.layered__fg--tags { overflow: visible; }
   /* no room beside Contact: in the flow above the footer text, still on the right */
   .footer__photo { position: static; grid-column: 1 / -1; justify-self: end; width: 40%; margin-bottom: 48px; }
 }
-@media (max-width: 640px) { .footer__photo { width: 60%; } }
+@media (max-width: 640px) {
+  /* phone: under Contact, a section gap below it, left on the body copy line; two grid
+     columns wide; the footer's usual gap then follows before its text */
+  .footer:has(.footer__photo) { padding-top: var(--section); }
+  .footer__photo {
+    justify-self: start; margin-left: var(--label); margin-bottom: 120px;
+    width: calc((100% - 5 * var(--gap)) / 3 + var(--gap));
+  }
+}
 
 /* ---------- tablet ---------- */
 @media (max-width: 1100px) {
