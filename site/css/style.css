@@ -544,7 +544,7 @@ div.layered__fg--tags { overflow: visible; }
 .footer:has(.footer__photo) { position: relative; }
 .footer__photo {
   position: absolute; right: var(--margin); bottom: 24px;
-  width: calc((100% - 2 * var(--margin)) * 408 / 1673); height: auto;
+  width: calc((100% - 2 * var(--margin)) * 408 / 1673); max-width: 300px; height: auto;   /* never bigger than 300 on wide screens */
   aspect-ratio: 408 / 450; object-fit: cover;
 }
 @media (max-width: 1100px) {
