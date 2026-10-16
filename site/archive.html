@@ -110,11 +110,13 @@
     <div class="media-pair">
       <img class="media-img" src="img/archive/12a-1x.jpg" srcset="img/archive/12a-1x.jpg 821w, img/archive/12a-2x.jpg 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Live streaming app on mobile: choosing the channels to stream to" width="821" height="700" loading="lazy" decoding="async">
-      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #18171c; --fg-w: 35.32%; --fg-w-sm: 35.32%; --fg-ratio: 290 / 582; --fg-cx: 50.06%;">
+      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #1b1920; /* #18171c + Figma's 2% #9257E7, as in the stills */ --fg-w: 35.32%; --fg-w-sm: 35.32%; --fg-ratio: 290 / 582; --fg-cx: 50.06%;">
         <video class="layered__fg" poster="img/archive/ph-addsource-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Live streaming app on mobile: adding a media source">
           <source src="video/archive/ph-addsource-hevc.mp4" type='video/mp4; codecs="hvc1"'>
           <source src="video/archive/ph-addsource-h264.mp4" type="video/mp4">
         </video>
+        <!-- Figma's tint on the stills: #9257E7 at 4%, colour dodge — laid over the video live -->
+        <span class="layered__fg layered__tint" aria-hidden="true"></span>
       </div>
     </div>
     <!-- 13 -->
