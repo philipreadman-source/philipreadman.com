@@ -3,13 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Google Analytics (GA4), same property as the old Framer site -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6H7M6CVBY7"></script>
+  <!-- Google Analytics (GA4), same property as the old Framer site. Only on the live site
+       (not localhost), and not in a browser opted out with ?notrack (?track turns it back on) -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-6H7M6CVBY7');
+    (function () {
+      var id = 'G-6H7M6CVBY7', key = 'ga-off', q = location.search, off = false;
+      try {
+        if (/[?&]notrack\b/.test(q)) localStorage.setItem(key, '1');
+        if (/[?&]track\b/.test(q)) localStorage.removeItem(key);
+        off = localStorage.getItem(key) === '1';
+        if (/[?&](no)?track\b/.test(q)) history.replaceState(null, '', location.pathname + location.hash);
+      } catch (e) {}
+      if (off || !/(^|\.)philipreadman\.com$/.test(location.hostname)) return;
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', id);
+    })();
   </script>
   <title>Archive — Philip Readman</title>
   <meta name="description" content="Work samples going back over a decade: a mix of visual communication demonstrating brand and product design.">
