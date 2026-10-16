@@ -99,18 +99,21 @@
     <!-- 9 -->
     <img class="media-img media-img--box-sm" style="--box-bg: #eeeeee;" src="img/archive/09-1x.jpg" srcset="img/archive/09-1x.jpg 1673w, img/archive/09-2x.jpg 3346w"
          sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Adidas Yeezy website concept: apparel page" width="1673" height="966" loading="lazy" decoding="async">
-    <!-- 10 -->
-    <img class="media-img media-img--box-sm" style="--box-bg: #18171c;" src="img/archive/10-1x.jpg" srcset="img/archive/10-1x.jpg 1673w, img/archive/10-2x.jpg 3346w"
-         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Live streaming app on desktop: the studio, with scenes" width="1673" height="966" loading="lazy" decoding="async">
+    <!-- 10: phones get a version on a lighter ground (#24232a + the 2% tint = #26242e), so the screens stand out more -->
+    <picture><source media="(max-width: 640px)" srcset="img/archive/10-sm-1x.jpg 1673w, img/archive/10-sm-2x.jpg 3346w">
+      <img class="media-img media-img--box-sm" style="--box-bg: #26242e;" src="img/archive/10-1x.jpg" srcset="img/archive/10-1x.jpg 1673w, img/archive/10-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Live streaming app on desktop: the studio, with scenes" width="1673" height="966" loading="lazy" decoding="async"></picture>
     <!-- 11 -->
-    <img class="media-img media-img--box-sm" style="--box-bg: #18171c;" src="img/archive/11-1x.jpg" srcset="img/archive/11-1x.jpg 1673w, img/archive/11-2x.jpg 3346w"
-         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Live streaming app on mobile: adding sources, a two-person scene, and a concert stream with picture-in-picture" width="1673" height="966" loading="lazy" decoding="async">
+    <picture><source media="(max-width: 640px)" srcset="img/archive/11-sm-1x.jpg 1673w, img/archive/11-sm-2x.jpg 3346w">
+      <img class="media-img media-img--box-sm" style="--box-bg: #26242e;" src="img/archive/11-1x.jpg" srcset="img/archive/11-1x.jpg 1673w, img/archive/11-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Live streaming app on mobile: adding sources, a two-person scene, and a concert stream with picture-in-picture" width="1673" height="966" loading="lazy" decoding="async"></picture>
     <!-- 12: b is a screen recording (ph-addsource), placed as in Figma: 290 × 582 at (266, 59) in the
          821 × 700 half, on #18171c; still = the Sources sheet, 3s in -->
     <div class="media-pair">
-      <img class="media-img" src="img/archive/12a-1x.jpg" srcset="img/archive/12a-1x.jpg 821w, img/archive/12a-2x.jpg 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Live streaming app on mobile: choosing the channels to stream to" width="821" height="700" loading="lazy" decoding="async">
-      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #1b1920; /* #18171c + Figma's 2% #9257E7, as in the stills */ --fg-w: 35.32%; --fg-w-sm: 35.32%; --fg-ratio: 290 / 582; --fg-cx: 50.06%;">
+      <picture><source media="(max-width: 640px)" srcset="img/archive/12a-sm-1x.jpg 821w, img/archive/12a-sm-2x.jpg 1641w">
+        <img class="media-img" src="img/archive/12a-1x.jpg" srcset="img/archive/12a-1x.jpg 821w, img/archive/12a-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Live streaming app on mobile: choosing the channels to stream to" width="821" height="700" loading="lazy" decoding="async"></picture>
+      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #1b1920; /* #18171c + Figma's 2% #9257E7, as in the stills */ --layer-bg-sm: #26242e; /* phones: a shade lighter, as the phone stills */ --fg-w: 35.32%; --fg-w-sm: 35.32%; --fg-ratio: 290 / 582; --fg-cx: 50.06%;">
         <video class="layered__fg" poster="img/archive/ph-addsource-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Live streaming app on mobile: adding a media source">
           <source src="video/archive/ph-addsource-hevc.mp4" type='video/mp4; codecs="hvc1"'>
           <source src="video/archive/ph-addsource-h264.mp4" type="video/mp4">

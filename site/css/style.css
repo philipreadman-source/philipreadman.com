@@ -536,7 +536,11 @@ div.layered__fg--tags { overflow: visible; }
 }
 @media (max-width: 640px) {
   .media-pair { grid-template-columns: 1fr; }
+  /* a panel can take its own phone ground (e.g. lighter, so dark screens stand out) */
+  .layered { background: var(--layer-bg-sm, var(--layer-bg, #141414)); }
 }
+/* <picture> wrappers (phone-specific image versions) lay out like the image itself */
+.case-media picture { display: block; }
 
 /* Label + text blocks: 160px below the hero, 64px between blocks */
 .case-text { padding-top: var(--section); row-gap: 64px; }
