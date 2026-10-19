@@ -366,6 +366,17 @@ document.querySelectorAll("main img").forEach((img) => {
   img.addEventListener("error", done, { once: true });
 });
 
+// ---------- built-in UI panels (e.g. Dobbin's Team usage card) ----------
+// The card is sized in units of its panel's width (1/821 of it, Figma's panel width). Set that
+// unit in px from the panel's real width, so every browser scales it the same way.
+const statPanels = document.querySelectorAll(".stat-panel");
+if (statPanels.length && "ResizeObserver" in window) {
+  const ro = new ResizeObserver((entries) => {
+    entries.forEach((e) => e.target.style.setProperty("--panel-u", `${e.contentRect.width / 821}px`));
+  });
+  statPanels.forEach((p) => ro.observe(p));
+}
+
 // ---------- video playback speeds ----------
 // data-rate on a <video> slows (or speeds) it; browsers reset playbackRate on load.
 document.querySelectorAll("video[data-rate]").forEach((v) => {

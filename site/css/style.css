@@ -517,7 +517,9 @@ div.layered__fg--tags { overflow: visible; }
   display: grid; place-items: center;
 }
 .stat-card {
-  --u: calc(100cqw / 821);
+  /* 1/821 of the panel width: set in px by JS (iPhone Safari resolves the cqw version wrongly);
+     the cqw version is only the fallback when JS doesn't run */
+  --u: var(--panel-u, calc(100cqw / 821));
   box-sizing: border-box; width: calc(var(--u) * 419); height: calc(var(--u) * 300);
   padding: calc(var(--u) * 17.14);
   display: flex; flex-direction: column; justify-content: space-between;
