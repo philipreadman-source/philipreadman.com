@@ -529,6 +529,8 @@ div.layered__fg--tags { overflow: visible; }
   transition-delay: 200ms;
 }
 .reveal-wait .stat-card { opacity: 0; translate: 0 10px; }
+/* phones: the card a little bigger in its panel (1.25×), everything inside scaled with it */
+@media (max-width: 640px) { .stat-card { --u: calc(var(--panel-u, 100cqw / 821) * 1.25); } }
 .stat-card p { margin: 0; }
 .stat-card svg { display: block; flex: none; }
 .stat-card__label {
