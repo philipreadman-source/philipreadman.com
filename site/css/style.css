@@ -560,6 +560,14 @@ div.layered__fg--tags { overflow: visible; }
   .media-img--fill-sm { aspect-ratio: 821 / 700; object-fit: cover; object-position: var(--pos-sm, 50% 50%); }
   /* …or keep the whole image at full width, centred, with the panel colour above and below */
   .media-img--box-sm { aspect-ratio: 821 / 700; object-fit: contain; object-position: var(--pos-sm, 50% 50%); background: var(--box-bg, transparent); }
+  /* …or zoom a full-width panel so its screen (1250 of the 1673 Figma width) fills 92% of the
+     phone panel, like the videos: crop the plain side margins, keep the 821:700 panel with the
+     panel colour above and below. Visible width = 1250 / 0.92 = 1358.7; padding makes up the height */
+  .media-img--screen-sm {
+    box-sizing: content-box; aspect-ratio: 1358.7 / 966; object-fit: cover;
+    padding-block: 7.08%;   /* (700/821 − 966/1358.7) / 2 */
+    background: var(--box-bg, transparent);
+  }
 }
 /* Three panels in a row (Figma: 536.3 × 700 each, 32 apart); one column on phones */
 .media-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); }
@@ -575,7 +583,7 @@ div.layered__fg--tags { overflow: visible; }
 .case-media.case-media--after-intro { padding-top: var(--intro-gap); }
 
 /* Case image stack: 160px below the text, 32px between images */
-.case-media { padding: var(--section) var(--margin) 0; display: grid; gap: var(--card-gap); }
+.case-media { padding: var(--section) var(--margin) 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--card-gap); }   /* one column, never wider than the page */
 .media-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--card-gap); }
 
 @media (max-width: 1100px) {
