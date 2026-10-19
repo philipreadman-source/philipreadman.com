@@ -503,6 +503,9 @@ div.layered__fg--tags { overflow: visible; }
 /* Panel stroke (Figma: 1px inside, white 15%), Petalite only for now: --stroke-soft is set by .theme-dark */
 /* A colour tint over a foreground video, sized and placed like it (Figma: a colour fill with a blend mode) */
 .layered > .layered__tint { background: var(--tint, #9257e7); opacity: var(--tint-opacity, 0.04); mix-blend-mode: var(--tint-blend, color-dodge); pointer-events: none; }
+/* Empty Figma slots kept as plain panels while a page is in progress */
+.media-placeholder { aspect-ratio: 821 / 700; border-radius: var(--radius); background: var(--ph-bg, #eeeeee); }
+.media-placeholder--full { aspect-ratio: 1673 / 966; }
 .layered--outline, .media-img--outline { outline: 1px solid var(--stroke-soft); outline-offset: -1px; }
 /* A full panel that is one flat image (composed crops, journey maps) */
 .media-img { display: block; width: 100%; height: auto; border-radius: var(--radius); }

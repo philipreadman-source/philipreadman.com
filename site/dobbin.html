@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Analytics (GA4), same property as the old Framer site. Only on the live site
+       (not localhost), and not in a browser opted out with ?notrack (?track turns it back on) -->
+  <script>
+    (function () {
+      var id = 'G-6H7M6CVBY7', key = 'ga-off', q = location.search, off = false;
+      try {
+        if (/[?&]notrack\b/.test(q)) localStorage.setItem(key, '1');
+        if (/[?&]track\b/.test(q)) localStorage.removeItem(key);
+        off = localStorage.getItem(key) === '1';
+        if (/[?&](no)?track\b/.test(q)) history.replaceState(null, '', location.pathname + location.hash);
+      } catch (e) {}
+      if (off || !/(^|\.)philipreadman\.com$/.test(location.hostname)) return;
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', id);
+    })();
+  </script>
+  <title>Dobbin — Philip Readman</title>
+  <meta name="description" content="Dobbin: brand, strategy and product design for a company AI, purpose-built for your business.">
+  <!-- Share previews (Slack, LinkedIn, iMessage…). Absolute URLs on the final domain. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Philip Readman">
+  <meta property="og:title" content="Dobbin — Philip Readman">
+  <meta property="og:description" content="Dobbin: brand, strategy and product design for a company AI, purpose-built for your business.">
+  <meta property="og:url" content="https://philipreadman.com/dobbin">
+  <meta property="og:image" content="https://philipreadman.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Philip Readman: Product Design for companies that need to scale, adapt and explore.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@500,600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-dark.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-light.png" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+
+<!-- Case studies sit under Work, so the Home button shows as selected -->
+<nav class="nav" aria-label="Main">
+  <a class="pill pill--dot" href="/" aria-label="Home" aria-current="true"></a>
+  <a class="pill" href="about">About</a>
+  <a class="pill" href="archive">Archive</a>
+</nav>
+
+<main>
+  <section class="intro grid">
+    <p>Dobbin is a company AI, purpose-built for your business.</p>
+  </section>
+
+  <!-- Hero (Figma: Case/Dobbin → hero): the Dobbin mark -->
+  <figure class="case-hero">
+    <img src="img/dobbin/hero-1x.jpg" srcset="img/dobbin/hero-1x.jpg 1673w, img/dobbin/hero-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="The Dobbin mark" width="1673" height="966" fetchpriority="high" decoding="async">
+  </figure>
+
+  <section class="blocks grid case-text" aria-label="Case study">
+    <div class="block block--wide">
+      <h2 class="label">Big Picture</h2>
+      <div class="prose"><p>Dobbin is an AI thinking partner for companies, built to see the world through the lens of your brand, market and operating context. It lives in Slack, is available to your whole team and runs on a secure knowledge system.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Role</h2>
+      <div class="prose"><p>As Founding Designer I worked 0→1 across brand, strategy, and product design. Working closely with our two founders and marketing team I’ve delivered Dobbin’s evolving brand and designed and built Dobbin’s design system using Claude, Cursor and Figma, delivering production ready work.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Outcome</h2>
+      <div class="prose">
+        <p>An iterative design process to find product market fit.</p>
+        <p><span class="dot">●</span> Steady customer growth, low churn rate (8 of our first 10 customers remain with us).<br>
+           <span class="dot">●</span> Clients such as Area17, Mark Seliger Studio and Evite.<br>
+           <span class="dot">●</span> Delivered brand, marketing website and Dobbin HQ product.</p>
+      </div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Credit</h2>
+      <div class="prose prose--small"><p>Hi Shine (Explainer animation)</p></div>
+    </div>
+  </section>
+
+  <!-- Case images (Figma: Case/Dobbin → page-stack, slots 1–12). Panels are Figma exports at 2×;
+       5 and 6 are videos; 8, 9, 11 and 12 are still empty in Figma (placeholders). -->
+  <section class="case-media" aria-label="Case images">
+    <!-- 1 -->
+    <img class="media-img media-img--box-sm" style="--box-bg: #f6f6f6;" src="img/dobbin/01-1x.jpg" srcset="img/dobbin/01-1x.jpg 1673w, img/dobbin/01-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ Foundation: the brand guide behind your team, as editable cards" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- 2 -->
+    <img class="media-img media-img--box-sm" style="--box-bg: #f6f6f6;" src="img/dobbin/02-1x.jpg" srcset="img/dobbin/02-1x.jpg 1673w, img/dobbin/02-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ: reviewing a suggested change to the Economics and Engagement card" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- 3 -->
+    <img class="media-img media-img--box-sm" style="--box-bg: #f6f6f6;" src="img/dobbin/03-1x.jpg" srcset="img/dobbin/03-1x.jpg 1673w, img/dobbin/03-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ Knowledge Base: documents, where they came from and how they were learned" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- 4 -->
+    <img class="media-img media-img--box-sm" style="--box-bg: #f6f6f6;" src="img/dobbin/04-1x.jpg" srcset="img/dobbin/04-1x.jpg 1673w, img/dobbin/04-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ integrations: 88 connected sources across Slack, Google Drive, email and more" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- 5: usage overview (video), placed as in Figma: 1250 × 484 at (212, 241) -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f6f6f6; --fg-w: 74.72%; --fg-ratio: 2282 / 884; --fg-cx: 50.03%; --ratio-sm: 821 / 700; --fg-w-sm: 92%;">
+      <video class="layered__fg" poster="img/dobbin/usage-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin HQ usage overview: answers per day over 30 days, by source">
+        <source src="video/dobbin/usage-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="video/dobbin/usage-h264.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 6: building Dobbin (video, the Dobbin project loop). Its own #f6f6f6 ground blends into
+         the panel; the card inside lines up with Figma's build-fnd frame (974 wide at 350, 292) -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f6f6f6; --fg-w: 63.77%; --fg-ratio: 1840 / 836; --fg-cy: 50.52%; --ratio-sm: 821 / 700; --fg-w-sm: 100%;">
+      <video class="layered__fg" poster="img/dobbin/building-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Building Dobbin for a new company: checking the company, running research, connecting Dobbin and building its foundation">
+        <source src="video/dobbin/building-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="video/dobbin/building-h264.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 7 -->
+    <div class="media-pair">
+      <img class="media-img" src="img/dobbin/07a-1x.jpg" srcset="img/dobbin/07a-1x.jpg 821w, img/dobbin/07a-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin app icon and explorations of the mark" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/07b-1x.jpg" srcset="img/dobbin/07b-1x.jpg 821w, img/dobbin/07b-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin colour palette: primary red, dark red, black, white and greys" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
+    <!-- 8: placeholder (empty in Figma) -->
+    <div class="media-pair" aria-hidden="true">
+      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
+      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
+    </div>
+
+    <!-- 9: placeholder (empty in Figma) -->
+    <div class="media-pair" aria-hidden="true">
+      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
+      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="media-pair">
+      <img class="media-img" src="img/dobbin/10a-1x.jpg" srcset="img/dobbin/10a-1x.jpg 821w, img/dobbin/10a-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Someone using their phone, softly blurred" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/10b-1x.jpg" srcset="img/dobbin/10b-1x.jpg 821w, img/dobbin/10b-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin app icon on an iPhone home screen" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
+    <!-- 11: placeholder (empty in Figma) -->
+    <div class="media-placeholder media-placeholder--full" style="--ph-bg: #f5f5f5;" aria-hidden="true"></div>
+
+    <!-- 12: placeholder (empty in Figma) -->
+    <div class="media-pair" aria-hidden="true">
+      <div class="media-placeholder" style="--ph-bg: #f5f5f5;"></div>
+      <div class="media-placeholder" style="--ph-bg: #f5f5f5;"></div>
+    </div>
+  </section>
+
+  <nav class="case-nav" aria-label="More case studies">
+    <a class="case-nav__link case-nav__link--prev" data-icon="prev" href="adidasactive" rel="prev">
+      <span class="label">Prev</span><span class="case-nav__title">Adidas Active</span>
+    </a>
+    <a class="case-nav__link case-nav__link--next" data-icon="next" href="rovio" rel="next">
+      <span class="case-nav__title">Rovio</span><span class="label">Next</span>
+    </a>
+  </nav>
+
+  <section class="blocks grid contact" aria-label="Contact">
+    <div class="block">
+      <h2 class="label">Contact</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="mailto:philip.readman@gmail.com">Email</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="linkedin" href="https://www.linkedin.com/in/philipreadman" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="block">
+      <h2 class="label">Other</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="https://www.are.na/philip-readman/iphone-pics-j_ziewlfnwm" target="_blank" rel="noopener">Are.na</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="soundcloud" href="https://soundcloud.com/philr9945" target="_blank" rel="noopener">SoundCloud</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer grid">
+  <p>Philip Readman Design 2026</p>
+  <p>The work is mysterious and important.</p>
+</footer>
+
+<!-- Hover badge: one circle that follows the pointer over [data-icon] elements -->
+<div class="hover-badge" aria-hidden="true">
+  <svg class="hover-badge__eye" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.375 7.768a.67.67 0 0 0 0 .464 7.167 7.167 0 0 0 13.25 0 .67.67 0 0 0 0-.464 7.167 7.167 0 0 0-13.25 0Z"/><circle cx="8" cy="8" r="2"/></svg>
+  <svg class="hover-badge__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8.667 3.333h4v4M12.667 3.333l-9.334 9.334"/></svg>
+  <!-- Lucide arrow-left / arrow-right, scaled from 24 to 16 -->
+  <svg class="hover-badge__prev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12.667 3.333 8 8 3.333M12.667 8H3.333"/></svg>
+  <svg class="hover-badge__next" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3.333 8h9.334M8 3.333 12.667 8 8 12.667"/></svg>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
