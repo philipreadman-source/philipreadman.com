@@ -503,6 +503,52 @@ div.layered__fg--tags { overflow: visible; }
 /* Panel stroke (Figma: 1px inside, white 15%), Petalite only for now: --stroke-soft is set by .theme-dark */
 /* A colour tint over a foreground video, sized and placed like it (Figma: a colour fill with a blend mode) */
 .layered > .layered__tint { background: var(--tint, #9257e7); opacity: var(--tint-opacity, 0.04); mix-blend-mode: var(--tint-blend, color-dodge); pointer-events: none; }
+/* Dobbin, slot 6a: the build video cropped to its two loading blocks, masked to their rounded
+   shapes (block 560 × 246 each, 32 apart, corner 15, in the 1152 × 246 crop) so only the blocks show */
+.blocks-mask {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1152 246' preserveAspectRatio='none'%3E%3Crect width='560' height='246' rx='15'/%3E%3Crect x='592' width='560' height='246' rx='15'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1152 246' preserveAspectRatio='none'%3E%3Crect width='560' height='246' rx='15'/%3E%3Crect x='592' width='560' height='246' rx='15'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+/* Dobbin, slot 6b: the Team usage card from Dobbin HQ, built in HTML. Every size is Figma's, in
+   units of the panel width (--u = 1/821 of it), so it scales with the panel like an image would */
+.stat-panel {
+  container-type: inline-size;
+  aspect-ratio: 821 / 700; border-radius: var(--radius); background: #f6f6f6;
+  display: grid; place-items: center;
+}
+.stat-card {
+  --u: calc(100cqw / 821);
+  box-sizing: border-box; width: calc(var(--u) * 419); height: calc(var(--u) * 300);
+  padding: calc(var(--u) * 17.14);
+  display: flex; flex-direction: column; justify-content: space-between;
+  background: #fff; border: calc(var(--u) * 1.071) solid #e0e0e0; border-radius: calc(var(--u) * 8.571);
+  font-family: "Host Grotesk", var(--font); color: #666666;
+  transition: opacity 0.7s ease, translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: 200ms;
+}
+.reveal-wait .stat-card { opacity: 0; translate: 0 10px; }
+.stat-card p { margin: 0; }
+.stat-card svg { display: block; flex: none; }
+.stat-card__label {
+  display: flex; align-items: center; gap: calc(var(--u) * 8.57);
+  font-size: calc(var(--u) * 12.86); font-weight: 500; line-height: 1.32; letter-spacing: 0.02em; text-transform: uppercase;
+}
+.stat-card__label svg { width: calc(var(--u) * 19.29); height: calc(var(--u) * 19.29); }
+.stat-card__figure { display: flex; align-items: flex-end; gap: calc(var(--u) * 10.71); }
+.stat-card__value {
+  flex: none; width: calc(var(--u) * 135);   /* Figma's fixed text box */
+  height: calc(var(--u) * 65.36); line-height: calc(var(--u) * 65.36);
+  font-size: calc(var(--u) * 77.14); font-weight: 500; letter-spacing: -0.05em; color: #000;
+}
+.stat-card__value span { font-size: calc(var(--u) * 45); }
+.stat-card__change {
+  height: calc(var(--u) * 65.36);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: calc(var(--u) * 4.29);
+  font-size: calc(var(--u) * 15); line-height: calc(var(--u) * 19.29);
+}
+.stat-card__change svg { width: calc(var(--u) * 25.71); height: calc(var(--u) * 25.71); color: #00d200; }
+.stat-card__period { font-size: calc(var(--u) * 15); line-height: 1.32; color: #999999; }
+
 .layered--outline, .media-img--outline { outline: 1px solid var(--stroke-soft); outline-offset: -1px; }
 /* A full panel that is one flat image (composed crops, journey maps) */
 .media-img { display: block; width: 100%; height: auto; border-radius: var(--radius); }

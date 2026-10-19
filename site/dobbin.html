@@ -39,6 +39,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@500,600&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-dark.png" media="(prefers-color-scheme: light)">
@@ -115,13 +118,30 @@
       </video>
     </div>
 
-    <!-- 6: building Dobbin (video, the Dobbin project loop). Its own #f6f6f6 ground blends into
-         the panel; the card inside lines up with Figma's build-fnd frame (974 wide at 350, 292) -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f6f6f6; --fg-w: 63.77%; --fg-ratio: 1840 / 836; --fg-cy: 50.52%; --ratio-sm: 821 / 700; --fg-w-sm: 100%;">
-      <video class="layered__fg" poster="img/dobbin/building-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Building Dobbin for a new company: checking the company, running research, connecting Dobbin and building its foundation">
-        <source src="video/dobbin/building-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-        <source src="video/dobbin/building-h264.mp4" type="video/mp4">
-      </video>
+    <!-- 6: building Dobbin. a = the two loading blocks from the Dobbin project loop (cropped to them,
+         masked to their rounded shapes so only the blocks show on the panel; Figma: 666 wide at 77, 286).
+         b = the Team usage card from Dobbin HQ, built in HTML (Figma: 419 × 300, centred), sized off the
+         panel width so it scales with it; it fades in the first time it's seen -->
+    <div class="media-pair">
+      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #f6f6f6; --fg-w: 81.12%; --fg-w-sm: 81.12%; --fg-ratio: 1152 / 246; --fg-cx: 49.94%;">
+        <video class="layered__fg blocks-mask" poster="img/dobbin/blocks-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin building a company's Foundation and Knowledge Base">
+          <source src="video/dobbin/blocks-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source src="video/dobbin/blocks-h264.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="stat-panel" data-reveal>
+        <div class="stat-card" role="group" aria-label="Team usage: 13% up, 24,987 total interactions in the last 30 days">
+          <p class="stat-card__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>Team usage</p>
+          <div class="stat-card__figure">
+            <p class="stat-card__value">13<span>%</span></p>
+            <div class="stat-card__change">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+              <p>24,987 total interactions</p>
+            </div>
+          </div>
+          <p class="stat-card__period">Last 30 days</p>
+        </div>
+      </div>
     </div>
 
     <!-- 7 -->
