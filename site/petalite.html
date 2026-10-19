@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Analytics (GA4), same property as the old Framer site. Only on the live site
+       (not localhost), and not in a browser opted out with ?notrack (?track turns it back on) -->
+  <script>
+    (function () {
+      var id = 'G-6H7M6CVBY7', key = 'ga-off', q = location.search, off = false;
+      try {
+        if (/[?&]notrack\b/.test(q)) localStorage.setItem(key, '1');
+        if (/[?&]track\b/.test(q)) localStorage.removeItem(key);
+        off = localStorage.getItem(key) === '1';
+        if (/[?&](no)?track\b/.test(q)) history.replaceState(null, '', location.pathname + location.hash);
+      } catch (e) {}
+      if (off || !/(^|\.)philipreadman\.com$/.test(location.hostname)) return;
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', id);
+    })();
+  </script>
+  <title>Petalite EV — Philip Readman</title>
+  <meta name="description" content="Petalite EV: a digital charging experience for next-gen electric vehicle charge posts.">
+  <!-- Share previews (Slack, LinkedIn, iMessage…). Absolute URLs on the final domain. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Philip Readman">
+  <meta property="og:title" content="Petalite EV — Philip Readman">
+  <meta property="og:description" content="Petalite EV: a digital charging experience for next-gen electric vehicle charge posts.">
+  <meta property="og:url" content="https://philipreadman.com/petalite">
+  <meta property="og:image" content="https://philipreadman.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Philip Readman: Product Design for companies that need to scale, adapt and explore.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@500,600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-dark.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-light.png" media="(prefers-color-scheme: dark)">
+</head>
+<body class="theme-dark">
+
+<!-- Case studies sit under Work, so the Home button shows as selected -->
+<nav class="nav" aria-label="Main">
+  <a class="pill pill--dot" href="./" aria-label="Home" aria-current="true"></a>
+  <a class="pill" href="about.html">About</a>
+  <a class="pill" href="archive.html">Archive</a>
+</nav>
+
+<main>
+  <section class="intro grid">
+    <p>Delivering a digital charging experience for Petalite–an award winning next-gen electric vehicle charging company.</p>
+  </section>
+
+  <!-- Hero (Figma: Case/Petalite → Petalite): 3D charge post film, full bleed -->
+  <figure class="case-hero">
+    <video poster="img/petalite/hero-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Petalite charge post, 3D film by R/AD">
+      <source src="video/petalite/hero-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+      <source src="video/petalite/hero-h264.mp4" type="video/mp4">
+    </video>
+  </figure>
+
+  <section class="blocks grid case-text" aria-label="Case study">
+    <div class="block block--wide">
+      <h2 class="label">Big Picture</h2>
+      <div class="prose"><p>Petalite developed a state of the art charging device that needed a driver UI to match. Crafted to communicate, we designed a driver experience that keeps drivers oriented throughout every step of their charging experience.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Role</h2>
+      <div class="prose"><p>Working hands-on as Design Director, I set the visual direction, defined the overall experience, designed the interface and managed client needs. Leading a small team, I focused on building trust and keeping the client team close to the process each step of the way.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Approach</h2>
+      <div class="prose"><p>We ran surveys, visited charging bays and mapped a driver-first journey map which served as a shared canvas for identifying pain points, moments of delight, and design opportunities. From that we were able to design a flow and design system that was clear, simple and scalable.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Outcome</h2>
+      <div class="prose"><p>Our work with Petalite helped them secure further funding, forge key partnerships and advance their product development.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Credits</h2>
+      <div class="prose prose--small"><p>Hi Shine (Design support), 3D design by R/AD.</p></div>
+    </div>
+  </section>
+
+  <!-- Case images (Figma: Case/Petalite → page-stack, panels 1–19). 160px below the text,
+       32px between. Screens: 960 wide, 16px corners, 1px white 15% inside stroke. -->
+  <section class="case-media" aria-label="Case images">
+    <!-- Figma order: 1, 4 (UI animation), 17 (payment), 2, 3 -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #30383b; --fg-w: 57.38%; --fg-ratio: 960 / 600; --fg-radius: 1.667% / 2.667%; --fg-outline: 1px solid var(--stroke-soft); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
+      <img class="layered__fg" src="img/petalite/s1-1x.jpg" srcset="img/petalite/s1-1x.jpg 960w, img/petalite/s1-2x.jpg 1920w"
+           sizes="(max-width: 1100px) 88vw, 55vw" alt="Charge post home screen with both connectors ready" width="960" height="600" loading="lazy" decoding="async">
+    </div>
+
+    <!-- 4: UI animation (same video as the Home card) -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #30383b; --fg-w: 57.38%; --fg-ratio: 960 / 588; --fg-radius: 1.667% / 2.721%; --fg-outline: 1px solid var(--stroke-soft); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
+      <video class="layered__fg" src="video/intro.mp4" poster="img/intro-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Charging animation on the post screen"></video>
+    </div>
+
+    <!-- 17: payment options -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #30383b; --fg-w: 57.38%; --fg-ratio: 960 / 600; --fg-radius: 1.667% / 2.667%; --fg-outline: 1px solid var(--stroke-soft); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
+      <img class="layered__fg" src="img/petalite/s17-1x.jpg" srcset="img/petalite/s17-1x.jpg 960w, img/petalite/s17-2x.jpg 1920w"
+           sizes="(max-width: 1100px) 88vw, 55vw" alt="Choosing how to pay: bank card, app or RFID" width="960" height="600" loading="lazy" decoding="async">
+    </div>
+
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #30383b; --fg-w: 57.38%; --fg-ratio: 960 / 600; --fg-radius: 1.667% / 2.667%; --fg-outline: 1px solid var(--stroke-soft); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
+      <img class="layered__fg" src="img/petalite/s2-1x.jpg" srcset="img/petalite/s2-1x.jpg 960w, img/petalite/s2-2x.jpg 1920w"
+           sizes="(max-width: 1100px) 88vw, 55vw" alt="Charging on connector 2 while connector 1 is ready" width="960" height="600" loading="lazy" decoding="async">
+    </div>
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #30383b; --fg-w: 57.38%; --fg-ratio: 960 / 600; --fg-radius: 1.667% / 2.667%; --fg-outline: 1px solid var(--stroke-soft); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
+      <img class="layered__fg" src="img/petalite/s3-1x.jpg" srcset="img/petalite/s3-1x.jpg 960w, img/petalite/s3-2x.jpg 1920w"
+           sizes="(max-width: 1100px) 88vw, 55vw" alt="Connector 1 charging: speed, energy and cost" width="960" height="600" loading="lazy" decoding="async">
+    </div>
+
+    <!-- 5: charge progress, connecting, vehicle -->
+    <div class="media-trio">
+      <div class="layered layered--outline" style="--ratio: 536.3 / 700; --ratio-sm: 536.3 / 700; --layer-bg: #2a2f33; --fg-w: 79.62%; --fg-ratio: 427 / 418; --fg-w-sm: 79.62%;">
+        <img class="layered__fg" src="img/petalite/charge-1x.jpg" srcset="img/petalite/charge-1x.jpg 427w, img/petalite/charge-2x.jpg 802w"
+             sizes="(max-width: 640px) 76vw, 25vw" alt="Charge progress: 9 minutes to 80%" loading="lazy" decoding="async">
+      </div>
+      <div class="layered layered--outline" style="--ratio: 536.3 / 700; --ratio-sm: 536.3 / 700; --layer-bg: #262b2f; /* matches the video ground as rendered */ --fg-w: 63.96%; --fg-ratio: 532 / 684; --fg-w-sm: 63.96%;">
+        <video class="layered__fg" poster="img/petalite/connect-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Connecting animation" src="video/petalite/connect.mp4"></video>
+      </div>
+      <div class="layered layered--outline" style="--ratio: 536.3 / 700; --ratio-sm: 536.3 / 700; --layer-bg: #2a2f33; --fg-w: 79.78%; --fg-ratio: 389 / 392; --fg-w-sm: 79.78%; /* Figma 389 wide, +10% on request */">
+        <img class="layered__fg" src="img/petalite/car-1x.jpg" srcset="img/petalite/car-1x.jpg 389w, img/petalite/car-2x.jpg 778w"
+             sizes="(max-width: 640px) 77vw, 25vw" alt="Vehicle detected: Tesla Model S" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 6: charging speed (video), connector status, offline post. Figma places the offline
+         image 12.5px low; matched here (--fg-cy). -->
+    <div class="media-trio">
+      <div class="layered layered--outline" style="--ratio: 536.3 / 700; --ratio-sm: 536.3 / 700; --layer-bg: #31363a; /* matches the video ground as rendered */ --fg-w: 67.13%; --fg-ratio: 1080 / 1406; --fg-w-sm: 67.13%;">
+        <video class="layered__fg" poster="img/petalite/box-data-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Charging speed readout counting up" src="video/petalite/box-data.mp4"></video>
+      </div>
+      <div class="layered layered--outline" style="--ratio: 536.3 / 700; --ratio-sm: 536.3 / 700; --layer-bg: #2a2f33; --fg-w: 67.12%; --fg-ratio: 360 / 157; --fg-w-sm: 67.12%;">
+        <img class="layered__fg" src="img/petalite/connector-1x.png" srcset="img/petalite/connector-1x.png 360w, img/petalite/connector-2x.png 720w"
+             sizes="(max-width: 640px) 64vw, 21vw" alt="Connector 1 available (CCS2)" width="360" height="157" loading="lazy" decoding="async">
+      </div>
+      <div class="layered layered--outline" style="--ratio: 536.3 / 700; --ratio-sm: 536.3 / 700; --layer-bg: #2a2f33; --fg-w: 70.67%; --fg-ratio: 379 / 445; --fg-w-sm: 70.67%; --fg-cy: 51.79%;">
+        <img class="layered__fg" src="img/petalite/bays-1x.jpg" srcset="img/petalite/bays-1x.jpg 379w, img/petalite/bays-2x.jpg 758w"
+             sizes="(max-width: 640px) 70vw, 22vw" alt="Charge post offline message" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 18: bay status from above (video), button states -->
+    <div class="media-pair">
+      <div class="layered layered--outline" style="--ratio: 821 / 700; --layer-bg: #3a4044; /* matches the video ground as rendered */ --fg-h: calc(100% - 2px); --fg-ratio: 1 / 1; --ratio-sm: 1 / 1; --fg-h-sm: calc(100% - 2px); /* sits inside the 1px stroke */ --fg-radius: 7px; /* its own corners, 1px inside the panel's 8 */">
+        <!-- no poster: the video is small (0.6 MB), so it loads up front and shows its own first
+             frame (#t) wherever it can't play yet, e.g. iPhone Low Power Mode -->
+        <video class="layered__fg" data-autoplay muted loop playsinline preload="auto" aria-label="Both bays charging, seen from above" src="video/petalite/bays.mp4#t=0.001"></video>
+      </div>
+      <div class="layered layered--outline" style="--ratio: 821 / 700; --layer-bg: #2a2f33; --fg-w: 91.41%; --fg-ratio: 750 / 392; --ratio-sm: 1 / 1; --fg-w-sm: 92%;">
+        <img class="layered__fg" src="img/petalite/btns-1x.jpg" srcset="img/petalite/btns-1x.jpg 750w, img/petalite/btns-2x.jpg 1500w"
+             sizes="(max-width: 640px) 92vw, 46vw" alt="Status button states" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 8: charger information, stop-charging confirmation -->
+    <div class="media-pair">
+      <div class="layered layered--outline" style="--ratio: 821 / 700; --layer-bg: #2a2f33; --fg-w: 61.43%; --fg-ratio: 504 / 441; --fg-radius: 1.587% / 1.814%; --ratio-sm: 1 / 1; --fg-w-sm: 80%;">
+        <img class="layered__fg" src="img/petalite/help-1x.jpg" srcset="img/petalite/help-1x.jpg 504w, img/petalite/help-2x.jpg 1008w"
+             sizes="(max-width: 640px) 80vw, 31vw" alt="Charger information panel" loading="lazy" decoding="async">
+      </div>
+      <div class="layered layered--outline" style="--ratio: 821 / 700; --layer-bg: #2a2f33; --fg-w: 73.13%; --fg-ratio: 600 / 385; --fg-radius: 1.333% / 2.078%; --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
+        <img class="layered__fg" src="img/petalite/modal-1x.jpg" srcset="img/petalite/modal-1x.jpg 600w, img/petalite/modal-2x.jpg 1200w"
+             sizes="(max-width: 640px) 88vw, 37vw" alt="Stop charging confirmation" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 14: journey map -->
+    <img class="media-img" src="img/petalite/journey-1x.jpg" srcset="img/petalite/journey-1x.jpg 1673w, img/petalite/journey-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Driver journey map: pain points, moments of delight and opportunities" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- 15 -->
+    <img class="media-img" src="img/petalite/p15-1x.jpg" srcset="img/petalite/p15-1x.jpg 1673w, img/petalite/p15-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Petalite charge post screens in context" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- 19: flow charts -->
+    <div class="media-pair">
+      <img class="media-img media-img--outline" src="img/petalite/flow-a-1x.jpg" srcset="img/petalite/flow-a-1x.jpg 821w, img/petalite/flow-a-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Step by step flow chart" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img media-img--outline" src="img/petalite/flow-b-1x.jpg" srcset="img/petalite/flow-b-1x.jpg 821w, img/petalite/flow-b-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Flow chart of screens, return states and post behaviour" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <!-- Prev / next case study. 160px below the images. -->
+  <nav class="case-nav" aria-label="More case studies">
+    <a class="case-nav__link case-nav__link--prev" data-icon="prev" href="superrare" rel="prev">
+      <span class="label">Prev</span><span class="case-nav__title">SuperRare</span>
+    </a>
+    <a class="case-nav__link case-nav__link--next" data-icon="next" href="adidasoutdoor" rel="next">
+      <span class="case-nav__title">Adidas Outdoor</span><span class="label">Next</span>
+    </a>
+  </nav>
+
+  <section class="blocks grid contact" aria-label="Contact">
+    <div class="block">
+      <h2 class="label">Contact</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="mailto:philip.readman@gmail.com">Email</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="linkedin" href="https://www.linkedin.com/in/philipreadman" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="block">
+      <h2 class="label">Other</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="https://www.are.na/philip-readman/iphone-pics-j_ziewlfnwm" target="_blank" rel="noopener">Are.na</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="soundcloud" href="https://soundcloud.com/philr9945" target="_blank" rel="noopener">SoundCloud</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer grid">
+  <p>Philip Readman Design 2026</p>
+  <p>The work is mysterious and important.</p>
+</footer>
+
+<!-- Hover badge: one circle that follows the pointer over [data-icon] elements -->
+<div class="hover-badge" aria-hidden="true">
+  <svg class="hover-badge__eye" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.375 7.768a.67.67 0 0 0 0 .464 7.167 7.167 0 0 0 13.25 0 .67.67 0 0 0 0-.464 7.167 7.167 0 0 0-13.25 0Z"/><circle cx="8" cy="8" r="2"/></svg>
+  <svg class="hover-badge__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8.667 3.333h4v4M12.667 3.333l-9.334 9.334"/></svg>
+  <!-- Lucide arrow-left / arrow-right, scaled from 24 to 16 -->
+  <svg class="hover-badge__prev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12.667 3.333 8 8 3.333M12.667 8H3.333"/></svg>
+  <svg class="hover-badge__next" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3.333 8h9.334M8 3.333 12.667 8 8 12.667"/></svg>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

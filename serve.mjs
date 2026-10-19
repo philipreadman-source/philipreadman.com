@@ -11,6 +11,7 @@ const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascrip
 createServer(async (req, res) => {
   let path = normalize(decodeURIComponent(new URL(req.url, "http://x").pathname)).replace(/^(\.\.[/\\])+/, "");
   if (path.endsWith("/")) path += "index.html";
+  else if (!extname(path)) path += ".html";   // clean URLs (/superrare → superrare.html), as GitHub Pages serves them
   try {
     const body = await readFile(join(root, path));
     res.writeHead(200, { "Content-Type": types[extname(path)] || "application/octet-stream", "Cache-Control": "no-store" });
