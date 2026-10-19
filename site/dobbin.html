@@ -88,8 +88,8 @@
     </div>
   </section>
 
-  <!-- Case images (Figma: Case/Dobbin → page-stack, slots 1–12). Panels are Figma exports at 2×;
-       5 and 6 are videos; 8, 9, 11 and 12 are still empty in Figma (placeholders). -->
+  <!-- Case images (Figma: Case/Dobbin → page-stack, slots 1–12). Panels are Figma exports at 2×
+       (PNG for UI and graphics, JPEG for photos); 5, 6 and 10 are videos. -->
   <section class="case-media" aria-label="Case images">
     <!-- 1 -->
     <img class="media-img media-img--box-sm" style="--box-bg: #f6f6f6;" src="img/dobbin/01-1x.png" srcset="img/dobbin/01-1x.png 1673w, img/dobbin/01-2x.png 3346w"
@@ -125,40 +125,45 @@
     </div>
 
     <!-- 7 -->
+    <img class="media-img media-img--box-sm" style="--box-bg: #232323;" src="img/dobbin/07-1x.png" srcset="img/dobbin/07-1x.png 1673w, img/dobbin/07-2x.png 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin in Slack: tracing a reply back through the brand foundation and knowledge base, and flagging a gap" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- 8 -->
     <div class="media-pair">
-      <img class="media-img" src="img/dobbin/07a-1x.png" srcset="img/dobbin/07a-1x.png 821w, img/dobbin/07a-2x.png 1641w"
+      <img class="media-img" src="img/dobbin/08a-1x.png" srcset="img/dobbin/08a-1x.png 821w, img/dobbin/08a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin flags a knowledge gap and suggests the documents to fix it" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/08b-1x.png" srcset="img/dobbin/08b-1x.png 821w, img/dobbin/08b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Knowledge sources: a website guide and a supplemental knowledge base with a health check" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
+    <!-- 9 -->
+    <div class="media-pair">
+      <img class="media-img" src="img/dobbin/09a-1x.png" srcset="img/dobbin/09a-1x.png 821w, img/dobbin/09a-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin app icon and explorations of the mark" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img" src="img/dobbin/07b-1x.png" srcset="img/dobbin/07b-1x.png 821w, img/dobbin/07b-2x.png 1641w"
+      <img class="media-img" src="img/dobbin/09b-1x.png" srcset="img/dobbin/09b-1x.png 821w, img/dobbin/09b-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin colour palette: primary red, dark red, black, white and greys" width="821" height="700" loading="lazy" decoding="async">
     </div>
 
-    <!-- 8: placeholder (empty in Figma) -->
-    <div class="media-pair" aria-hidden="true">
-      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
-      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
+    <!-- 10: explainer animation by Hi Shine (video, as supplied: nsDxwwC1Su8GYaBbknLJRrH2y8.mp4), placed as in
+         Figma: 1250 × 703 at (212, 132) on #f5f5f5; still = the red brand moment, 30s in -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f5f5f5; --fg-w: 74.72%; --fg-ratio: 1250 / 703; --fg-cx: 50.03%; --ratio-sm: 821 / 700; --fg-w-sm: 92%;">
+      <video class="layered__fg" src="video/dobbin/explainer.mp4" poster="img/dobbin/explainer-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin explainer animation: from scattered company knowledge to one connected brand foundation"></video>
     </div>
 
-    <!-- 9: placeholder (empty in Figma) -->
-    <div class="media-pair" aria-hidden="true">
-      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
-      <div class="media-placeholder" style="--ph-bg: #e0e0e0;"></div>
-    </div>
-
-    <!-- 10 -->
+    <!-- 11 -->
     <div class="media-pair">
-      <img class="media-img" src="img/dobbin/10a-1x.jpg" srcset="img/dobbin/10a-1x.jpg 821w, img/dobbin/10a-2x.jpg 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Someone using their phone, softly blurred" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img" src="img/dobbin/10b-1x.jpg" srcset="img/dobbin/10b-1x.jpg 821w, img/dobbin/10b-2x.jpg 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin app icon on an iPhone home screen" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/11a-1x.png" srcset="img/dobbin/11a-1x.png 821w, img/dobbin/11a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin marketing website on mobile: create built-in alignment and unlock team velocity" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/11b-1x.png" srcset="img/dobbin/11b-1x.png 821w, img/dobbin/11b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin turns what you know into how your team works, shown with Dobbin in Slack" width="821" height="700" loading="lazy" decoding="async">
     </div>
 
-    <!-- 11: placeholder (empty in Figma) -->
-    <div class="media-placeholder media-placeholder--full" style="--ph-bg: #f5f5f5;" aria-hidden="true"></div>
-
-    <!-- 12: placeholder (empty in Figma) -->
-    <div class="media-pair" aria-hidden="true">
-      <div class="media-placeholder" style="--ph-bg: #f5f5f5;"></div>
-      <div class="media-placeholder" style="--ph-bg: #f5f5f5;"></div>
+    <!-- 12 -->
+    <div class="media-pair">
+      <img class="media-img" src="img/dobbin/12a-1x.jpg" srcset="img/dobbin/12a-1x.jpg 821w, img/dobbin/12a-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Someone using their phone, softly blurred" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/12b-1x.jpg" srcset="img/dobbin/12b-1x.jpg 821w, img/dobbin/12b-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin app icon on an iPhone home screen" width="821" height="700" loading="lazy" decoding="async">
     </div>
   </section>
 
