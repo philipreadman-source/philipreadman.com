@@ -377,6 +377,89 @@ if (statPanels.length && "ResizeObserver" in window) {
   statPanels.forEach((p) => ro.observe(p));
 }
 
+// ---------- Dobbin hero: the intro animation ----------
+// One looping timeline (T ms). Each part gets a single infinite animation whose keyframes sit at
+// times on that timeline, so everything stays in sync and pauses together when off screen.
+// Distances are in storyboard units (1/1673 of the panel, times --k on phones), worked out in px.
+const dobHero = document.querySelector("[data-dob-hero]");
+if (dobHero && "ResizeObserver" in window) {
+  const T = 9600;
+  const q = (s) => dobHero.querySelector(s);
+  const typeEl = q(".dob-hero__type span");
+  const text = "Hey @dobbin...";
+  typeEl.innerHTML = [...text].map((c) => `<span>${c}</span>`).join("");
+  const motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches && "animate" in dobHero;
+  let anims = [], U = 0, onScreen = true;
+
+  // track(el, [[ms, {props}, easing to the next key?], …]): holds the first and last values to the loop's ends
+  const track = (el, keys) => {
+    const frames = keys.map(([t, props, easing]) => ({ offset: t / T, easing: easing || "ease", ...props }));
+    if (frames[0].offset > 0) frames.unshift({ ...frames[0], offset: 0 });
+    if (frames.at(-1).offset < 1) frames.push({ ...frames.at(-1), offset: 1 });
+    anims.push(el.animate(frames, { duration: T, iterations: Infinity }));
+  };
+  const out = "cubic-bezier(0.2, 0.7, 0.2, 1)", inOut = "cubic-bezier(0.6, 0, 0.3, 1)", flex = "cubic-bezier(0.3, 1.3, 0.5, 1)";
+
+  const build = () => {
+    const at = anims[0] ? anims[0].currentTime : 0;
+    anims.forEach((a) => a.cancel());
+    anims = [];
+    const px = (n) => `${n * U}px`;
+    const go = (x, y) => `translate(${px(x)}, ${px(y)})`;
+    // the file: fades in, is picked up, dragged over the mark, dropped into it
+    track(q(".dob-hero__drag"), [[0, { transform: go(0, 0) }], [900, { transform: go(0, 0) }, inOut], [1500, { transform: go(192, -25) }, "ease-in"],
+      [1720, { transform: go(272, 0) }], [9400, { transform: go(272, 0) }, "step-end"], [9401, { transform: go(0, 0) }]]);
+    track(q(".dob-hero__file"), [[0, { opacity: 0, transform: "none" }], [300, { opacity: 1, transform: "none" }], [760, { opacity: 1, transform: "none" }, out],
+      [870, { opacity: 1, transform: "scale(1.06)" }, inOut], [1500, { opacity: 1, transform: "rotate(15deg) scale(1.06)" }, "ease-in"],
+      [1720, { opacity: 0, transform: "rotate(15deg) scale(0.2)" }]]);
+    track(q(".dob-hero__sel"), [[0, { opacity: 0 }], [770, { opacity: 0 }], [800, { opacity: 1 }], [1500, { opacity: 1 }], [1600, { opacity: 0 }]]);
+    track(q(".dob-hero__cursor"), [[0, { opacity: 0, transform: go(90, 80) }], [300, { opacity: 0, transform: go(90, 80) }, out],
+      [760, { opacity: 1, transform: go(0, 0) }], [1600, { opacity: 1, transform: go(0, 0) }], [1750, { opacity: 0, transform: go(0, 0) }]]);
+    // the pill flexes out to fit the UI, and back in at the end
+    track(q(".dob-hero__pill"), [[0, { width: px(189) }], [1760, { width: px(189) }, flex], [2250, { width: px(952) }], [8750, { width: px(952) }, inOut], [9250, { width: px(189) }]]);
+    track(q(".dob-hero__icon"), [[0, { transform: "none" }], [1700, { transform: "none" }, out], [1790, { transform: "scale(0.9)" }, out], [1980, { transform: "none" }]]);
+    // loading: the text, then the red bar
+    track(q(".dob-hero__load"), [[0, { opacity: 0, transform: go(0, 8) }], [1950, { opacity: 0, transform: go(0, 8) }, out], [2200, { opacity: 1, transform: "none" }],
+      [3500, { opacity: 1, transform: "none" }], [3650, { opacity: 0, transform: "none" }]]);
+    track(q(".dob-hero__bar span"), [[0, { translate: "-100% 0" }], [2150, { translate: "-100% 0" }, "cubic-bezier(0.5, 0, 0.2, 1)"], [3200, { translate: "0 0" }], [3700, { translate: "0 0" }, "step-end"], [3701, { translate: "-100% 0" }]]);
+    // the mark becomes a teammate, who comes online…
+    const swap = (el, inAt, outAt) => {
+      const on = { opacity: 1, transform: "none" }, off = { opacity: 0, transform: "scale(0.7)" };
+      const keys = inAt ? [[0, off], [inAt, off, out], [inAt + 200, on], [outAt, on, "ease-in"], [outAt + 150, off]]
+        : [[0, on], [outAt, on, "ease-in"], [outAt + 150, off], [8950, off, out], [9250, on]];
+      track(el, keys);
+    };
+    swap(q(".dob-hero__mark"), 0, 3550);
+    // Then a calmer pace (the doc goes in fast; using Dobbin is unhurried): the teammate comes slowly
+    // into focus, in soft and blurred, sharp once settled; blurs out on the way out
+    const blur = (n, o, sc) => ({ opacity: o, filter: `blur(${px(n)})`, transform: `scale(${sc})` });
+    track(q(".dob-hero__avatar"), [[0, blur(14, 0, 1.08)], [3600, blur(14, 0, 1.08), "linear"], [3850, blur(9, 1, 1.05), "cubic-bezier(0.35, 0, 0.25, 1)"],
+      [4500, blur(0, 1, 1)], [8550, blur(0, 1, 1), "ease-in-out"], [8900, blur(10, 0, 0.94)]]);
+    track(q(".dob-hero__online"), [[0, { scale: "0" }], [4650, { scale: "0" }, flex], [4950, { scale: "1" }], [8450, { scale: "1" }, "ease-in"], [8600, { scale: "0" }]]);
+    // …and types "Hey @dobbin..." at a person's pace: a beat after "Hey", another before the dots
+    track(q(".dob-hero__type"), [[0, { opacity: 0 }], [4750, { opacity: 0 }], [4900, { opacity: 1 }], [8400, { opacity: 1 }, "ease-in-out"], [8700, { opacity: 0 }]]);
+    let t = 5100;
+    typeEl.querySelectorAll("span").forEach((s, i) => {
+      t += i === 0 ? 0 : i === 4 ? 260 : i === 11 ? 380 : i > 11 ? 170 : 95;
+      track(s, [[0, { maxWidth: "0" }], [t, { maxWidth: "0" }, "step-end"], [t + 1, { maxWidth: "1em" }], [8750, { maxWidth: "1em" }, "step-end"], [8751, { maxWidth: "0" }]]);
+    });
+    anims.forEach((a) => { a.currentTime = at; if (!onScreen) a.pause(); });
+  };
+
+  new ResizeObserver(([e]) => {
+    const w = e.contentRect.width;
+    dobHero.style.setProperty("--hero-u", `${w / 1673}px`);
+    const nu = (w / 1673) * (parseFloat(getComputedStyle(dobHero).getPropertyValue("--k")) || 1);
+    if (motion && nu !== U) { U = nu; build(); }
+  }).observe(dobHero);
+  if (motion && "IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => {
+      onScreen = e.isIntersecting;
+      anims.forEach((a) => (onScreen ? a.play() : a.pause()));
+    }).observe(dobHero);
+  }
+}
+
 // ---------- video playback speeds ----------
 // data-rate on a <video> slows (or speeds) it; browsers reset playbackRate on load.
 document.querySelectorAll("video[data-rate]").forEach((v) => {
