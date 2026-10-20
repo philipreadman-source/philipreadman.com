@@ -515,10 +515,10 @@ div.layered__fg--tags { overflow: visible; }
    storyboard's, in units of 1/1673 of the panel (--hero-u, set in px by JS); phones scale it up so
    the UI stays legible. js/main.js runs the sequence; without it this is the first frame */
 .dob-hero {
-  --u: calc(var(--hero-u, 100cqw / 1673) * var(--k, 1));
+  --u: calc(var(--hero-u, 100cqw / 1673) * var(--k)); --k: 0.9; /* a touch under the storyboard's scale */
   container-type: inline-size; position: relative; overflow: hidden;
   aspect-ratio: 1673 / 966; border-radius: var(--radius); background: #f7f7f7;
-  font-family: "Host Grotesk", var(--font);
+  font-family: "Host Grotesk", var(--font); font-weight: 400; /* Figma: Regular */
 }
 @media (max-width: 640px) { .dob-hero { --k: 1.55; } }
 .dob-hero__stage { position: absolute; left: 50%; top: 50%; width: calc(var(--u) * 1673); height: calc(var(--u) * 966); translate: -50% -50%; }
@@ -546,7 +546,8 @@ div.layered__fg--tags { overflow: visible; }
   display: flex; align-items: center; font-size: calc(var(--u) * 32); line-height: 1; color: #000; white-space: nowrap; opacity: 0;
 }
 .dob-hero__type i { display: inline-block; width: calc(var(--u) * 2.5); height: calc(var(--u) * 38); margin-left: calc(var(--u) * 3); background: #000; animation: dob-caret 1s steps(1) infinite; }
-.dob-hero__type span span { display: inline-block; overflow: hidden; white-space: pre; vertical-align: bottom; }
+/* each typed letter is clipped to its own box: tall enough for descenders (y, @) */
+.dob-hero__type span span { display: inline-block; overflow: hidden; white-space: pre; line-height: 1.35; vertical-align: middle; }
 @keyframes dob-caret { 50% { opacity: 0; } }
 .dob-hero__drag { position: absolute; left: calc(var(--u) * 471); top: calc(var(--u) * 383.5); width: calc(var(--u) * 187); height: calc(var(--u) * 199); }
 .dob-hero__file { position: absolute; inset: 0; }
