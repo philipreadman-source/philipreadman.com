@@ -515,7 +515,7 @@ div.layered__fg--tags { overflow: visible; }
    units of the panel width (--u = 1/821 of it), so it scales with the panel like an image would */
 .stat-panel {
   container-type: inline-size;
-  aspect-ratio: 821 / 700; border-radius: var(--radius); background: #f6f6f6;
+  aspect-ratio: 821 / 700; border-radius: var(--radius); background: #e0e0e0;
   display: grid; place-items: center;
 }
 .stat-card {
