@@ -226,6 +226,29 @@
       <img class="media-img" src="img/dobbin/13b-1x.jpg" srcset="img/dobbin/13b-1x.jpg 821w, img/dobbin/13b-2x.jpg 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin app icon on an iPhone home screen" width="821" height="700" loading="lazy" decoding="async">
     </div>
+
+    <!-- Text in the stack (Figma: page-stack → Use Case, after 13) -->
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Building</h2>
+        <div class="prose">
+          <p>Dobbin Studio is our new internal marketing tool that lets anyone in our team create and test social media posts. The default layouts are based on our top-performing posts, and that performance data feeds back into the tool to keep it up to date.</p>
+          <p>Dobbin is also connected to the build, so you can check copy against your company’s brand foundation for what to say and what not to say.</p>
+          <p>Design assets live in Figma, and the Figma MCP connection to Claude makes it super simple to add new templates or create new designs. That means designers keep control of the overall look and feel, while the constraints built into Studio provide the guardrails.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14: Dobbin Studio walkthrough (Philip's DobbinStudio.mp4, 1608 × 1080, re-encoded by
+         quality: HEVC 7.9MB, H.264 8.9MB, from 17MB), played at 1.1×. Sized and placed like the
+         explainer in 11: 1250 wide (74.72%), centred on #e0e0e0, in its own shape, masked with 8px
+         corners at Figma size. Phones: the taller panel, video at 92% -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #e0e0e0; --fg-w: 74.72%; --fg-ratio: 1608 / 1080; --fg-radius: 0.64% / 0.952%; --ratio-sm: 821 / 700; --fg-w-sm: 92%;">
+      <video class="layered__fg" poster="img/dobbin/studio-poster.jpg" data-autoplay muted loop playsinline preload="none" data-rate="1.1" aria-label="Dobbin Studio: building and checking a social post with the brand foundation">
+        <source src="video/dobbin/studio-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="video/dobbin/studio-h264.mp4" type="video/mp4">
+      </video>
+    </div>
   </section>
 
   <nav class="case-nav" aria-label="More case studies">
