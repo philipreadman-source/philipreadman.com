@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Analytics (GA4), same property as the old Framer site. Only on the live site
+       (not localhost), and not in a browser opted out with ?notrack (?track turns it back on) -->
+  <script>
+    (function () {
+      var id = 'G-6H7M6CVBY7', key = 'ga-off', q = location.search, off = false;
+      try {
+        if (/[?&]notrack\b/.test(q)) localStorage.setItem(key, '1');
+        if (/[?&]track\b/.test(q)) localStorage.removeItem(key);
+        off = localStorage.getItem(key) === '1';
+        if (/[?&](no)?track\b/.test(q)) history.replaceState(null, '', location.pathname + location.hash);
+      } catch (e) {}
+      if (off || !/(^|\.)philipreadman\.com$/.test(location.hostname)) return;
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', id);
+    })();
+  </script>
+  <title>Quiet Table — Philip Readman</title>
+  <meta name="description" content="Quiet Table: a taste-driven restaurant finder for you and your mates. A side project exploring agentic UX.">
+  <!-- Share previews (Slack, LinkedIn, iMessage…). Absolute URLs on the final domain. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Philip Readman">
+  <meta property="og:title" content="Quiet Table — Philip Readman">
+  <meta property="og:description" content="Quiet Table: a taste-driven restaurant finder for you and your mates. A side project exploring agentic UX.">
+  <meta property="og:url" content="https://philipreadman.com/side-project/QuietTable">
+  <meta property="og:image" content="https://philipreadman.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Philip Readman: Product Design for companies that need to scale, adapt and explore.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@500,600&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-dark.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-light.png" media="(prefers-color-scheme: dark)">
+</head>
+<body class="page-notebook">
+
+<!-- The side project sits under Work, so the Home button shows as selected -->
+<nav class="nav" aria-label="Main">
+  <a class="pill pill--dot" href="/" aria-label="Home" aria-current="true"></a>
+  <a class="pill" href="/about">About</a>
+  <a class="pill" href="/archive">Archive</a>
+</nav>
+
+<main>
+  <!-- Intro row (Figma: SideProject/QuietTable): label and line; Release Notes on the right is hidden for now -->
+  <section class="grid qt-intro">
+    <div class="block block--wide">
+      <h1 class="label">Side project</h1>
+      <p>Quiet Table is a taste-driven restaurant finder for you and your mates.</p>
+    </div>
+    <span class="label qt-release" hidden>Release Notes</span>   <!-- hidden until release notes are ready -->
+  </section>
+
+  <!-- Hero: the walkthrough from the Home card (same recording, trim and 1.1× speed), on the card's
+       green. The window is centred at 74.72% of the panel width, like the other video panels;
+       phones get the taller panel and a 92% window. Its own encode: re-rendered from Philip's
+       original (QT-long.mp4, 41MB) along the Home version's trim, cropped to the app window at full
+       resolution (1402 × 868) and quality-encoded, so it holds up at hero size -->
+  <figure class="case-hero">
+    <div class="qt-hero">
+      <div class="qt-hero__screen">
+        <video poster="/img/quiettable/hero-poster.jpg" data-autoplay muted loop playsinline preload="none" data-rate="1.1" aria-label="Quiet Table walkthrough: finding a restaurant with an AI assistant">
+          <source src="/video/quiettable/hero-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source src="/video/quiettable/hero-h264.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </figure>
+
+  <section class="blocks grid case-text" aria-label="Side project">
+    <div class="block block--wide">
+      <h2 class="label">Hypothesis</h2>
+      <div class="prose"><p>The future of agent-powered user experiences isn’t only a chat box. Efficiency, delight and precision come from the user and the product having shared information, context and data. I see this as a taste profile. A brand-first product will mix agent, personalisation and brand moments to enrich the UX, forming new patterns, content and UI when needed.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Goal</h2>
+      <div class="prose"><p>To learn by building: an agentic UX for a simple, common use case.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Focus</h2>
+      <div class="prose">
+        <p>Finding a good restaurant based on your tastes, patterns and friends.</p>
+        <p>Great places to eat, especially in unfamiliar cities, can be hard to find. Where people eat says a lot about them. Like fashion and music, it’s a flex and part of their social currency. Somewhere between Michelin stars, Instagram, Beli and maps apps, I believe there’s space for a restaurant finder that adds to it whilst being genuinely helpful for others in your social circle.</p>
+      </div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Notes</h2>
+      <div class="prose"><p>Designing the agents’ layers of thinking: context, location and dining needs. The system pulls from the user’s calendar and preferences to present a next step that feels personal, yet surprising.</p></div>
+    </div>
+    <div class="block block--wide">
+      <h2 class="label">Stack</h2>
+      <div class="prose prose--small"><p>Claude, Astryx Design System, Figma, Clerk, V0, GitHub</p></div>
+    </div>
+  </section>
+
+  <!-- Images (Figma: page-stack), in Figma's order; 9, 10, 12a and 15a are videos -->
+  <section class="case-media" aria-label="Side project images">
+    <!-- 1 -->
+    <img class="media-img" src="/img/quiettable/1-1x.png" srcset="/img/quiettable/1-1x.png 1673w, /img/quiettable/1-2x.png 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Value model: personal taste, the social graph and agentic UX, overlapping" width="1673" height="966" loading="lazy" decoding="async">
+    <!-- 2 -->
+    <img class="media-img" src="/img/quiettable/2-1x.png" srcset="/img/quiettable/2-1x.png 1673w, /img/quiettable/2-2x.png 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Flow overview: from onboarding and context, through a specific need and rejoining the journey, to results" width="1673" height="966" loading="lazy" decoding="async">
+
+    <!-- Text in the stack (Figma: page-stack → Research) -->
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Research</h2>
+        <div class="prose"><p>The opportunity is real. Beli is growing fast in the US (120 million restaurant ratings). Google and Apple Maps lists are neither inherently social nor discovery-driven. Review systems are outdated and unreliable. There’s space for a fun, taste-driven foodie UX.</p></div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="media-pair">
+      <img class="media-img" src="/img/quiettable/3a-1x.png" srcset="/img/quiettable/3a-1x.png 821w, /img/quiettable/3a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="How people find restaurants today: blog guides, a sticky note on friend-backed recommendations, and maps apps" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="/img/quiettable/3b-1x.jpg" srcset="/img/quiettable/3b-1x.jpg 821w, /img/quiettable/3b-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Choosing where to eat on a phone at a shared table of food" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
+    <!-- Text in the stack (Figma: page-stack → Agent logic) -->
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Agent logic</h2>
+        <div class="prose"><p>How might we control the agent’s responses, and build a system that actually considers a user’s taste and preferences?</p></div>
+      </div>
+    </div>
+
+    <!-- 4: a narrow dark panel and a wide light one (Figma: 546 + 1095). The tags are HTML,
+         not part of the images -->
+    <div class="qt-split">
+      <div class="qt-card" style="--card-bg: #1b1c1c;">
+        <img class="media-img" src="/img/quiettable/4a-1x.png" srcset="/img/quiettable/4a-1x.png 546w, /img/quiettable/4a-2x.png 1092w"
+             sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1100px) 47vw, 32vw" alt="Agent Vs Wizard" width="546" height="700" loading="lazy" decoding="async">
+        <div class="qt-tags"><span class="label qt-tag">Agent Vs Wizard</span></div>
+      </div>
+      <div class="qt-card" style="--card-bg: #f0f0ef;">
+        <img class="media-img" src="/img/quiettable/4b-1x.png" srcset="/img/quiettable/4b-1x.png 1095w, /img/quiettable/4b-2x.png 2190w"
+             sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1100px) 47vw, 64vw" alt="Social Graph and Personalisation" width="1095" height="700" loading="lazy" decoding="async">
+        <div class="qt-tags qt-tags--light"><span class="label qt-tag">Social Graph</span><span class="label qt-tag">Personalisation</span></div>
+      </div>
+    </div>
+    <!-- 5 -->
+    <div class="qt-card">
+      <img class="media-img" src="/img/quiettable/5-1x.png" srcset="/img/quiettable/5-1x.png 1673w, /img/quiettable/5-2x.png 3346w"
+           sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Architecture" width="1673" height="966" loading="lazy" decoding="async">
+      <div class="qt-tags"><span class="label qt-tag">Architecture</span></div>
+    </div>
+    <!-- 6: the tags are HTML, not part of the images -->
+    <div class="media-pair">
+      <div class="qt-card">
+        <img class="media-img" src="/img/quiettable/6a-1x.png" srcset="/img/quiettable/6a-1x.png 821w, /img/quiettable/6a-2x.png 1641w"
+             sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Testing search: the agent replies with restaurant suggestions as cards" width="821" height="700" loading="lazy" decoding="async">
+        <div class="qt-tags"><span class="label qt-tag">Testing Search</span></div>
+      </div>
+      <div class="qt-card">
+        <img class="media-img" src="/img/quiettable/6b-1x.png" srcset="/img/quiettable/6b-1x.png 821w, /img/quiettable/6b-2x.png 1641w"
+             sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Agent Vs Wizard" width="821" height="700" loading="lazy" decoding="async">
+        <div class="qt-tags"><span class="label qt-tag">Agent Vs Wizard</span></div>
+      </div>
+    </div>
+
+    <!-- Text in the stack (Figma: page-stack → UI) -->
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">UI</h2>
+        <div class="prose">
+          <p>Meta’s Astryx is an open-source design system that’s fully customisable and agent-ready. I wanted the system to produce the right UI elements based on user requests. Designing a vertical flow is easy enough: you can tell the wizard which components to use, like time cards or calendar pickers.</p>
+          <p>When a user leaves the set vertical flow, knowing which component to surface becomes more difficult for Astryx. ChatGPT 6 recently released “Intelligent UI”, solving for exactly this pattern.</p>
+        </div>
+      </div>
+    </div>
+    <!-- 7 -->
+    <div class="media-pair">
+      <img class="media-img" src="/img/quiettable/7a-1x.png" srcset="/img/quiettable/7a-1x.png 821w, /img/quiettable/7a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Asking the agent: does Esa like dumplings?" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="/img/quiettable/7b-1x.png" srcset="/img/quiettable/7b-1x.png 821w, /img/quiettable/7b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Friends’ tastes: the restaurants each member loved or liked" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+    <!-- 8 -->
+    <div class="media-pair">
+      <img class="media-img" src="/img/quiettable/8a-1x.png" srcset="/img/quiettable/8a-1x.png 821w, /img/quiettable/8a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Choosing who’s coming, to weight their taste in the search" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="/img/quiettable/8b-1x.png" srcset="/img/quiettable/8b-1x.png 821w, /img/quiettable/8b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Places you enjoy, ranked as Loved, Liked or Fine" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+    <!-- 9: QT-Casual (screen recording, video), placed as in Figma: 643 × 870, centred, 8px corners,
+         on #f0f0ef. Encoded by quality, cropped to its box and at 2× (HEVC 2.3MB, H.264 3.3MB) -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f0f0ef; --fg-w: 38.43%; --fg-ratio: 643 / 870; --fg-radius: 1.244% / 0.92%; --fg-h-sm: 90%; --fg-w-sm: auto;">
+      <video class="layered__fg" poster="/img/quiettable/casual-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Casual search with the agent off: occasion, party size and who’s coming">
+        <source src="/video/quiettable/casual-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="/video/quiettable/casual-h264.mp4" type="video/mp4">
+      </video>
+      <div class="qt-tags qt-tags--light"><span class="label qt-tag">Casual, Agent Off</span></div>
+    </div>
+    <!-- 10: QT-agenton (screen recording, video), placed as in Figma: 833 × 800, centred, on #0a0a0a
+         (HEVC 4.3MB, H.264 6.2MB) -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #0a0a0a; --fg-w: 49.79%; --fg-ratio: 833 / 800; --fg-w-sm: 88%;">
+      <video class="layered__fg" poster="/img/quiettable/agenton-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Date night with the agent on: a conversational search for Molly’s picks">
+        <source src="/video/quiettable/agenton-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="/video/quiettable/agenton-h264.mp4" type="video/mp4">
+      </video>
+      <div class="qt-tags"><span class="label qt-tag">Date Night, Agent On</span></div>
+    </div>
+    <!-- 11: the tags are HTML, not part of the images -->
+    <div class="media-pair">
+      <div class="qt-card">
+      <img class="media-img" src="/img/quiettable/11a-1x.png" srcset="/img/quiettable/11a-1x.png 821w, /img/quiettable/11a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Personalised results: date-night picks in London matched to Molly’s taste" width="821" height="700" loading="lazy" decoding="async">
+        <div class="qt-tags"><span class="label qt-tag">Personalised Results</span></div>
+      </div>
+      <div class="qt-card">
+      <img class="media-img" src="/img/quiettable/11b-1x.png" srcset="/img/quiettable/11b-1x.png 821w, /img/quiettable/11b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Ask the agent: the chat input" width="821" height="700" loading="lazy" decoding="async">
+        <div class="qt-tags"><span class="label qt-tag">Ask The Agent</span></div>
+      </div>
+    </div>
+
+    <!-- Text in the stack (Figma: page-stack → Brand) -->
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Brand</h2>
+        <div class="prose"><p>Leading up to this project, I also wanted to think about what a high-end lifestyle app could feel like if it were to scale: what sort of look and feel builds trust, feels solid and hints at luxury.</p></div>
+      </div>
+    </div>
+
+    <!-- 12: a is the phone mockup (Philip's IPHONE-MOCKUP-031, cropped around the phone) with the
+         Aurora demo edit playing in its screen, under the Dynamic Island. Screen and island
+         positions are measured from the mockup photo -->
+    <div class="media-pair">
+      <div class="qt-mock">
+        <img class="media-img" src="/img/quiettable/12a-1x.jpg" srcset="/img/quiettable/12a-1x.jpg 821w, /img/quiettable/12a-2x.jpg 1641w"
+             sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="" width="821" height="700" loading="lazy" decoding="async">
+        <video class="qt-mock__screen" poster="/img/quiettable/demo-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="The Quiet Table flow on a phone: voice request, agents at work, picks, booking and a car home">
+          <source src="/video/quiettable/demo-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source src="/video/quiettable/demo-h264.mp4" type="video/mp4">
+        </video>
+        <span class="qt-mock__island" aria-hidden="true"></span>
+      </div>
+      <!-- 12b: built in code from Figma's two layers so it can move: the type (Suisse BP Int'l 28,
+           exported from Figma as outlines) and the glass focus lens (112 × 112, 40 corners, #f0f0ef at
+           30%, 1px green→orange stroke, Figma Glass 6). The lens stays in place: its focus depth eases
+           sharper and deeper while its stroke shimmers. Placed as in Figma -->
+      <div class="qt-focus" role="img" aria-label="“Your Sunday evening”, with a glass focus lens over “evening”">
+        <img class="qt-focus__text" src="/img/quiettable/12b-text.svg" alt="" width="236" height="24" decoding="async">
+        <span class="qt-focus__lens" aria-hidden="true"></span>
+      </div>
+    </div>
+    <!-- 13: brand mood sheet, full width (Figma: 1673 × 942) -->
+    <img class="media-img" src="/img/quiettable/13-1x.jpg" srcset="/img/quiettable/13-1x.jpg 1673w, /img/quiettable/13-2x.jpg 3346w"
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Brand exploration: type, motion and a palette drawn from desert stone" width="1673" height="942" loading="lazy" decoding="async">
+    <!-- 14 -->
+    <div class="media-pair">
+      <img class="media-img" src="/img/quiettable/14a-1x.png" srcset="/img/quiettable/14a-1x.png 821w, /img/quiettable/14a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Mood board: carved stone, wood grain and hands" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="/img/quiettable/14b-1x.png" srcset="/img/quiettable/14b-1x.png 821w, /img/quiettable/14b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Early sketches of the app in a notebook" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+    <!-- 15 -->
+    <div class="media-pair">
+      <!-- 15a: the agents-working loop (Philip's loading-aurora.mov, the video in Figma's phone screen),
+           cropped to the screen and at 2× (HEVC 0.7MB, H.264 0.8MB), with Figma's text laid over it as a
+           transparent PNG. Placed as in Figma: 294 × 634, centred on #20160a -->
+      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #20160a; --fg-w: 35.81%; --fg-w-sm: 35.81%; --fg-ratio: 294 / 634; --fg-cx: 49.94%;">
+        <div class="layered__fg">
+          <video poster="/img/quiettable/agents-poster.jpg" data-autoplay muted loop playsinline preload="none" style="--v-x: 0; --v-y: 0; --v-w: 100%; --v-h: 100%;" aria-label="Agents working on a Sunday dinner booking near Gagosian with Suzi">
+            <source src="/video/quiettable/agents-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+            <source src="/video/quiettable/agents-h264.mp4" type="video/mp4">
+          </video>
+          <img class="fg-over" src="/img/quiettable/15a-text.png" alt="" decoding="async">
+        </div>
+      </div>
+      <img class="media-img" src="/img/quiettable/15b-1x.png" srcset="/img/quiettable/15b-1x.png 821w, /img/quiettable/15b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The agents at work: logistics, dining, weather and personal preferences, then planning and location" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+    <!-- 16 -->
+    <div class="media-pair">
+      <img class="media-img" src="/img/quiettable/16a-1x.png" srcset="/img/quiettable/16a-1x.png 821w, /img/quiettable/16a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The voice and input bar" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="/img/quiettable/16b-1x.png" srcset="/img/quiettable/16b-1x.png 821w, /img/quiettable/16b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Your Sunday evening is planned: the restaurant and the car home, booked" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <!-- Prev / Next, as on the cases (Figma: SideProject/QuietTable → Next): Archive and SuperRare -->
+  <nav class="case-nav" aria-label="More work">
+    <a class="case-nav__link case-nav__link--prev" data-icon="prev" href="/archive" rel="prev">
+      <span class="label">Prev</span><span class="case-nav__title">Archive</span>
+    </a>
+    <a class="case-nav__link case-nav__link--next" data-icon="next" href="/superrare" rel="next">
+      <span class="case-nav__title">SuperRare</span><span class="label">Next</span>
+    </a>
+  </nav>
+
+  <section class="blocks grid contact" aria-label="Contact">
+    <div class="block">
+      <h2 class="label">Contact</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="mailto:philip.readman@gmail.com">Email</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="linkedin" href="https://www.linkedin.com/in/philipreadman" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="block">
+      <h2 class="label">Other</h2>
+      <ul>
+        <li><a class="hover-link" data-icon="arrow" href="https://www.are.na/philip-readman/iphone-pics-j_ziewlfnwm" target="_blank" rel="noopener">Are.na</a></li>
+        <li><a class="hover-link" data-icon="arrow" data-brand="soundcloud" href="https://soundcloud.com/philr9945" target="_blank" rel="noopener">SoundCloud</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer grid">
+  <p>Philip Readman Design 2026</p>
+  <p>The work is mysterious and important.</p>
+</footer>
+
+<!-- Hover badge: one circle that follows the pointer over [data-icon] elements -->
+<div class="hover-badge" aria-hidden="true">
+  <svg class="hover-badge__eye" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.375 7.768a.67.67 0 0 0 0 .464 7.167 7.167 0 0 0 13.25 0 .67.67 0 0 0 0-.464 7.167 7.167 0 0 0-13.25 0Z"/><circle cx="8" cy="8" r="2"/></svg>
+  <svg class="hover-badge__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8.667 3.333h4v4M12.667 3.333l-9.334 9.334"/></svg>
+  <!-- Lucide arrow-left / arrow-right, scaled from 24 to 16 -->
+  <svg class="hover-badge__prev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12.667 3.333 8 8 3.333M12.667 8H3.333"/></svg>
+  <svg class="hover-badge__next" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3.333 8h9.334M8 3.333 12.667 8 8 12.667"/></svg>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

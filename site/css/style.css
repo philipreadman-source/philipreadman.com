@@ -225,6 +225,7 @@ ul { list-style: none; }
   border-radius: var(--radius); overflow: hidden;
   background: #64795b;
 }
+.side-project__link { position: absolute; inset: 0; display: block; }   /* the whole card opens the side project page */
 .side-project__screen {
   position: absolute;
   left: 6.152%; top: 18%;
@@ -470,6 +471,8 @@ video.layered__fg { clip-path: inset(0 round var(--fg-radius, 0)); }   /* rounde
    stay readable on phones; they may then overhang the photo, so it doesn't clip them.
    [data-reveal]: they fade in, staggered, the first time the panel is in view (JS). */
 div.layered__fg--tags { overflow: visible; }
+/* A transparent layer laid over the video (e.g. Figma's text on a screen recording) */
+.layered__fg > img.fg-over { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .layered__fg > img.fg-tag {
   position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
   width: max(var(--w), var(--pw) * 0.75); height: auto;
@@ -631,9 +634,10 @@ div.layered__fg--tags { overflow: visible; }
 .media-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); }
 @media (max-width: 640px) { .media-trio { grid-template-columns: 1fr; } }
 
-/* A label + text block inside the image stack (Figma: AdidasOD 7): 80px from the
-   images either side (48 here + the 32 stack gap), on the page's 6-column grid */
-.case-media .media-text { padding: 48px 0; }
+/* A label + text block inside the image stack (Figma: the Quiet Table "Brand" soundbite, applied to
+   every case and work page): 88px from the images either side (56 here + the 32 stack gap), on the
+   page's 6-column grid */
+.case-media .media-text { padding: 56px 0; }
 /* Quote attribution (Figma: Switzer Medium 11 / 120%, #9BA0A3), one body-size line below the quote */
 .quote-cite { display: block; margin-top: var(--fs-body); font-size: var(--fs-small); line-height: 1.2; color: var(--text-muted); }
 
@@ -643,6 +647,106 @@ div.layered__fg--tags { overflow: visible; }
 /* Case image stack: 160px below the text, 32px between images */
 .case-media { padding: var(--section) var(--margin) 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--card-gap); }   /* one column, never wider than the page */
 .media-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--card-gap); }
+/* Side project page: a notebook feel. A 0.5px light-grey line every 8px behind the whole page
+   (one device pixel on retina screens), and the nav pills see-through so the grid shows
+   (Figma: #E9E9E9 at 40%) */
+.page-notebook {
+  --grid-line: rgb(0 0 0 / 0.06);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 0.5px, transparent 0.5px),
+    linear-gradient(to bottom, var(--grid-line) 0.5px, transparent 0.5px);
+  background-size: 8px 8px;
+}
+.page-notebook .pill { background: rgb(233 233 233 / 0.4); }
+.page-notebook .pill:hover { background: rgb(222 222 222 / 0.7); }
+/* Intro row: label + line like a text block, Release Notes on the right */
+.qt-intro { padding-top: 34px; align-items: baseline; }
+.qt-intro h1 { margin: 0; }
+.qt-release { grid-column: -2 / -1; justify-self: end; white-space: nowrap; color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
+/* Hero: the Home card's walkthrough, its window centred on the card's green */
+.qt-hero { display: grid; place-items: center; aspect-ratio: 1673 / 966; border-radius: var(--radius); background: #64795b; overflow: hidden; }
+.qt-hero__screen {
+  position: relative; width: 74.72%; aspect-ratio: 727 / 449; overflow: hidden;
+  border-radius: 1.375% / 2.227%;                    /* the card's 10px corners, scaled with the window */
+  box-shadow: 0 8px 24px 4px rgb(0 0 0 / 0.06);
+}
+.qt-hero__screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }   /* already cropped to the app window */
+@media (max-width: 640px) { .qt-hero { aspect-ratio: 821 / 700; } .qt-hero__screen { width: 92%; } }
+/* Tags on a card (Figma: 1px outline, 8 corners, 10 padding, label type), 16px in from the
+   bottom-left, 4px apart. In code rather than the image, so they can do more later.
+   Dark cards: white 20% outline; light cards: grey 20%. Text is the dark pages' muted grey */
+.qt-card { position: relative; }
+.qt-tags { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 4px; }
+.qt-tag { padding: 10px; border: 1px solid rgb(255 255 255 / 0.2); border-radius: 8px; color: #9ba0a3; }
+.qt-tags--light .qt-tag { border-color: rgb(126 126 126 / 0.2); }
+/* As a tag scrolls into view its outline gives a quick bump (brighter, then back), so the eye
+   catches it. The tag itself is always there; only the stroke moves. Once only; JS adds the class,
+   and skips it with reduced motion. Tags sharing a card follow each other (--tag-i) */
+.qt-tag { --tag-hi-line: rgb(255 255 255 / 0.6); }
+.qt-tags--light .qt-tag { --tag-hi-line: rgb(126 126 126 / 0.65); }
+.qt-tags.tag-on .qt-tag { animation: qt-tag-bump 0.9s ease-in-out calc(120ms + var(--tag-i, 0) * 110ms); }
+@keyframes qt-tag-bump {
+  40% { border-color: var(--tag-hi-line); }
+}
+/* Slot 3: a narrow and a wide panel sharing the row (Figma: 546 and 1095) */
+.qt-split { display: grid; grid-template-columns: 546fr 1095fr; gap: var(--card-gap); }
+/* Tablets: the two go 50/50 in equal cards; each panel sits whole in its card, the card filled with
+   the panel's own colour (--card-bg), so nothing is cropped and there's no seam. Phones: one column */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .qt-split { grid-template-columns: 1fr 1fr; }
+  .qt-split .qt-card { aspect-ratio: 821 / 700; overflow: hidden; border-radius: var(--radius); background: var(--card-bg, transparent); }
+  .qt-split .qt-card > img { width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
+}
+@media (max-width: 640px) { .qt-split { grid-template-columns: 1fr; } }
+/* A phone mockup photo with a video playing in its screen (Quiet Table 16a). Positions are the
+   screen and Dynamic Island measured in the photo, as % of the panel; the island sits over the video */
+.qt-mock { position: relative; }
+.qt-mock__screen {
+  position: absolute; left: 36.03%; top: 14.38%; width: 28.24%; height: 71.28%;   /* 1px bleed under the bezel all round, so no white screen edge shows */
+  object-fit: cover; border-radius: 14.07% / 6.49%;
+  clip-path: inset(0 round 14.07% / 6.49%);   /* Safari-proof rounded corners */
+}
+.qt-mock__island { position: absolute; left: 45.71%; top: 15.38%; width: 8.82%; height: 3.02%; border-radius: 999px; background: #000; }
+/* Quiet Table 16b: the type and a glass focus lens, built from Figma's layers so they can move.
+   Positions are Figma's (820.5 × 700 panel). Sequence, once in view (.is-on, set by JS):
+   the type resolves from soft to sharp, the lens's stroke draws itself round and its glass fades in
+   (once only); then, with the lens in place, its
+   focus depth eases sharper and deeper, while the green→orange stroke slowly rotates round it. Paused off screen; still for reduced motion */
+@property --qtf-angle { syntax: "<angle>"; inherits: false; initial-value: 225deg; }
+@property --qtf-draw { syntax: "<angle>"; inherits: false; initial-value: 360deg; }   /* how much of the stroke is drawn */
+.qt-focus { position: relative; aspect-ratio: 821 / 700; border-radius: var(--radius); background: #f0f0ef; overflow: hidden; container-type: inline-size; }
+.qt-focus__text { position: absolute; left: 33.21%; top: 48.3%; width: 28.74%; height: auto; }
+.qt-focus__lens {
+  position: absolute; left: 53.08%; top: 42%; width: 13.65%; aspect-ratio: 1; border-radius: 35.7%;
+  background: rgb(240 240 239 / 0.3);
+  -webkit-backdrop-filter: blur(0.73cqw); backdrop-filter: blur(0.73cqw);   /* Figma Glass 6 at 820 */
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.5);                     /* a hint of glass edge */
+}
+.qt-focus__lens::before {   /* the 1px gradient stroke */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(var(--qtf-angle), #57b52a, #d93c09);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+          mask: conic-gradient(#000 var(--qtf-draw), #0000 0) intersect, linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);   /* ring, drawn as far as --qtf-draw */
+}
+@media (prefers-reduced-motion: no-preference) {
+  .qt-focus.is-on .qt-focus__text { animation: qtf-text-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  /* appear, once: the stroke draws itself round from the top, then the glass fades in */
+  .qt-focus.is-on .qt-focus__lens { animation: qtf-glass-in 0.8s 1s ease-out both, qtf-depth 6s 1.9s ease-in-out infinite; }
+  .qt-focus.is-on .qt-focus__lens::before { animation: qtf-draw 1.2s 0.25s cubic-bezier(0.55, 0, 0.25, 1) both, qtf-shimmer 4.5s linear infinite; }
+  .qt-focus:not(.is-playing) * , .qt-focus:not(.is-playing) .qt-focus__lens::before { animation-play-state: paused !important; }
+}
+@keyframes qtf-text-in { from { opacity: 0; filter: blur(6px); } to { opacity: 1; filter: none; } }
+@keyframes qtf-draw { from { --qtf-draw: 0deg; } to { --qtf-draw: 360deg; } }
+@keyframes qtf-glass-in { from { background-color: rgb(240 240 239 / 0); -webkit-backdrop-filter: blur(0); backdrop-filter: blur(0); } }
+@keyframes qtf-depth {   /* the lens stays put; only how much it blurs what's beneath changes, 0.9px → 9px */
+  0%, 100% { -webkit-backdrop-filter: blur(0.73cqw); backdrop-filter: blur(0.73cqw); }   /* Figma's depth */
+  28%, 34% { -webkit-backdrop-filter: blur(0.9px); backdrop-filter: blur(0.9px); }       /* almost clear: 0.9px */
+  66%, 72% { -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); }           /* strong: 9px */
+}
+@keyframes qtf-shimmer { to { --qtf-angle: 585deg; } }
+/* Placeholder slot for a page still in draft: the panel at its real size, labelled with its slot and
+   Figma size, until the image is exported. Remove once a page's slots are all filled */
+.media-ph { display: grid; place-items: center; aspect-ratio: var(--ratio, 1673 / 966); border-radius: var(--radius); background: #e0e0e0; color: var(--text-muted); font-size: var(--fs-small); }
 
 @media (max-width: 1100px) {
   .layered { aspect-ratio: var(--ratio-sm, 4 / 5); }
@@ -702,7 +806,7 @@ div.layered__fg--tags { overflow: visible; }
   .block { grid-column: 1 / -1; }
   .card { flex-basis: calc((100vw - var(--margin) * 2 - var(--card-gap)) / 1.6); }
   /* case images: 16px between panels, as on phones */
-  .case-media, .media-pair, .media-trio { --card-gap: 16px; }
+  .case-media, .media-pair, .media-trio, .qt-split { --card-gap: 16px; }
 }
 
 /* ---------- every page on small desktops: Contact row + footer ----------

@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Google Analytics (GA4), same property as the old Framer site. Only on the live site
        (not localhost), and not in a browser opted out with ?notrack (?track turns it back on) -->
+  <!-- The side project's address is case-sensitive on GitHub Pages: send other spellings
+       (e.g. /side-project/quiettable) to the real one -->
+  <script>
+    if (/^\/side-project\/quiettable\/?$/i.test(location.pathname) && location.pathname !== '/side-project/QuietTable') location.replace('/side-project/QuietTable' + location.search + location.hash);
+  </script>
   <script>
     (function () {
       var id = 'G-6H7M6CVBY7', key = 'ga-off', q = location.search, off = false;

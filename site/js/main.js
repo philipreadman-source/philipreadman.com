@@ -351,6 +351,33 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
   targets.forEach((el) => { el.classList.add("fade-up"); fadeIO.observe(el); });
 }
 
+// ---------- card tags (Quiet Table): the outline bumps once as the tag comes into view ----------
+// Starts as the tag comes into view. Never replays.
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+  const tagIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("tag-on");
+      tagIO.unobserve(e.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".qt-tags").forEach((g) => {
+    g.querySelectorAll(".qt-tag").forEach((t, i) => t.style.setProperty("--tag-i", i));
+    tagIO.observe(g);
+  });
+}
+
+// ---------- Quiet Table focus lens: start the sequence on first view, pause it off screen ----------
+if ("IntersectionObserver" in window) {
+  const focusIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) e.target.classList.add("is-on");
+      e.target.classList.toggle("is-playing", e.isIntersecting);
+    });
+  }, { rootMargin: "0px 0px -10% 0px" });
+  document.querySelectorAll(".qt-focus").forEach((el) => focusIO.observe(el));
+}
+
 // ---------- image loading: fade in once downloaded ----------
 // Only images not yet loaded when the script runs (cached ones show at once); an image
 // that fails to load is shown anyway, so it never stays hidden.
