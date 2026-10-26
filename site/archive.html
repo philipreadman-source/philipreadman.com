@@ -212,6 +212,16 @@
     </div>
   </section>
 
+  <!-- Prev / Next, as on the cases (Figma: Work/Archive → Next): Rovio and Quiet Table -->
+  <nav class="case-nav" aria-label="More work">
+    <a class="case-nav__link case-nav__link--prev" data-icon="prev" href="rovio" rel="prev">
+      <span class="label">Prev</span><span class="case-nav__title">Rovio</span>
+    </a>
+    <a class="case-nav__link case-nav__link--next" data-icon="next" href="side-project/QuietTable" rel="next">
+      <span class="case-nav__title">Quiet Table</span><span class="label">Next</span>
+    </a>
+  </nav>
+
   <section class="blocks grid contact" aria-label="Contact">
     <div class="block">
       <h2 class="label">Contact</h2>
@@ -235,10 +245,13 @@
   <p>The work is mysterious and important.</p>
 </footer>
 
-<!-- Hover badge: one circle that follows the pointer over .hover-link elements -->
+<!-- Hover badge: one circle that follows the pointer over [data-icon] elements -->
 <div class="hover-badge" aria-hidden="true">
   <svg class="hover-badge__eye" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1.375 7.768a.67.67 0 0 0 0 .464 7.167 7.167 0 0 0 13.25 0 .67.67 0 0 0 0-.464 7.167 7.167 0 0 0-13.25 0Z"/><circle cx="8" cy="8" r="2"/></svg>
   <svg class="hover-badge__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8.667 3.333h4v4M12.667 3.333l-9.334 9.334"/></svg>
+  <!-- Lucide arrow-left / arrow-right, scaled from 24 to 16 -->
+  <svg class="hover-badge__prev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12.667 3.333 8 8 3.333M12.667 8H3.333"/></svg>
+  <svg class="hover-badge__next" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3.333 8h9.334M8 3.333 12.667 8 8 12.667"/></svg>
 </div>
 
 <script src="js/main.js"></script>
