@@ -66,11 +66,11 @@
     <span class="label qt-release" hidden>Release Notes</span>   <!-- hidden until release notes are ready -->
   </section>
 
-  <!-- Hero: the walkthrough from the Home card (same recording, trim and 1.1× speed), on the card's
-       green. The window is centred at 74.72% of the panel width, like the other video panels;
-       phones get the taller panel and a 92% window. Its own encode: re-rendered from Philip's
-       original (QT-long.mp4, 41MB) along the Home version's trim, cropped to the app window at full
-       resolution (1402 × 868) and quality-encoded, so it holds up at hero size -->
+  <!-- Hero: the Quiet Table walkthrough (Philip's 4K export, QT-4k.mp4, trimmed by him to 76.5s), played
+       at 1.1×, on the Home card's green. The window is centred at 74.72% of the panel width, like the
+       other video panels; phones get the taller panel and a 92% window. Cropped to the app window
+       (as the Home card's Figma mask) and quality-encoded: HEVC at full 2804 × 1736 for retina,
+       H.264 at 1402 × 868 -->
   <figure class="case-hero">
     <div class="qt-hero">
       <div class="qt-hero__screen">
@@ -85,7 +85,7 @@
   <section class="blocks grid case-text" aria-label="Side project">
     <div class="block block--wide">
       <h2 class="label">Hypothesis</h2>
-      <div class="prose"><p>The future of agent-powered user experiences isn’t only a chat box. Efficiency, delight and precision come from the user and the product having shared information, context and data. I see this as a taste profile. A brand-first product will mix agent, personalisation and brand moments to enrich the UX, forming new patterns, content and UI when needed.</p></div>
+      <div class="prose"><p>Efficiency, delight and precision come from the user and the product having shared information, context and data. I see this as a taste profile. A brand-first product will mix agent, personalisation and brand moments to enrich the UX, forming new patterns, content and UI when needed.</p></div>
     </div>
     <div class="block block--wide">
       <h2 class="label">Goal</h2>
@@ -108,7 +108,7 @@
     </div>
   </section>
 
-  <!-- Images (Figma: page-stack), in Figma's order; 9, 10, 12a and 15a are videos -->
+  <!-- Images (Figma: page-stack), in Figma's order; 9, 11a and 14a are videos -->
   <section class="case-media" aria-label="Side project images">
     <!-- 1 -->
     <img class="media-img" src="/img/quiettable/1-1x.png" srcset="/img/quiettable/1-1x.png 1673w, /img/quiettable/1-2x.png 3346w"
@@ -117,16 +117,16 @@
     <img class="media-img" src="/img/quiettable/2-1x.png" srcset="/img/quiettable/2-1x.png 1673w, /img/quiettable/2-2x.png 3346w"
          sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Flow overview: from onboarding and context, through a specific need and rejoining the journey, to results" width="1673" height="966" loading="lazy" decoding="async">
 
-    <!-- Text in the stack (Figma: page-stack → Research) -->
-    <div class="grid media-text">
+    <!-- Text in the stack (Figma: page-stack → Research). Hidden for now, as in Figma -->
+    <div class="grid media-text" hidden>
       <div class="block block--wide">
         <h2 class="label">Research</h2>
         <div class="prose"><p>The opportunity is real. Beli is growing fast in the US (120 million restaurant ratings). Google and Apple Maps lists are neither inherently social nor discovery-driven. Review systems are outdated and unreliable. There’s space for a fun, taste-driven foodie UX.</p></div>
       </div>
     </div>
 
-    <!-- 3 -->
-    <div class="media-pair">
+    <!-- 3: hidden for now, as in Figma -->
+    <div class="media-pair" hidden>
       <img class="media-img" src="/img/quiettable/3a-1x.png" srcset="/img/quiettable/3a-1x.png 821w, /img/quiettable/3a-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="How people find restaurants today: blog guides, a sticky note on friend-backed recommendations, and maps apps" width="821" height="700" loading="lazy" decoding="async">
       <img class="media-img" src="/img/quiettable/3b-1x.jpg" srcset="/img/quiettable/3b-1x.jpg 821w, /img/quiettable/3b-2x.jpg 1641w"
@@ -161,8 +161,8 @@
            sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Architecture" width="1673" height="966" loading="lazy" decoding="async">
       <div class="qt-tags"><span class="label qt-tag">Architecture</span></div>
     </div>
-    <!-- 6: the tags are HTML, not part of the images -->
-    <div class="media-pair">
+    <!-- 6: the tags are HTML, not part of the images. Hidden for now, as in Figma -->
+    <div class="media-pair" hidden>
       <div class="qt-card">
         <img class="media-img" src="/img/quiettable/6a-1x.png" srcset="/img/quiettable/6a-1x.png 821w, /img/quiettable/6a-2x.png 1641w"
              sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Testing search: the agent replies with restaurant suggestions as cards" width="821" height="700" loading="lazy" decoding="async">
@@ -181,7 +181,7 @@
         <h2 class="label">UI</h2>
         <div class="prose">
           <p>Meta’s Astryx is an open-source design system that’s fully customisable and agent-ready. I wanted the system to produce the right UI elements based on user requests. Designing a vertical flow is easy enough: you can tell the wizard which components to use, like time cards or calendar pickers.</p>
-          <p>When a user leaves the set vertical flow, knowing which component to surface becomes more difficult for Astryx. ChatGPT 6 recently released “Intelligent UI”, solving for exactly this pattern.</p>
+          <p>When a user leaves the set vertical flow, knowing which component to surface becomes more difficult. ChatGPT 6 recently released “Intelligent UI”, solving for exactly this pattern.</p>
         </div>
       </div>
     </div>
@@ -199,33 +199,34 @@
       <img class="media-img" src="/img/quiettable/8b-1x.png" srcset="/img/quiettable/8b-1x.png 821w, /img/quiettable/8b-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Places you enjoy, ranked as Loved, Liked or Fine" width="821" height="700" loading="lazy" decoding="async">
     </div>
-    <!-- 9: QT-Casual (screen recording, video), placed as in Figma: 643 × 870, centred, 8px corners,
-         on #f0f0ef. Encoded by quality, cropped to its box and at 2× (HEVC 2.3MB, H.264 3.3MB) -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f0f0ef; --fg-w: 38.43%; --fg-ratio: 643 / 870; --fg-radius: 1.244% / 0.92%; --fg-h-sm: 90%; --fg-w-sm: auto;">
-      <video class="layered__fg" poster="/img/quiettable/casual-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Casual search with the agent off: occasion, party size and who’s coming">
-        <source src="/video/quiettable/casual-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-        <source src="/video/quiettable/casual-h264.mp4" type="video/mp4">
-      </video>
-      <div class="qt-tags qt-tags--light"><span class="label qt-tag">Casual, Agent Off</span></div>
+    <!-- 9: the two searches side by side, as videos in tall panels (Figma: 821 × 966 each). a is
+         QT-Casual (661 × 856, 8px corners, on white), b is QT-agenton (661 × 800, on #0a0a0a); both
+         cover-cropped to their boxes like Figma and at 2× (HEVC 2.3 + 4.2MB, H.264 3.4 + 6.5MB) -->
+    <div class="media-pair">
+      <div class="layered" style="--ratio: 821 / 966; --ratio-sm: 821 / 966; --layer-bg: #ffffff; --fg-w: 80.51%; --fg-w-sm: 80.51%; --fg-ratio: 661 / 856; --fg-cx: 50.73%; --fg-radius: 1.21% / 0.935%;">
+        <video class="layered__fg" poster="/img/quiettable/casual-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Casual search with the agent off: occasion, party size and who’s coming">
+          <source src="/video/quiettable/casual-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source src="/video/quiettable/casual-h264.mp4" type="video/mp4">
+        </video>
+        <div class="qt-tags qt-tags--light"><span class="label qt-tag">Casual, Agent Off</span></div>
+      </div>
+      <div class="layered" style="--ratio: 821 / 966; --ratio-sm: 821 / 966; --layer-bg: #0a0a0a; --fg-w: 80.51%; --fg-w-sm: 80.51%; --fg-ratio: 661 / 800; --fg-cx: 50.79%;">
+        <video class="layered__fg" poster="/img/quiettable/agenton-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Date night with the agent on: a conversational search for Molly’s picks">
+          <source src="/video/quiettable/agenton-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source src="/video/quiettable/agenton-h264.mp4" type="video/mp4">
+        </video>
+        <div class="qt-tags"><span class="label qt-tag">Date Night, Agent On</span></div>
+      </div>
     </div>
-    <!-- 10: QT-agenton (screen recording, video), placed as in Figma: 833 × 800, centred, on #0a0a0a
-         (HEVC 4.3MB, H.264 6.2MB) -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #0a0a0a; --fg-w: 49.79%; --fg-ratio: 833 / 800; --fg-w-sm: 88%;">
-      <video class="layered__fg" poster="/img/quiettable/agenton-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Date night with the agent on: a conversational search for Molly’s picks">
-        <source src="/video/quiettable/agenton-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-        <source src="/video/quiettable/agenton-h264.mp4" type="video/mp4">
-      </video>
-      <div class="qt-tags"><span class="label qt-tag">Date Night, Agent On</span></div>
-    </div>
-    <!-- 11: the tags are HTML, not part of the images -->
+    <!-- 10: the tags are HTML, not part of the images -->
     <div class="media-pair">
       <div class="qt-card">
-      <img class="media-img" src="/img/quiettable/11a-1x.png" srcset="/img/quiettable/11a-1x.png 821w, /img/quiettable/11a-2x.png 1641w"
+      <img class="media-img" src="/img/quiettable/10a-1x.png" srcset="/img/quiettable/10a-1x.png 821w, /img/quiettable/10a-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Personalised results: date-night picks in London matched to Molly’s taste" width="821" height="700" loading="lazy" decoding="async">
         <div class="qt-tags"><span class="label qt-tag">Personalised Results</span></div>
       </div>
       <div class="qt-card">
-      <img class="media-img" src="/img/quiettable/11b-1x.png" srcset="/img/quiettable/11b-1x.png 821w, /img/quiettable/11b-2x.png 1641w"
+      <img class="media-img" src="/img/quiettable/10b-1x.png" srcset="/img/quiettable/10b-1x.png 821w, /img/quiettable/10b-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Ask the agent: the chat input" width="821" height="700" loading="lazy" decoding="async">
         <div class="qt-tags"><span class="label qt-tag">Ask The Agent</span></div>
       </div>
@@ -239,12 +240,12 @@
       </div>
     </div>
 
-    <!-- 12: a is the phone mockup (Philip's IPHONE-MOCKUP-031, cropped around the phone) with the
+    <!-- 11: a is the phone mockup (Philip's IPHONE-MOCKUP-031, cropped around the phone) with the
          Aurora demo edit playing in its screen, under the Dynamic Island. Screen and island
          positions are measured from the mockup photo -->
     <div class="media-pair">
       <div class="qt-mock">
-        <img class="media-img" src="/img/quiettable/12a-1x.jpg" srcset="/img/quiettable/12a-1x.jpg 821w, /img/quiettable/12a-2x.jpg 1641w"
+        <img class="media-img" src="/img/quiettable/11a-1x.jpg" srcset="/img/quiettable/11a-1x.jpg 821w, /img/quiettable/11a-2x.jpg 1641w"
              sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="" width="821" height="700" loading="lazy" decoding="async">
         <video class="qt-mock__screen" poster="/img/quiettable/demo-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="The Quiet Table flow on a phone: voice request, agents at work, picks, booking and a car home">
           <source src="/video/quiettable/demo-hevc.mp4" type='video/mp4; codecs="hvc1"'>
@@ -252,28 +253,28 @@
         </video>
         <span class="qt-mock__island" aria-hidden="true"></span>
       </div>
-      <!-- 12b: built in code from Figma's two layers so it can move: the type (Suisse BP Int'l 28,
+      <!-- 11b: built in code from Figma's two layers so it can move: the type (Suisse BP Int'l 28,
            exported from Figma as outlines) and the glass focus lens (112 × 112, 40 corners, #f0f0ef at
            30%, 1px green→orange stroke, Figma Glass 6). The lens stays in place: its focus depth eases
            sharper and deeper while its stroke shimmers. Placed as in Figma -->
       <div class="qt-focus" role="img" aria-label="“Your Sunday evening”, with a glass focus lens over “evening”">
-        <img class="qt-focus__text" src="/img/quiettable/12b-text.svg" alt="" width="236" height="24" decoding="async">
+        <img class="qt-focus__text" src="/img/quiettable/11b-text.svg" alt="" width="236" height="24" decoding="async">
         <span class="qt-focus__lens" aria-hidden="true"></span>
       </div>
     </div>
-    <!-- 13: brand mood sheet, full width (Figma: 1673 × 942) -->
-    <img class="media-img" src="/img/quiettable/13-1x.jpg" srcset="/img/quiettable/13-1x.jpg 1673w, /img/quiettable/13-2x.jpg 3346w"
+    <!-- 12: brand mood sheet, full width (Figma: 1673 × 942) -->
+    <img class="media-img" src="/img/quiettable/12-1x.jpg" srcset="/img/quiettable/12-1x.jpg 1673w, /img/quiettable/12-2x.jpg 3346w"
          sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Brand exploration: type, motion and a palette drawn from desert stone" width="1673" height="942" loading="lazy" decoding="async">
-    <!-- 14 -->
+    <!-- 13 -->
     <div class="media-pair">
-      <img class="media-img" src="/img/quiettable/14a-1x.png" srcset="/img/quiettable/14a-1x.png 821w, /img/quiettable/14a-2x.png 1641w"
+      <img class="media-img" src="/img/quiettable/13a-1x.png" srcset="/img/quiettable/13a-1x.png 821w, /img/quiettable/13a-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Mood board: carved stone, wood grain and hands" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img" src="/img/quiettable/14b-1x.png" srcset="/img/quiettable/14b-1x.png 821w, /img/quiettable/14b-2x.png 1641w"
+      <img class="media-img" src="/img/quiettable/13b-1x.png" srcset="/img/quiettable/13b-1x.png 821w, /img/quiettable/13b-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Early sketches of the app in a notebook" width="821" height="700" loading="lazy" decoding="async">
     </div>
-    <!-- 15 -->
+    <!-- 14 -->
     <div class="media-pair">
-      <!-- 15a: the agents-working loop (Philip's loading-aurora.mov, the video in Figma's phone screen),
+      <!-- 14a: the agents-working loop (Philip's loading-aurora.mov, the video in Figma's phone screen),
            cropped to the screen and at 2× (HEVC 0.7MB, H.264 0.8MB), with Figma's text laid over it as a
            transparent PNG. Placed as in Figma: 294 × 634, centred on #20160a -->
       <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #20160a; --fg-w: 35.81%; --fg-w-sm: 35.81%; --fg-ratio: 294 / 634; --fg-cx: 49.94%;">
@@ -282,17 +283,17 @@
             <source src="/video/quiettable/agents-hevc.mp4" type='video/mp4; codecs="hvc1"'>
             <source src="/video/quiettable/agents-h264.mp4" type="video/mp4">
           </video>
-          <img class="fg-over" src="/img/quiettable/15a-text.png" alt="" decoding="async">
+          <img class="fg-over" src="/img/quiettable/14a-text.png" alt="" decoding="async">
         </div>
       </div>
-      <img class="media-img" src="/img/quiettable/15b-1x.png" srcset="/img/quiettable/15b-1x.png 821w, /img/quiettable/15b-2x.png 1641w"
+      <img class="media-img" src="/img/quiettable/14b-1x.png" srcset="/img/quiettable/14b-1x.png 821w, /img/quiettable/14b-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The agents at work: logistics, dining, weather and personal preferences, then planning and location" width="821" height="700" loading="lazy" decoding="async">
     </div>
-    <!-- 16 -->
+    <!-- 15 -->
     <div class="media-pair">
-      <img class="media-img" src="/img/quiettable/16a-1x.png" srcset="/img/quiettable/16a-1x.png 821w, /img/quiettable/16a-2x.png 1641w"
+      <img class="media-img" src="/img/quiettable/15a-1x.png" srcset="/img/quiettable/15a-1x.png 821w, /img/quiettable/15a-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The voice and input bar" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img" src="/img/quiettable/16b-1x.png" srcset="/img/quiettable/16b-1x.png 821w, /img/quiettable/16b-2x.png 1641w"
+      <img class="media-img" src="/img/quiettable/15b-1x.png" srcset="/img/quiettable/15b-1x.png 821w, /img/quiettable/15b-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Your Sunday evening is planned: the restaurant and the car home, booked" width="821" height="700" loading="lazy" decoding="async">
     </div>
   </section>

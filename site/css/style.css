@@ -234,12 +234,9 @@ ul { list-style: none; }
   border-radius: 10px;
   box-shadow: 0 8px 24px 4px rgb(0 0 0 / 0.06);   /* Figma drop shadow */
 }
-/* Figma video fill crop (QT-clip 1): the window shows 77.26% × 80.33% of the
-   recording, from 11.95% / 13.35% in, i.e. the app without browser chrome or desktop */
+/* The video is already cropped to the app window (Figma video fill crop, QT-clip 1) */
 .side-project__screen video {
-  position: absolute;
-  left: -15.464%; top: -16.618%;     /* -0.11947 / 0.77260, -0.13349 / 0.80327 */
-  width: 129.433%; height: 124.491%; /* 1 / 0.77260, 1 / 0.80327 */
+  position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover;
 }
 @media (max-width: 1100px) {
@@ -638,6 +635,7 @@ div.layered__fg--tags { overflow: visible; }
    every case and work page): 88px from the images either side (56 here + the 32 stack gap), on the
    page's 6-column grid */
 .case-media .media-text { padding: 56px 0; }
+.case-media > [hidden] { display: none; }   /* slots and text turned off in Figma for now */
 /* Quote attribution (Figma: Switzer Medium 11 / 120%, #9BA0A3), one body-size line below the quote */
 .quote-cite { display: block; margin-top: var(--fs-body); font-size: var(--fs-small); line-height: 1.2; color: var(--text-muted); }
 

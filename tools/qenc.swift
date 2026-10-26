@@ -1,7 +1,7 @@
 // Quality-targeted transcode (Apple VideoToolbox), optionally cropped and scaled:
 //   qenc <in> <out> <hevc|h264> <quality 0–1> [W H [cropX cropY cropW cropH]]
 // Keeps frame timing; spends bits where the picture changes. Crop is in source pixels (top-left
-// origin), applied before scaling to W × H.
+// origin), applied before scaling to W × H. Optional env END (seconds) stops at that point in the source.
 import AVFoundation
 import CoreImage
 let a = CommandLine.arguments
@@ -29,9 +29,11 @@ w.add(input); w.startWriting(); w.startSession(atSourceTime: .zero)
 let ctx = CIContext(options: [.workingColorSpace: NSNull(), .outputColorSpace: NSNull()])
 let sx = Double(outW) / crop.width, sy = Double(outH) / crop.height
 var t0: CMTime? = nil
+let endAt = Double(ProcessInfo.processInfo.environment["END"] ?? "") ?? .infinity
 while let sb = ro.copyNextSampleBuffer() {
   guard let pb = CMSampleBufferGetImageBuffer(sb) else { continue }
   let t = CMSampleBufferGetPresentationTimeStamp(sb); if t0 == nil { t0 = t }
+  if t.seconds > endAt { break }
   // CI's origin is bottom-left: flip the crop's y
   let ci = CIImage(cvPixelBuffer: pb, options: [.colorSpace: NSNull()])
     .cropped(to: CGRect(x: crop.minX, y: srcH - crop.maxY, width: crop.width, height: crop.height))
