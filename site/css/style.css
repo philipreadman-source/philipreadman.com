@@ -357,6 +357,8 @@ ul { list-style: none; }
   text-decoration: underline; text-underline-offset: 3px;
 }
 .note-trigger[aria-expanded="true"] { color: var(--text-muted); }
+/* A link inside running text: the same underline as the note titles */
+.text-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 
 .notes .block { position: relative; }
 .note {
@@ -767,6 +769,11 @@ div.layered__fg--tags { overflow: visible; }
 .case-text { padding-top: var(--section); row-gap: 64px; }
 /* small value text, set like a label (Figma: Credits) */
 .prose--small { font-size: var(--fs-small); line-height: 1.25; color: var(--text-muted); }
+.text-small { font-size: var(--fs-small); color: var(--text-muted); }   /* the same, inline in a larger line */
+/* On/off dot (Figma: 8px square, 8px either side): red while the agent is off; add
+   .status-dot--on when it's back on */
+.status-dot { display: inline-block; width: 8px; height: 8px; margin: 0 8px; vertical-align: -1px; background: #ff0000; }   /* centred on the small text */
+.status-dot--on { background: #00c853; }
 .bullets li::before { content: "●"; color: #e0e0e0; margin-right: 0.3em; }
 .prose ul { margin-top: 1.2em; }
 
