@@ -622,10 +622,15 @@ div.layered__fg--tags { overflow: visible; }
      phone panel, like the videos: crop the plain side margins, keep the 821:700 panel with the
      panel colour above and below. Visible width = 1250 / 0.92 = 1358.7; padding makes up the height */
   .media-img--screen-sm {
-    box-sizing: content-box; aspect-ratio: 1358.7 / 966; object-fit: cover;
-    padding-block: 7.08%;   /* (700/821 − 966/1358.7) / 2 */
+    box-sizing: content-box; aspect-ratio: var(--screen-ratio, 1358.7 / 966); object-fit: cover;
+    padding-block: var(--screen-pad, 7.08%);   /* (700/821 − 966/1358.7) / 2; set both per image for another crop */
     background: var(--box-bg, transparent);
   }
+}
+/* Tablet and phone: show a panel's content 10% bigger by cropping into its plain margin. The
+   clip is set before the scale, so the visible area stays exactly the panel's box */
+@media (max-width: 1100px) {
+  .media-img--zoom10 { scale: 1.1; clip-path: inset(4.545% round calc(var(--radius) / 1.1)); border-radius: 0; }
 }
 /* Three panels in a row (Figma: 536.3 × 700 each, 32 apart); one column on phones */
 .media-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); }
