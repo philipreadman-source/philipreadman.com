@@ -156,7 +156,11 @@ ul { list-style: none; }
   transition: opacity 400ms ease, translate 500ms cubic-bezier(.2, .8, .2, 1);
   pointer-events: none;
 }
-.card:hover .card__caption, .card:focus-within .card__caption, .card.is-captioned .card__caption { opacity: 1; translate: 0 0; }
+.card.is-captioned .card__caption { opacity: 1; translate: 0 0; }
+/* hover / keyboard focus only with a real pointer: on touch, a tap would fake :hover */
+@media (hover: hover) and (min-width: 1101px) {
+  .card:hover .card__caption, .card:focus-within .card__caption { opacity: 1; translate: 0 0; }
+}
 @media (min-width: 1101px) { .card__caption { margin-top: 16px; } }  /* desktop: a touch more air */
 @media (prefers-reduced-motion: reduce) { .card__caption { transition: opacity 200ms ease; translate: none; } }
 .card__link:focus-visible { outline: 2px solid #fff; outline-offset: -6px; border-radius: var(--radius); }  /* inside: the card clips overflow */
