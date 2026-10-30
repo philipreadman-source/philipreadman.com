@@ -131,6 +131,7 @@ ul { list-style: none; }
   scroll-snap-type: x mandatory;
   scroll-padding-inline: var(--margin);
   padding-inline: var(--margin);
+  padding-bottom: 40px;  /* room for the card captions inside the scroller's clip */
   scrollbar-width: none;
   cursor: grab;
 }
@@ -141,17 +142,25 @@ ul { list-style: none; }
   /* two cards fill the content width, like the Figma frame */
   flex: 0 0 calc((100vw - var(--margin) * 2 - var(--card-gap)) / 2);
   aspect-ratio: 829 / 966;
-  border-radius: var(--radius);
-  overflow: hidden;
   scroll-snap-align: start;
   position: relative;
-  background: var(--pill);
 }
 .card img { width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
-.card__link { display: block; height: 100%; }
+.card__link { display: block; position: relative; height: 100%; border-radius: var(--radius); overflow: hidden; background: var(--pill); }
+/* one-line caption under each card (figcaption sits outside the link's clip): fades up on hover */
+.card__caption {
+  position: absolute; left: 0; right: 0; top: 100%; margin-top: 12px;
+  font-size: var(--fs-small); font-weight: 500; line-height: 1.25; color: var(--text-muted);
+  opacity: 0; translate: 0 4px;
+  transition: opacity 400ms ease, translate 500ms cubic-bezier(.2, .8, .2, 1);
+  pointer-events: none;
+}
+.card:hover .card__caption, .card:focus-within .card__caption { opacity: 1; translate: 0 0; }
+@media (min-width: 1101px) { .card__caption { margin-top: 16px; } }  /* desktop: a touch more air */
+@media (prefers-reduced-motion: reduce) { .card__caption { transition: opacity 200ms ease; translate: none; } }
 .card__link:focus-visible { outline: 2px solid #fff; outline-offset: -6px; border-radius: var(--radius); }  /* inside: the card clips overflow */
 /* Petalite card: showreel video framed on a dark ground */
-.card--petalite { background: #292f32; }
+.card--petalite .card__link { background: #292f32; }
 .card--petalite video {
   position: absolute;
   left: 9.66%; top: 28.78%;
@@ -183,6 +192,7 @@ ul { list-style: none; }
 .is-pinned .work {
   margin-top: 0;
   overflow: visible;
+  padding-bottom: 0;
   scroll-snap-type: none;
   cursor: auto;
   will-change: transform;
@@ -198,7 +208,7 @@ ul { list-style: none; }
 
 /* Terrex card: looping trail footage at 10%, 0.8× speed behind the product finder
    panel, as in Figma (Frame 15780). Positions are % of the 828 × 966 card. */
-.card--terrex { background: #1a1b18; }
+.card--terrex .card__link { background: #1a1b18; }
 .card--terrex video {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -244,7 +254,7 @@ ul { list-style: none; }
 }
 
 /* ---------- bio ---------- */
-.bio { padding-top: var(--section); }
+.bio { padding-top: calc(var(--section) - 40px); }  /* less the carousel's caption room */
 .bio p { grid-column: 1 / span 4; }
 
 /* ---------- label + value blocks ---------- */
