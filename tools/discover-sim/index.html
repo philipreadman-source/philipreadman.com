@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=404">
+<title>Discover onboarding sim</title>
+<!-- full Inter (Google's build drops the cv11 single-storey a) -->
+<link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+<!--
+  SuperRare slot 3b: the "discover art" onboarding, rebuilt as working UI.
+  Default: a scripted run (cursor + tap rings) that loops, driven by render(t) so it can be
+  recorded frame by frame (tools/discover-sim/record.mjs). Add ?live to click through it yourself.
+  Viewport is the video area in Figma: 404 × 472 (rendered at 2×).
+-->
+<style>
+  :root {
+    --pill: #d4d4d4; --answer: #f5f5f5; --ink: #111111; --text: #2a2a2a;
+    --card-x: 23px; --card-y: 16px; --card-w: 358px; --card-h: 442px;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 404px; height: 472px; overflow: hidden; background: #ffffff; }
+  body { font-family: "Inter", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; }
+
+  .card { position: absolute; left: var(--card-x); top: var(--card-y); width: var(--card-w); height: var(--card-h);
+    }   /* no grey panel: the UI sits straight on the white page, and slides clip at the frame edge */
+  .content { position: absolute; inset: 0; }
+  .track { position: absolute; inset: 0; will-change: transform; }
+  .screen { position: absolute; top: 0; width: var(--card-w); height: 100%; }
+
+  .title { position: absolute; top: 58px; left: 24px; right: 24px; text-align: center;
+    font-size: 20px; line-height: 25px; font-weight: 400; letter-spacing: -0.015em;
+    font-feature-settings: "cv11"; }   /* Inter single-storey a */
+
+  .pills { position: absolute; top: 151px; left: 0; right: 0; display: flex; flex-direction: column; gap: 5px; align-items: center; }
+  .row { display: flex; gap: 5px; justify-content: center; }
+  .pill { height: 41px; padding: 0 21px; border-radius: 4px; background: var(--answer); color: var(--text);
+    font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+  .options { position: absolute; top: 151px; left: 19px; right: 19px; display: flex; flex-direction: column; gap: 5px; }
+  .options .pill { width: 100%; }
+
+  .nav { position: absolute; left: 15px; right: 15px; top: 383px; height: 35px; }
+  .arrow { position: absolute; top: 0; width: 57px; height: 35px; border-radius: 999px; display: grid; place-items: center; }
+  .arrow svg { width: 16px; height: 16px; }
+  .arrow--back { left: 0; background: var(--pill); }
+  .arrow--next { right: 0; }
+  .dots { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: flex; gap: 4px; }
+  .dot { width: 8px; height: 8px; border-radius: 2.5px; box-shadow: inset 0 0 0 1px var(--ink); }
+
+  .avatars { position: absolute; inset: 0; }
+  .avatar { position: absolute; border-radius: 50%; background: #d9d9d9 center / cover no-repeat; }
+  .cta { position: absolute; left: 19px; right: 19px; top: 384px; height: 35px; border-radius: 999px;
+    background: var(--ink); color: #ffffff; font-size: 15px; letter-spacing: -0.01em; }
+
+  .cursor { position: absolute; left: 0; top: 0; width: 15px; height: 22px; pointer-events: none; transform-origin: 1px 1px; }
+  .ring { position: absolute; left: 0; top: 0; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%;
+    box-shadow: inset 0 0 0 1px var(--ink); pointer-events: none; opacity: 0; }
+  body.live .cursor, body.live .ring { display: none; }
+</style>
+</head>
+<body>
+<div class="card"><div class="content">
+  <div class="track">
+    <section class="screen" data-kind="multi">
+      <h2 class="title">What are your favourite<br>types of art?</h2>
+      <div class="pills">
+        <div class="row"><button class="pill">photography</button><button class="pill">animation</button><button class="pill">3D</button></div>
+        <div class="row"><button class="pill">PFP</button><button class="pill">characters</button><button class="pill">abstract</button></div>
+        <div class="row"><button class="pill">surreal</button><button class="pill">AI</button><button class="pill">generative</button></div>
+        <div class="row"><button class="pill">psychedelic</button><button class="pill">painting</button><button class="pill">other</button></div>
+      </div>
+    </section>
+    <section class="screen" data-kind="multi">
+      <h2 class="title">What are your interests?</h2>
+      <div class="pills">
+        <div class="row"><button class="pill">Traditional art</button><button class="pill">Contemporary art</button></div>
+        <div class="row"><button class="pill">Streetwear</button><button class="pill">Fashion</button><button class="pill">Sneaker</button></div>
+        <div class="row"><button class="pill">Fantasy</button><button class="pill">Design</button><button class="pill">Celebrity</button></div>
+        <div class="row"><button class="pill">Crypto</button><button class="pill">Technology</button><button class="pill">other</button></div>
+      </div>
+    </section>
+    <section class="screen" data-kind="single">
+      <h2 class="title">What sort of artists would<br>you like to discover?</h2>
+      <div class="options">
+        <button class="pill">Prominent NFT artists</button>
+        <button class="pill">Up-and-coming artists</button>
+        <button class="pill">Both</button>
+      </div>
+    </section>
+    <section class="screen" data-kind="result">
+      <h2 class="title">Nice! We’ve found some artists<br>we think you should follow…</h2>
+      <div class="avatars"></div>
+      <button class="cta">Create your profile</button>
+    </section>
+  </div>
+  <div class="nav">
+    <button class="arrow arrow--back" aria-label="Back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7.5 3.5 3 8l4.5 4.5"/></svg></button>
+    <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <button class="arrow arrow--next" aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></button>
+  </div>
+</div></div>
+<svg class="cursor" viewBox="0 0 15 22"><path d="M1.2 1.2v16.6l4.1-4 2.7 6.4 2.9-1.2-2.7-6.3h5.6z" fill="#000" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>
+<div class="ring"></div>
+<div class="ring"></div>
+
+<script>
+const W = 358;                       // content width of one screen
+const STEP = 404;                    // screens sit a full frame apart, so only one shows at rest
+const LIVE = new URLSearchParams(location.search).has('live');
+const $ = (s, el = document) => el.querySelector(s), $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const screens = $$('.screen'), track = $('.track'), content = $('.content');
+const back = $('.arrow--back'), next = $('.arrow--next'), dots = $$('.dot'), nav = $('.nav');
+const pills = screens.map(s => $$('.pill', s));
+const cursor = $('.cursor'), rings = $$('.ring');
+screens.forEach((s, i) => s.style.left = i * STEP + 'px');
+
+// Avatars from Figma (slot 3a), laid out as the original final screen: centre x, y and diameter in card px
+const AV = [
+  ['thermal', 193, 293, 105], ['greengirl', 251, 177, 75], ['window', 73, 174, 72], ['skull', 160, 207, 65],
+  ['ghost', 286, 256, 65], ['pearl', 85, 330, 58], ['mask', 89, 256, 50], ['yellow', 277, 335, 47],
+];
+const avatars = AV.map(([name, x, y, d]) => {
+  const el = document.createElement('div');
+  el.className = 'avatar';
+  Object.assign(el.style, { left: x - d / 2 + 'px', top: y - d / 2 + 'px', width: d + 'px', height: d + 'px', backgroundImage: `url(av/${name}.jpg)` });
+  $('.avatars', screens[3]).append(el);
+  return { el, x, y, d };
+});
+
+// ---- easing / helpers ----
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, p) => a + (b - a) * p;
+const ease = p => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;      // in-out cubic
+const easeOut = p => 1 - Math.pow(1 - p, 4);                                       // out quart
+const easeOutExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const mix = (c1, c2, p) => `rgb(${c1.map((v, i) => Math.round(lerp(v, c2[i], p))).join(',')})`;
+const PILL = [212, 212, 212], ANSWER = [245, 245, 245], INK = [17, 17, 17], TEXT = [42, 42, 42], WHITE = [255, 255, 255];
+
+// ---- state: replay events up to time t ----
+// events: { t, type: 'toggle', s, i } | { t, type: 'nav', to } | { t, type: 'reset' }
+let events = [];
+function stateAt(t) {
+  const st = { screen: 0, navFrom: 0, navT: -9, resetT: -9, sel: screens.map(() => new Map()), enabledT: screens.map(() => -9), resultT: -9 };
+  for (const e of events) {
+    if (e.t > t) break;
+    if (e.type === 'toggle') {
+      const sel = st.sel[e.s], kind = screens[e.s].dataset.kind;
+      const was = sel.get(e.i)?.on ?? false;
+      if (kind === 'single') for (const [i, v] of sel) if (v.on && i !== e.i) sel.set(i, { on: false, t: e.t });
+      const before = [...sel.values()].some(v => v.on);
+      sel.set(e.i, { on: kind === 'single' ? true : !was, t: e.t });
+      const after = [...sel.values()].some(v => v.on);
+      if (before !== after) st.enabledT[e.s] = e.t;
+    } else if (e.type === 'nav') {
+      st.navFrom = st.screen; st.screen = e.to; st.navT = e.t;
+      if (e.to === 3) st.resultT = e.t;
+    } else if (e.type === 'reset') {
+      Object.assign(st, { screen: 0, navFrom: 0, navT: -9, sel: screens.map(() => new Map()), enabledT: screens.map(() => -9), resultT: -9, resetT: e.t });
+    }
+  }
+  return st;
+}
+const hasSel = (st, s) => [...st.sel[s].values()].some(v => v.on);
+
+function renderUI(t) {
+  const st = stateAt(t);
+  // slide between screens
+  const p = ease(clamp((t - st.navT) / 0.6));
+  track.style.transform = `translateX(${-lerp(st.navFrom, st.screen, p) * STEP}px)`;
+  // pills: unchecked → selected
+  pills.forEach((list, s) => list.forEach((el, i) => {
+    const v = st.sel[s].get(i), q = v ? clamp((t - v.t) / 0.22) : 1;
+    const a = v ? (v.on ? ease(q) : 1 - ease(q)) : 0;
+    el.style.background = mix(ANSWER, INK, a);
+    el.style.color = mix(TEXT, WHITE, a);
+    el.style.transform = v && q < 1 ? `scale(${1 - 0.04 * Math.sin(Math.PI * q)})` : '';
+  }));
+  // nav: back hidden on the first screen, next dark once something is picked; both away on the result
+  const cur = st.screen, prev = st.navFrom;
+  const onScreen = s => s === cur ? p : s === prev ? 1 - p : 0;
+  const backA = 1 - onScreen(0) - onScreen(3);
+  back.style.opacity = clamp(cur === prev ? (cur === 0 || cur === 3 ? 0 : 1) : backA);
+  back.style.pointerEvents = cur === 0 || cur === 3 ? 'none' : '';
+  const nextOn = s => { const q = ease(clamp((t - st.enabledT[s]) / 0.25)); return hasSel(st, s) ? q : 1 - q; };
+  const nA = cur === prev ? nextOn(cur) : lerp(nextOn(prev), nextOn(cur), p);
+  next.style.background = mix(PILL, INK, nA);
+  next.style.color = mix(TEXT, WHITE, nA);
+  next.disabled = !hasSel(st, cur);
+  nav.style.opacity = 1 - (cur === prev ? (cur === 3 ? 1 : 0) : onScreen(3));
+  nav.style.pointerEvents = cur === 3 ? 'none' : '';
+  dots.forEach((d, i) => {
+    const a = i === cur ? p : i === prev && cur !== prev ? 1 - p : (i === cur ? 1 : 0);
+    d.style.background = `rgba(17,17,17,${cur === prev ? (i === cur ? 1 : 0) : a})`;
+  });
+  // result: avatars bloom in from the centre outward, then the CTA rises
+  const r0 = st.resultT + 0.35;
+  avatars.forEach((a, i) => {
+    const q = st.resultT < 0 ? 0 : clamp((t - r0 - i * 0.085) / 0.95), e = easeOutExpo(q);
+    const drift = q > 0 ? Math.sin((t - r0) * 0.9 + i * 1.7) * 1.2 : 0;   // a slow breath once settled
+    a.el.style.opacity = easeOut(clamp(q * 1.6));
+    a.el.style.transform = `translateY(${lerp(10, 0, e) + drift * e}px) scale(${lerp(0.72, 1, e)})`;
+    a.el.style.filter = q < 1 ? `blur(${lerp(8, 0, easeOut(q))}px)` : '';
+  });
+  const cq = st.resultT < 0 ? 0 : easeOutExpo(clamp((t - r0 - 0.75) / 0.8));
+  const cta = $('.cta');
+  cta.style.opacity = cq; cta.style.transform = `translateY(${lerp(8, 0, cq)}px)`;
+  // restart: fade the card's content out and back in around the reset
+  const rf = t - st.resetT;   // after reset
+  const nextReset = events.find(e => e.type === 'reset' && e.t > t);
+  const before = nextReset ? nextReset.t - t : 9;
+  content.style.opacity = Math.min(clamp(before / 0.35), rf >= 0 && rf < 0.45 ? easeOut(rf / 0.45) : 1);
+  return st;
+}
+
+// ---- scripted run ----
+const centre = el => {        // viewport position of an element while its screen is showing
+  const r = el.getBoundingClientRect(), s = screens.findIndex(sc => sc.contains(el));
+  return { x: r.left + r.width / 2 - (s > 0 ? s * STEP : 0), y: r.top + r.height / 2 };
+};
+let path = [], taps = [], END = 0;
+function buildScript() {
+  events = []; path = []; taps = [];
+  const REST = { x: 330, y: 445 };
+  let t = 0, pos = REST;
+  path.push({ t: 0, ...pos });
+  const moveTo = (to, dur = 0.62) => { path.push({ t: t + dur, ...to }); t += dur; pos = to; };
+  const tap = (el, act) => {
+    const c = centre(el), to = { x: c.x + 6, y: c.y + 4 };      // tip lands just off centre, like a hand
+    moveTo(to); t += 0.16;
+    taps.push(t); events.push({ t, ...act }); t += 0.34;
+  };
+  t = 0.7;
+  path.push({ t, ...pos });
+  [8, 10, 4].forEach(i => tap(pills[0][i], { type: 'toggle', s: 0, i }));          // generative, painting, characters
+  tap(next, { type: 'nav', to: 1 }); t += 0.35;
+  [2, 4, 6].forEach(i => tap(pills[1][i], { type: 'toggle', s: 1, i }));           // Streetwear, Sneaker, Design
+  tap(next, { type: 'nav', to: 2 }); t += 0.35;
+  tap(pills[2][2], { type: 'toggle', s: 2, i: 2 });                                // Both
+  tap(next, { type: 'nav', to: 3 });
+  t += 0.2; moveTo({ x: 345, y: 470 }, 1.1);                                       // ease out of the way
+  t += 5.4;                                                                        // hold on the artists
+  events.push({ t: t + 0.35, type: 'reset' });
+  moveTo(REST, 0.8);
+  t += 0.6;
+  END = Math.round(t * 60) / 60;
+  path.push({ t: END, ...REST });
+  events.sort((a, b) => a.t - b.t);
+}
+
+function cursorAt(t) {
+  const i = path.findIndex(k => k.t >= t);
+  if (i <= 0) return path[0];
+  const k = path[i], from = path[i - 1];
+  const e = ease(clamp((t - from.t) / (k.t - from.t)));
+  const dx = k.x - from.x, dy = k.y - from.y, bow = Math.sin(Math.PI * e) * 0.08;   // gentle arc
+  return { x: lerp(from.x, k.x, e) - dy * bow, y: lerp(from.y, k.y, e) + dx * bow };
+}
+
+function render(t) {
+  renderUI(t);
+  const c = cursorAt(t);
+  const press = taps.reduce((m, tp) => Math.max(m, 1 - Math.abs(t - tp) / 0.12), 0);
+  cursor.style.transform = `translate(${c.x - 1}px, ${c.y - 1}px) scale(${1 - 0.12 * clamp(press)})`;
+  const recent = taps.filter(tp => t >= tp && t - tp < 0.6).slice(-2);
+  rings.forEach((r, i) => {
+    const tp = recent[i];
+    if (tp === undefined) { r.style.opacity = 0; return; }
+    const q = (t - tp) / 0.6, tc = cursorAt(tp);
+    r.style.opacity = 1 - easeOut(clamp((q - 0.25) / 0.75));
+    r.style.transform = `translate(${tc.x}px, ${tc.y}px) scale(${lerp(0.55, 1, easeOutExpo(q))})`;
+  });
+}
+
+// ---- live mode: the same UI, driven by clicks ----
+function now() { return performance.now() / 1000; }
+function wireLive() {
+  document.body.classList.add('live');
+  events = [];
+  const cur = () => stateAt(now()).screen;
+  pills.forEach((list, s) => list.forEach((el, i) => el.addEventListener('click', () => events.push({ t: now(), type: 'toggle', s, i }))));
+  next.addEventListener('click', () => { const st = stateAt(now()); if (hasSel(st, st.screen) && st.screen < 3) events.push({ t: now(), type: 'nav', to: st.screen + 1 }); });
+  back.addEventListener('click', () => { const s = cur(); if (s > 0 && s < 3) events.push({ t: now(), type: 'nav', to: s - 1 }); });
+  $('.cta').addEventListener('click', () => events.push({ t: now() + 0.35, type: 'reset' }));
+  const loop = () => { renderUI(now()); requestAnimationFrame(loop); };
+  loop();
+}
+
+window.ready = Promise.all([document.fonts.ready, ...AV.map(([n]) => new Promise(r => { const im = new Image(); im.onload = im.onerror = r; im.src = `av/${n}.jpg`; }))])
+  .then(() => {
+    if (LIVE) return wireLive();
+    buildScript();
+    window.END = END; window.render = render;
+    if (!new URLSearchParams(location.search).has('record')) {
+      const t0 = now(); const loop = () => { render((now() - t0) % END); requestAnimationFrame(loop); }; loop();
+    } else render(0);
+  });
+</script>
+</body>
+</html>

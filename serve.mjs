@@ -1,10 +1,10 @@
-// Minimal static server for local preview: node serve.mjs [port]
+// Minimal static server for local preview: node serve.mjs [port] [root, default site]
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = join(fileURLToPath(new URL(".", import.meta.url)), "site");
+const root = join(fileURLToPath(new URL(".", import.meta.url)), process.argv[3] || "site");
 const port = Number(process.argv[2]) || 4321;
 const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".jpg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml", ".webp": "image/webp", ".mp4": "video/mp4", ".woff2": "font/woff2" };
 
