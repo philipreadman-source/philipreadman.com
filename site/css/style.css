@@ -147,7 +147,8 @@ ul { list-style: none; }
 }
 .card img { width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
 .card__link { display: block; position: relative; height: 100%; border-radius: var(--radius); overflow: hidden; background: var(--pill); }
-/* one-line caption under each card (figcaption sits outside the link's clip): fades up on hover */
+/* one-line caption under each card (figcaption sits outside the link's clip): fades up on hover;
+   on tablet and phone JS adds .is-captioned as each card comes into view, and it stays */
 .card__caption {
   position: absolute; left: 0; right: 0; top: 100%; margin-top: 12px;
   font-size: var(--fs-small); font-weight: 500; line-height: 1.25; color: var(--text-muted);
@@ -155,7 +156,7 @@ ul { list-style: none; }
   transition: opacity 400ms ease, translate 500ms cubic-bezier(.2, .8, .2, 1);
   pointer-events: none;
 }
-.card:hover .card__caption, .card:focus-within .card__caption { opacity: 1; translate: 0 0; }
+.card:hover .card__caption, .card:focus-within .card__caption, .card.is-captioned .card__caption { opacity: 1; translate: 0 0; }
 @media (min-width: 1101px) { .card__caption { margin-top: 16px; } }  /* desktop: a touch more air */
 @media (prefers-reduced-motion: reduce) { .card__caption { transition: opacity 200ms ease; translate: none; } }
 .card__link:focus-visible { outline: 2px solid #fff; outline-offset: -6px; border-radius: var(--radius); }  /* inside: the card clips overflow */

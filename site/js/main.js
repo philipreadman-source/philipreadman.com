@@ -521,3 +521,26 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const retry = () => near.forEach((v) => { if (v.paused) play(v); });
   ["touchend", "click", "keydown"].forEach((t) => document.addEventListener(t, retry, { passive: true }));
 }
+
+// ---------- work card captions on tablet / phone: no hover, so each one fades in by itself ----------
+// The row arrives first (its fade-up), then SuperRare's caption; after that each card's caption
+// follows 0.3s after the card is swiped into view. Shown once, never hidden again.
+const capCards = document.querySelectorAll(".work .card");
+if (capCards.length && window.matchMedia("(max-width: 1100px)").matches) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    capCards.forEach((c) => c.classList.add("is-captioned"));
+  } else {
+    const ROW_IN = 900, DELAY = 300;  // the row's fade-up, then the caption delay
+    let rowAt = null;  // when the row started fading up
+    const capIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        capIO.unobserve(e.target);
+        if (rowAt === null) rowAt = performance.now();
+        const wait = Math.max(DELAY, rowAt + ROW_IN + DELAY - performance.now());
+        setTimeout(() => e.target.classList.add("is-captioned"), wait);
+      });
+    }, { threshold: 0.6 });
+    capCards.forEach((c) => capIO.observe(c));
+  }
+}
