@@ -324,7 +324,7 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
       e.target.classList.remove("reveal-wait");
       revealIO.unobserve(e.target);
     });
-  }, { threshold: 0.45 });
+  }, { threshold: 0.25 });
   document.querySelectorAll("[data-reveal]").forEach((el) => {
     el.classList.add("reveal-wait");
     revealIO.observe(el);
@@ -543,4 +543,16 @@ if (capCards.length && window.matchMedia("(max-width: 1100px)").matches) {
     }, { threshold: 0.6 });
     capCards.forEach((c) => capIO.observe(c));
   }
+}
+
+// ---------- highlights: the green draws up behind the line once it's well in view ----------
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+  const hlIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      hlIO.unobserve(e.target);
+      setTimeout(() => e.target.classList.add("is-on"), 350);
+    });
+  }, { rootMargin: "0px 0px -25% 0px" });
+  document.querySelectorAll(".hl").forEach((el) => { el.classList.add("hl--wait"); hlIO.observe(el); });
 }

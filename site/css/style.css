@@ -772,6 +772,13 @@ div.layered__fg--tags { overflow: visible; }
   .layered { aspect-ratio: var(--ratio-sm, 4 / 5); }
   .layered__fg { width: var(--fg-w-sm, auto); height: var(--fg-h-sm, auto); }
 }
+/* A full-width panel the height of a media-pair row: pair panels are 821:700 on desktop, 1:1 on tablet */
+@media (min-width: 641px) {
+  .layered--pair-h { aspect-ratio: auto; padding-top: calc((100% - var(--card-gap)) / 2 * 700 / 821); }
+}
+@media (min-width: 641px) and (max-width: 1100px) {
+  .layered--pair-h { padding-top: calc((100% - var(--card-gap)) / 2); }
+}
 @media (max-width: 640px) {
   .media-pair { grid-template-columns: 1fr; }
   /* a panel can take its own phone ground (e.g. lighter, so dark screens stand out) */
@@ -924,3 +931,31 @@ div.layered__fg--tags { overflow: visible; }
   .note.is-entering { animation: none; }
   .img-in { animation: none; }
 }
+
+/* ---------- highlight (SuperRare v2): faint green (the Home notes palette) behind a key line, like Medium's highlights.
+   It draws up from the bottom of each line when it scrolls into view (JS adds .hl--wait, then
+   .is-on); without JS, or with reduced motion, it's simply there. */
+:root { --highlight: color-mix(in srgb, var(--note-bg-agent) 60%, transparent); }   /* the Agent UX note green, softened */
+.hl {
+  color: inherit;
+  background: linear-gradient(var(--hl, var(--highlight)), var(--hl, var(--highlight))) no-repeat left bottom / 100% 100%;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.hl--blue { --hl: color-mix(in srgb, var(--note-bg-proactive) 60%, transparent); }   /* the Proactive + Reactive note */
+.hl--yellow { --hl: color-mix(in srgb, var(--note-bg) 60%, transparent); }   /* the Moments. Context. Form. note */
+.hl.hl--wait { background-size: 100% 0%; }
+.hl.hl--wait.is-on { background-size: 100% 100%; transition: background-size 1.1s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.prose ul + p { margin-top: 1.2em; }
+.prose > ul:first-child { margin-top: 0; }   /* a list that opens the block lines up with its label */
+.case-media > .media-text:first-child { padding-top: 0; }   /* a section label opening the images */
+/* story layout (SuperRare v2): a bigger break between the facts and the work, and section labels
+   that belong to the images below them: a full section gap above, a short 56px gap below */
+.case-media--story { padding-top: calc(var(--section) * 2); }   /* the breath between the intro and the work */
+/* the work's opening label and first image arrive a beat later and slower than the rest */
+.case-media--story > :is(:first-child, :nth-child(2)).fade-up.is-shown {
+  transition-duration: 1.1s, 1.4s;
+  transition-delay: calc(var(--fade-delay, 0ms) + 300ms);
+}
+.case-media--story > .media-text { padding: calc(var(--section) * 1.5 - var(--card-gap)) 0 calc(56px - var(--card-gap)); }
+.case-media--story > .media-text:first-child { padding-top: 0; }
+.case-media--story > .media-text:last-child { padding-bottom: 0; }
