@@ -796,6 +796,20 @@ div.layered__fg--tags { overflow: visible; }
    .status-dot--on when it's back on */
 .status-dot { display: inline-block; width: 8px; height: 8px; margin: 0 8px; vertical-align: -1px; background: #ff0000; }   /* centred on the small text */
 .status-dot--on { background: #00c853; }
+/* the dot turns a quarter every 2s, overshooting slightly and settling back, fading to 50% mid-turn */
+@media (prefers-reduced-motion: no-preference) {
+  .status-dot { animation: status-turn 2s infinite; }
+  @keyframes status-turn {
+    0%, 70% { transform: rotate(0deg); opacity: 1; animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+    85% { transform: rotate(100deg); opacity: 0.5; animation-timing-function: ease-in-out; }
+    100% { transform: rotate(90deg); opacity: 1; }
+  }
+}
+/* phone: the note drops below the link, with a smaller dot */
+@media (max-width: 640px) {
+  .status-note { display: block; margin-top: 8px; font-size: var(--fs-small); line-height: 1.25; }
+  .status-note .status-dot { width: 6px; height: 6px; margin: 0 8px 0 0; vertical-align: 0; }
+}
 .bullets li::before { content: "●"; color: #e0e0e0; margin-right: 0.3em; }
 .prose ul { margin-top: 1.2em; }
 
