@@ -724,6 +724,7 @@ div.layered__fg--tags { overflow: visible; }
 /* real bullets with a hanging indent: wrapped lines align with the text, not the bullet */
 .release .bullets { list-style: square; padding-left: 1.1em; }
 .release .bullets li::before { content: none; }
+.release .bullets li { padding-left: 0; }
 .release .bullets li::marker { color: var(--text); }
 /* Hero: the Home card's walkthrough, its window centred on the card's green */
 .qt-hero { display: grid; place-items: center; aspect-ratio: 1673 / 966; border-radius: var(--radius); background: #64795b; overflow: hidden; }
@@ -852,7 +853,9 @@ div.layered__fg--tags { overflow: visible; }
   .status-note { display: block; margin-top: 8px; font-size: var(--fs-small); line-height: 1.25; }
   .status-note .status-dot { width: 6px; height: 6px; margin: 0 8px 0 0; vertical-align: 0; }
 }
-.bullets li::before { content: "●"; color: #e0e0e0; margin-right: 0.3em; }
+/* hanging indent: the dot sits in the margin, so wrapped lines align with the text, not the dot */
+.bullets li { position: relative; padding-left: var(--bullet-indent, 1em); }
+.bullets li::before { content: "●"; color: #e0e0e0; position: absolute; left: 0; }
 .prose ul { margin-top: 1.2em; }
 
 /* ---------- short pages (404): footer pinned to the bottom of the window ---------- */
