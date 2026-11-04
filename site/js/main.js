@@ -556,3 +556,14 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
   }, { rootMargin: "0px 0px -25% 0px" });
   document.querySelectorAll(".hl").forEach((el) => { el.classList.add("hl--wait"); hlIO.observe(el); });
 }
+
+// ---------- release notes (Quiet Table): the fixed button opens a dialog; ×, Esc or a click outside closes it ----------
+const releaseNotes = document.getElementById("release-notes");
+if (releaseNotes) {
+  document.querySelector(".release-cta").addEventListener("click", () => releaseNotes.showModal());
+  releaseNotes.querySelector(".note__close").addEventListener("click", () => releaseNotes.close());
+  releaseNotes.addEventListener("click", (e) => {   // the backdrop: outside the dialog's box, not its padding
+    const r = releaseNotes.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) releaseNotes.close();
+  });
+}

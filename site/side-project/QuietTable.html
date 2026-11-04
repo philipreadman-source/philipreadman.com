@@ -57,13 +57,12 @@
 </nav>
 
 <main>
-  <!-- Intro row (Figma: SideProject/QuietTable): label and line; Release Notes on the right is hidden for now -->
+  <!-- Intro row (Figma: SideProject/QuietTable): label and line -->
   <section class="grid qt-intro">
     <div class="block block--wide">
       <h1 class="label">Side project</h1>
       <p>Quiet Table is a taste-driven restaurant finder for you and your mates.</p>
     </div>
-    <span class="label qt-release" hidden>Release Notes</span>   <!-- hidden until release notes are ready -->
   </section>
 
   <!-- Hero: the Quiet Table walkthrough (Philip's 4K export, QT-4k.mp4, trimmed by him to 76.5s), played
@@ -340,6 +339,27 @@
   <svg class="hover-badge__next" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3.333 8h9.334M8 3.333 12.667 8 8 12.667"/></svg>
 </div>
 
-<script src="/js/main.js?v=4"></script>
+<!-- Release notes: a fixed button bottom right opens them in a dialog. Copied from
+     quiet-table-ios/release-notes, newest first -->
+<button class="release-cta" type="button" aria-haspopup="dialog" aria-controls="release-notes"><span class="status-dot" aria-hidden="true"></span>Release notes</button>
+<dialog class="release-notes" id="release-notes" aria-labelledby="release-notes-title">
+  <button class="note__close" type="button" aria-label="Close release notes">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+  </button>
+  <h2 class="label" id="release-notes-title">Release notes</h2>
+  <article class="release">
+    <p class="text-small"><time datetime="2026-11-03">3 November 2026</time> · Build 6</p>
+    <h3>Friends, and one card for every restaurant</h3>
+    <ul class="bullets">
+      <li><strong>Friends.</strong> Follow people from the new Friends tab or any review. Friends you’re eating with count most in Find; everyone else is a light nod.</li>
+      <li><strong>One restaurant card.</strong> Details and Reviews tabs: read any review in place, tap a name to see that person, and review from the card.</li>
+      <li><strong>Review a place again.</strong> Each review is a visit, and your score is the average.</li>
+      <li><strong>Recently reviewed</strong> in the Review tab, with friends’ faces, to find somewhere new.</li>
+      <li><strong>Profile photos.</strong> Your Google photo, or add your own.</li>
+    </ul>
+  </article>
+</dialog>
+
+<script src="/js/main.js?v=5"></script>
 </body>
 </html>
