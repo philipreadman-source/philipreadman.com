@@ -95,41 +95,59 @@
 
   <section class="blocks grid case-text" aria-label="Case study">
     <div class="block block--wide">
-      <h2 class="label">Big Picture</h2>
-      <div class="prose"><p>Dobbin is built to see the world through the lens of your brand, market and operating context. It lives in Slack, is available to your whole team and runs on a secure knowledge system.</p></div>
-    </div>
-    <div class="block block--wide">
       <h2 class="label">Role</h2>
-      <div class="prose"><p>As Founding Designer I worked 0→1 across brand, strategy and product design. Working closely with the two founders and marketing team, I delivered Dobbin’s evolving brand and designed and helped ship Dobbin’s design system using Claude, Cursor and Figma.</p></div>
+      <div class="prose"><p>As Founding Designer I worked 0→1 across brand, strategy and product design. Working closely with the two founders and marketing team, I delivered Dobbin’s evolving brand and designed and helped ship Dobbin’s design system using Claude and Figma.</p></div>
     </div>
+
     <div class="block block--wide">
-      <h2 class="label">Learnings</h2>
+      <h2 class="label">Team</h2>
+      <div class="prose"><p>The CTO and me.</p></div>
+    </div>
+
+    <div class="block block--wide">
+      <h2 class="label">Timeline</h2>
+      <div class="prose"><p>3 months, shipping weekly.</p></div>
+    </div>
+
+    <div class="block block--wide">
+      <h2 class="label">Impact</h2>
+      <div class="prose"><p>Steady customer growth and low churn: 8 of our first 10 customers are still with us. A robust product, built iteratively with customer feedback.</p></div>
+    </div>
+
+    <div class="block block--wide">
+      <h2 class="label">Challenge</h2>
+      <div class="prose"><p>Generic AI tools don’t know your business, and they’re <mark class="hl hl--blue">single-player</mark>. Answers come back off-brand and out of context, and teams can’t tell what they’re based on. Dobbin works where teams already talk, starting in Slack and scaling to Google Chat and Teams. I focused on <mark class="hl">the two things that make Dobbin yours: the Foundation and the Knowledge Base</mark>. The challenge was earning trust in a crowded AI market, showing how Dobbin uses them and learns from conversations.</p></div>
+    </div>
+
+    <div class="block block--wide">
+      <h2 class="label">Constraints</h2>
       <div class="prose">
-        <p>Dobbin’s value comes through in the quality, tone and speed of its responses. It’s most successful when customers have a clear need or goal in mind. When Dobbin has a healthy knowledge base or connected integrations, it’s able to help customers effectively.</p>
-        <p>It was key to show that transparency. Slack blocks and loading messages reference the documents and knowledge Dobbin uses, and if Dobbin doesn’t have sufficient knowledge, it asks for it rather than guessing. That builds trust.</p>
+        <ul class="bullets">
+          <li>Showing the power of Dobbin within the limits of Slack.</li>
+          <li>Adoption and behaviour change: getting people inside organisations to use it.</li>
+          <li>Designing for customers new to AI, and often to technology.</li>
+        </ul>
       </div>
-    </div>
-    <div class="block block--wide">
-      <h2 class="label">Outcome</h2>
-      <div class="prose">
-        <p>An iterative design process to find product-market fit.</p>
-        <p><span class="dot">●</span> Steady customer growth, low churn rate (8 of our first 10 customers remain with us).<br>
-           <span class="dot">●</span> Clients such as Area 17, Mark Seliger Studio and Evite.<br>
-           <span class="dot">●</span> Delivered brand, marketing website and Dobbin HQ product.</p>
-      </div>
-    </div>
-    <div class="block block--wide">
-      <h2 class="label">Credit</h2>
-      <div class="prose prose--small"><p>Hi Shine (Explainer animation)</p></div>
     </div>
   </section>
 
   <!-- Case images (Figma: Case/Dobbin → page-stack, slots 1–13). Panels are Figma exports at 2×
        (PNG for UI and graphics, JPEG for photos); 5, 6a and 11 are videos; 6b is HTML. -->
-  <section class="case-media" aria-label="Case images">
+  <section class="case-media case-media--story" aria-label="Case images">
+    <!-- v2: story order. Slots keep their original numbers (image files); sections group them -->
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Foundation</h2>
+        <div class="prose"><p>Dobbin’s brand foundation started as a 52-page Google Doc that was hard to read and scan, and some customers had never documented their business at brand level before.</p><p class="p-then">I redesigned it as <mark class="hl">a living document</mark>: sections made up of content cards that are quick to scan, so more customers found it easier to browse and understand. Teams can edit any card, track how each section is used and see who last worked on it. Dobbin also tracks which parts of the Foundation shaped its answers. In review mode, customers apply or dismiss its suggested changes.</p></div>
+      </div>
+    </div>
+
     <!-- 1 -->
-    <img class="media-img media-img--screen-sm" style="--box-bg: #e0e0e0;" src="img/dobbin/01-1x.png" srcset="img/dobbin/01-1x.png 1673w, img/dobbin/01-2x.png 3346w"
+    <picture>   <!-- phones: cropped in on the UI, so it reads bigger -->
+      <source media="(max-width: 640px)" srcset="img/dobbin/01-v2-sm.png" width="1029" height="878">
+      <img class="media-img" src="img/dobbin/01-v2-1x.png" srcset="img/dobbin/01-v2-1x.png 1673w, img/dobbin/01-v2-2x.png 3346w"
          sizes="(max-width: 640px) calc((100vw - 32px) * 1.24), calc(100vw - 96px)" alt="Dobbin HQ Foundation: the brand guide behind your team, as editable cards" width="1673" height="966" loading="lazy" decoding="async">
+    </picture>
 
     <!-- 2 -->
     <div class="media-pair">
@@ -139,21 +157,97 @@
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin HQ: a Foundation section's usage, showing it shaped 14 answers since Oct 15" width="821" height="700" loading="lazy" decoding="async">
     </div>
 
+    <!-- new: Foundation walkthrough (Philip's Area.mp4, 3840 × 2104, 45s): opening cards, editing, then review.
+         Cropped 98px each side to the panel shape (3644 × 2104), at 2560 × 1478. HEVC 5.7MB, H.264 9.2MB. Full width
+         on every screen, its landscape background running edge to edge -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #c9d3d6; --fg-w: 100%; --fg-ratio: 1673 / 966; --ratio-sm: 821 / 700; --fg-w-sm: 152%; --fg-cx-sm: 57%;">   <!-- small screens: the half-panel shape, zoomed in on the dialog -->
+      <video class="layered__fg" poster="img/dobbin/foundation-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin HQ Foundation: opening a card, editing it, then reviewing suggested changes">
+        <source src="video/dobbin/foundation-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="video/dobbin/foundation-h264.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Knowledge</h2>
+        <div class="prose"><p>Every company runs on documents it relies on: strategy docs, contracts, product lists and more.</p><p class="p-then">The Knowledge Base brings them together in Dobbin HQ. Each document can be global, across every Slack channel, or kept to specific channels, so departments keep their privacy. HQ shows how often each document is used, and when a conversation is missing context, Dobbin writes a new “learned” document to fill the gap.</p></div>
+      </div>
+    </div>
+
     <!-- 3 -->
-    <img class="media-img media-img--screen-sm" style="--box-bg: #e0e0e0;" src="img/dobbin/03-1x.png" srcset="img/dobbin/03-1x.png 1673w, img/dobbin/03-2x.png 3346w"
-         sizes="(max-width: 640px) calc((100vw - 32px) * 1.24), calc(100vw - 96px)" alt="Dobbin HQ Knowledge Base: documents, where they came from and how they were learned" width="1673" height="966" loading="lazy" decoding="async">
+    <picture>   <!-- phones: cropped in on the UI, so it reads bigger -->
+      <source media="(max-width: 640px)" srcset="img/dobbin/03-v2-sm.png" width="1029" height="878">
+      <img class="media-img" src="img/dobbin/03-v2-1x.png" srcset="img/dobbin/03-v2-1x.png 1673w, img/dobbin/03-v2-2x.png 3346w"
+         sizes="(max-width: 640px) calc((100vw - 32px) * 1.24), calc(100vw - 96px)" alt="Dobbin HQ Knowledge Base: documents with their usage, channels, source and whether they were uploaded, integrated or learned" width="1673" height="966" loading="lazy" decoding="async">
+    </picture>
+
+    <!-- new: knowledge pair (Figma: new: knowledge pair) -->
+    <div class="media-pair">
+      <img class="media-img" src="img/dobbin/kb-a-1x.png" srcset="img/dobbin/kb-a-1x.png 821w, img/dobbin/kb-a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Filtering documents by channel, usage, integration and team member" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/kb-b-1x.png" srcset="img/dobbin/kb-b-1x.png 821w, img/dobbin/kb-b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Adding a file to the Knowledge Base: Dobbin checks it for overlaps, then lists the documents it produced" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Integrations</h2>
+        <div class="prose"><p>Much of a company’s knowledge lives in the tools it already uses.</p><p class="p-then">Customers can connect them to Dobbin through integrations, which work just like documents and give Dobbin the company’s real data to answer with.</p></div>
+      </div>
+    </div>
 
     <!-- 4: the integrations screen (live Figma UI, exported at 2×), cropped in close and running off the right and bottom edges
          (Figma). Phones: the half-panel shape, kept to the left so the sidebar and table stay in view -->
     <img class="media-img media-img--fill-sm" style="--pos-sm: 28% 50%;" src="img/dobbin/04-1x.png" srcset="img/dobbin/04-1x.png 1673w, img/dobbin/04-2x.png 3346w"
          sizes="(max-width: 640px) calc((100vw - 32px) * 1.48), calc(100vw - 96px)" alt="Dobbin HQ integrations: 88 connected sources across Slack, Google Drive, email and more" width="1673" height="966" loading="lazy" decoding="async">
 
+    <!-- new: integrations pair (Figma: new: integrations pair) -->
+    <div class="media-pair">
+      <img class="media-img" src="img/dobbin/int-a-1x.png" srcset="img/dobbin/int-a-1x.png 821w, img/dobbin/int-a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Managing integrations: the accounts and keys Dobbin signs in with, from Google Drive to HubSpot" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img media-img--outline" style="--stroke-soft: rgb(0 0 0 / 0.07);" src="img/dobbin/int-b-1x.png" srcset="img/dobbin/int-b-1x.png 821w, img/dobbin/int-b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="design-rules.md dragged into Dobbin, which asks which channel to save it to" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
     <!-- 5: usage overview (video), placed as in Figma: 1250 × 484 at (212, 241) -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f6f6f6; --fg-w: 74.72%; --fg-ratio: 2282 / 884; --fg-cx: 50.03%; --ratio-sm: 821 / 700; --fg-w-sm: 92%;">
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f6f6f6; --fg-w: 74.72%; --fg-ratio: 2282 / 884; --fg-cx: 50.03%; --ratio-sm: 1673 / 966; --fg-w-sm: 92%;">   <!-- v2: wide on every screen, like the Foundation video; the strip fills more of it on smaller screens -->
       <video class="layered__fg" poster="img/dobbin/usage-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin HQ usage overview: answers per day over 30 days, by source">
         <source src="video/dobbin/usage-hevc.mp4" type='video/mp4; codecs="hvc1"'>
         <source src="video/dobbin/usage-h264.mp4" type="video/mp4">
       </video>
+    </div>
+
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Prompt analysis</h2>
+        <div class="prose"><p>Trust drops fast when an AI answer misses and teams can’t see why.</p><p class="p-then">I explored a canvas where teams unpack prompts Dobbin didn’t fully solve: the knowledge each answer used, or was missing, and the gap behind it. It’s multiplayer, so teammates can fix gaps together, and the nature of the canvas means users carry on exploring and refining their system.</p></div>
+      </div>
+    </div>
+
+    <!-- new: canvas concept demo (built in HTML in the canvas explorations' styles, rendered at 60fps):
+         a flagged prompt is unpacked into the knowledge it used and the gap, Alex joins, two more prompts
+         connect to the same gap, and his doc fixes all three. 13s loop, 2560 × 1478. HEVC 1.4MB, H.264 1.5MB -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #1e1e1e; --fg-w: 100%; --fg-ratio: 1673 / 966; --ratio-sm: 821 / 700; --fg-w-sm: 152%; --fg-cx-sm: 38%;">   <!-- small screens: the half-panel shape, zoomed in on the graph -->
+      <video class="layered__fg" poster="img/dobbin/canvas-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Canvas concept: a prompt Dobbin didn't solve is unpacked into the knowledge it used and the gap behind it; a teammate adds a document that fixes the gap for three prompts">
+        <source src="video/dobbin/canvas-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="video/dobbin/canvas-h264.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 9 -->
+    <div class="media-pair">
+      <img class="media-img" src="img/dobbin/09b-v2-1x.png" srcset="img/dobbin/09b-v2-1x.png 821w, img/dobbin/09b-v2-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Canvas exploration: a Slack prompt traced to the knowledge Dobbin used, with a gap identified" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/09a-1x.png" srcset="img/dobbin/09a-1x.png 821w, img/dobbin/09a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin flags a knowledge gap and suggests the documents to fix it" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
+
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Feedback</h2>
+        <div class="prose"><p>Throughout the experience, whether that’s onboarding, Slack, Claude or HQ, I always tried to explain how Dobbin works and show its status. Small cards, like team usage in HQ, show customers what Dobbin is doing for them. This again helps build trust, especially with customers who are less technical.</p></div>
+      </div>
     </div>
 
     <!-- 6: building Dobbin. a = the two loading blocks from the Dobbin project loop (cropped to them,
@@ -182,20 +276,33 @@
       </div>
     </div>
 
+    <!-- 15: feedback pair (Figma: 15) -->
+    <div class="media-pair">
+      <picture>   <!-- phones: cropped in on the UI, so it reads bigger -->
+        <source media="(max-width: 640px)" srcset="img/dobbin/fb-a-sm.png" width="1029" height="879">
+        <img class="media-img media-img--outline" style="--stroke-soft: rgb(0 0 0 / 0.07);" src="img/dobbin/fb-a-1x.png" srcset="img/dobbin/fb-a-1x.png 821w, img/dobbin/fb-a-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin asks in Slack how its messages landed, with quick reactions and next steps" width="821" height="700" loading="lazy" decoding="async">
+      </picture>
+      <img class="media-img media-img--outline" style="--stroke-soft: rgb(0 0 0 / 0.07);" src="img/dobbin/fb-b-1x.png" srcset="img/dobbin/fb-b-1x.png 821w, img/dobbin/fb-b-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Onboarding: what size is your company, and why Dobbin asks" width="821" height="700" loading="lazy" decoding="async">
+    </div>
+
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Design system</h2>
+        <div class="prose"><p>Shipping weekly with a team of two, I needed to move fast and still have something robust to build on.</p><p class="p-then">I built Dobbin HQ’s design system in Figma while designing core parts of the UX, then took it into code with Claude. Tailwind is the underlying structure, with Dobbin’s colours, fonts and UI on top. Claude and Figma stay in sync through the Figma Bridge MCP, and the design system also lives in the repo, so developers share the same source of truth.</p></div>
+      </div>
+    </div>
+
     <!-- 7 -->
     <img class="media-img media-img--zoom-sm" style="--box-bg: #444444; --zoom-ratio: 1551 / 966; --pad-top-sm: 7.03%; /* phones: the boards edge to edge (their 1551 of 1673), less empty top */" src="img/dobbin/07-1x.png" srcset="img/dobbin/07-1x.png 1673w, img/dobbin/07-2x.png 3346w"
          sizes="(max-width: 640px) calc((100vw - 32px) * 1.08), calc(100vw - 96px)" alt="The Dobbin design system in Figma: semantic tokens, text styles and the component library" width="1673" height="966" loading="lazy" decoding="async">
 
-    <!-- 8 -->
-    <img class="media-img media-img--zoom-sm" style="--box-bg: #232323; --zoom-ratio: 1473.1 / 966; --pos-sm: 0% 100%; --pad-top-sm: 12.33%; /* phones: 1.136× from the left edge (the UI starts there), so its right edge lines up with slot 7's right board */" src="img/dobbin/08-1x.png" srcset="img/dobbin/08-1x.png 1673w, img/dobbin/08-2x.png 3346w"
-         sizes="(max-width: 640px) calc((100vw - 32px) * 1.14), calc(100vw - 96px)" alt="Dobbin in Slack: tracing a reply back through the brand foundation and knowledge base, and flagging a gap" width="1673" height="966" loading="lazy" decoding="async">
-
-    <!-- 9 -->
-    <div class="media-pair">
-      <img class="media-img" src="img/dobbin/09a-1x.png" srcset="img/dobbin/09a-1x.png 821w, img/dobbin/09a-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin flags a knowledge gap and suggests the documents to fix it" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img" src="img/dobbin/09b-1x.png" srcset="img/dobbin/09b-1x.png 821w, img/dobbin/09b-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Knowledge sources: a website guide and a supplemental knowledge base with a health check" width="821" height="700" loading="lazy" decoding="async">
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Brand</h2>
+        <div class="prose"><p>Dobbin needed personality in a crowded AI market: a lean brand, just for the product, that we could build on later.</p><p class="p-then">I designed it in a short, dedicated sprint. The Dobbin D is built from two elements: a solid shape for the foundations of the knowledge system, and an overall form that feels conversational.</p></div>
+      </div>
     </div>
 
     <!-- 10 -->
@@ -214,10 +321,10 @@
 
     <!-- 12 -->
     <div class="media-pair">
-      <img class="media-img" src="img/dobbin/12a-1x.png" srcset="img/dobbin/12a-1x.png 821w, img/dobbin/12a-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin marketing website on mobile: create built-in alignment and unlock team velocity" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img" src="img/dobbin/12b-1x.png" srcset="img/dobbin/12b-1x.png 821w, img/dobbin/12b-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="A manifesto against wasted time: a Dobbin article on mobile, by Josh Liberson, CEO" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/12a-v2-1x.jpg" srcset="img/dobbin/12a-v2-1x.jpg 821w, img/dobbin/12a-v2-2x.jpg 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin marketing site on an iPhone, lying on fabric: create built-in alignment and unlock team velocity" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/12b-v2-1x.png" srcset="img/dobbin/12b-v2-1x.png 821w, img/dobbin/12b-v2-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="“It works from your stuff”: a Dobbin promo frame, drafting an RFP response in Slack from the company’s own documents" width="821" height="700" loading="lazy" decoding="async">
     </div>
 
     <!-- 13 -->
@@ -228,15 +335,10 @@
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="The Dobbin app icon on an iPhone home screen" width="821" height="700" loading="lazy" decoding="async">
     </div>
 
-    <!-- Text in the stack (Figma: page-stack → Use Case, after 13) -->
     <div class="grid media-text">
       <div class="block block--wide">
-        <h2 class="label">Building</h2>
-        <div class="prose">
-          <p>Dobbin Studio is our internal marketing tool that lets anyone in our team create and test social media posts. The default layouts are based on our top-performing posts, and that performance data feeds back into the tool to keep it up to date.</p>
-          <p>Dobbin is also connected to the build, so you can check copy against your company’s brand foundation for what to say and what not to say.</p>
-          <p>Design assets live in Figma, and the Figma MCP connection to Claude makes it super simple to add new templates or create new designs. That means designers keep control of the overall look and feel, while the constraints built into Studio provide the guardrails.</p>
-        </div>
+        <h2 class="label">Dobbin Studio</h2>
+        <div class="prose"><p>Marketing needed a steady stream of on-brand posts, without a designer in every loop.</p><p class="p-then">I built Dobbin Studio, an internal tool where anyone on the team can create and test LinkedIn posts. I designed the templates in Figma and synced them to Claude through the Figma MCP, so the look stays in design’s hands while Studio’s constraints keep everyone on brand. Dobbin is connected too, so you can check your copy and ideas against your brand foundation.</p><p>We already use it internally, and we’re adding more options and the ability to create simple videos.</p></div>
       </div>
     </div>
 
@@ -249,6 +351,27 @@
         <source src="video/dobbin/studio-hevc.mp4" type='video/mp4; codecs="hvc1"'>
         <source src="video/dobbin/studio-h264.mp4" type="video/mp4">
       </video>
+    </div>
+
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Outcome</h2>
+        <div class="prose">
+          <p>Early traction with a two-person team: 8 of our first 10 customers are still with us.</p>
+          <ul class="bullets">
+            <li>Since the Foundation and Knowledge Base redesign, customer success no longer needs to help customers with either.</li>
+            <li>Our first enterprise client, alongside Area 17, Mark Seliger Studio and Evite.</li>
+            <li>Brand, marketing site, Dobbin HQ and its design system, designed and shipped in 3 months.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Credit</h2>
+        <div class="prose prose--small"><p>Hi Shine (Explainer animation)</p></div>
+      </div>
     </div>
   </section>
 
