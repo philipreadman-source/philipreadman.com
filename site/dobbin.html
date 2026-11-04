@@ -143,11 +143,8 @@
     </div>
 
     <!-- 1 -->
-    <picture>   <!-- phones: cropped in on the UI, so it reads bigger -->
-      <source media="(max-width: 640px)" srcset="img/dobbin/01-v2-sm.png" width="1029" height="878">
-      <img class="media-img" src="img/dobbin/01-v2-1x.png" srcset="img/dobbin/01-v2-1x.png 1673w, img/dobbin/01-v2-2x.png 3346w"
-         sizes="(max-width: 640px) calc((100vw - 32px) * 1.24), calc(100vw - 96px)" alt="Dobbin HQ Foundation: the brand guide behind your team, as editable cards" width="1673" height="966" loading="lazy" decoding="async">
-    </picture>
+    <img class="media-img" src="img/dobbin/01-v2-1x.png" srcset="img/dobbin/01-v2-1x.png 1673w, img/dobbin/01-v2-2x.png 3346w"
+       sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ Foundation: the brand guide behind your team, as editable cards" width="1673" height="966" loading="lazy" decoding="async">
 
     <!-- 2 -->
     <div class="media-pair">
@@ -160,7 +157,7 @@
     <!-- new: Foundation walkthrough (Philip's Area.mp4, 3840 × 2104, 45s): opening cards, editing, then review.
          Cropped 98px each side to the panel shape (3644 × 2104), at 2560 × 1478. HEVC 5.7MB, H.264 9.2MB. Full width
          on every screen, its landscape background running edge to edge -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #c9d3d6; --fg-w: 100%; --fg-ratio: 1673 / 966; --ratio-sm: 821 / 700; --fg-w-sm: 152%; --fg-cx-sm: 57%;">   <!-- small screens: the half-panel shape, zoomed in on the dialog -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #c9d3d6; --fg-w: 100%; --fg-ratio: 1673 / 966; --ratio-sm: 1673 / 966; --fg-w-sm: 100%;">
       <video class="layered__fg" poster="img/dobbin/foundation-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin HQ Foundation: opening a card, editing it, then reviewing suggested changes">
         <source src="video/dobbin/foundation-hevc.mp4" type='video/mp4; codecs="hvc1"'>
         <source src="video/dobbin/foundation-h264.mp4" type="video/mp4">
@@ -175,10 +172,10 @@
     </div>
 
     <!-- 3 -->
-    <picture>   <!-- phones: cropped in on the UI, so it reads bigger -->
-      <source media="(max-width: 640px)" srcset="img/dobbin/03-v2-sm.png" width="1029" height="878">
+    <picture>   <!-- phones: cropped to the screen's top left, running off right and bottom, like slot 4 -->
+      <source media="(max-width: 640px)" srcset="img/dobbin/03-v2-sm.png" width="1029" height="877">
       <img class="media-img" src="img/dobbin/03-v2-1x.png" srcset="img/dobbin/03-v2-1x.png 1673w, img/dobbin/03-v2-2x.png 3346w"
-         sizes="(max-width: 640px) calc((100vw - 32px) * 1.24), calc(100vw - 96px)" alt="Dobbin HQ Knowledge Base: documents with their usage, channels, source and whether they were uploaded, integrated or learned" width="1673" height="966" loading="lazy" decoding="async">
+         sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ Knowledge Base: documents with their usage, channels, source and whether they were uploaded, integrated or learned" width="1673" height="966" loading="lazy" decoding="async">
     </picture>
 
     <!-- new: knowledge pair (Figma: new: knowledge pair) -->
@@ -227,7 +224,7 @@
     <!-- new: canvas concept demo (built in HTML in the canvas explorations' styles, rendered at 60fps):
          a flagged prompt is unpacked into the knowledge it used and the gap, Alex joins, two more prompts
          connect to the same gap, and his doc fixes all three. 13s loop, 2560 × 1478. HEVC 1.4MB, H.264 1.5MB -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #1e1e1e; --fg-w: 100%; --fg-ratio: 1673 / 966; --ratio-sm: 821 / 700; --fg-w-sm: 152%; --fg-cx-sm: 38%;">   <!-- small screens: the half-panel shape, zoomed in on the graph -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #1e1e1e; --fg-w: 100%; --fg-ratio: 1673 / 966; --ratio-sm: 1673 / 966; --fg-w-sm: 100%;">
       <video class="layered__fg" poster="img/dobbin/canvas-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Canvas concept: a prompt Dobbin didn't solve is unpacked into the knowledge it used and the gap behind it; a teammate adds a document that fixes the gap for three prompts">
         <source src="video/dobbin/canvas-hevc.mp4" type='video/mp4; codecs="hvc1"'>
         <source src="video/dobbin/canvas-h264.mp4" type="video/mp4">
@@ -283,8 +280,11 @@
         <img class="media-img media-img--outline" style="--stroke-soft: rgb(0 0 0 / 0.07);" src="img/dobbin/fb-a-1x.png" srcset="img/dobbin/fb-a-1x.png 821w, img/dobbin/fb-a-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin asks in Slack how its messages landed, with quick reactions and next steps" width="821" height="700" loading="lazy" decoding="async">
       </picture>
-      <img class="media-img media-img--outline" style="--stroke-soft: rgb(0 0 0 / 0.07);" src="img/dobbin/fb-b-1x.png" srcset="img/dobbin/fb-b-1x.png 821w, img/dobbin/fb-b-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Onboarding: what size is your company, and why Dobbin asks" width="821" height="700" loading="lazy" decoding="async">
+      <picture>   <!-- phones: cropped in on the question, so it reads bigger -->
+        <source media="(max-width: 640px)" srcset="img/dobbin/fb-b-sm.png" width="1029" height="878">
+        <img class="media-img media-img--outline" style="--stroke-soft: rgb(0 0 0 / 0.07);" src="img/dobbin/fb-b-1x.png" srcset="img/dobbin/fb-b-1x.png 821w, img/dobbin/fb-b-2x.png 1641w"
+             sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Onboarding: what size is your company, and why Dobbin asks" width="821" height="700" loading="lazy" decoding="async">
+      </picture>
     </div>
 
     <div class="grid media-text">
@@ -295,8 +295,11 @@
     </div>
 
     <!-- 7 -->
-    <img class="media-img media-img--zoom-sm" style="--box-bg: #444444; --zoom-ratio: 1551 / 966; --pad-top-sm: 7.03%; /* phones: the boards edge to edge (their 1551 of 1673), less empty top */" src="img/dobbin/07-1x.png" srcset="img/dobbin/07-1x.png 1673w, img/dobbin/07-2x.png 3346w"
-         sizes="(max-width: 640px) calc((100vw - 32px) * 1.08), calc(100vw - 96px)" alt="The Dobbin design system in Figma: semantic tokens, text styles and the component library" width="1673" height="966" loading="lazy" decoding="async">
+    <picture>   <!-- phones: the two boards 8px apart, with more room either side -->
+      <source media="(max-width: 640px)" srcset="img/dobbin/07-v2-sm.png" width="1029" height="877">
+      <img class="media-img" style="--box-bg: #333333; --zoom-ratio: 1480 / 966; --pad-top-sm: 4%; /* phones: the boards nearly edge to edge (their 1448 of 1673), less empty top */" src="img/dobbin/07-v2-1x.png" srcset="img/dobbin/07-v2-1x.png 1673w, img/dobbin/07-v2-2x.png 3346w"
+           sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="The Dobbin design system in Figma: tokens, colour styles and the component library" width="1673" height="966" loading="lazy" decoding="async">
+    </picture>
 
     <div class="grid media-text">
       <div class="block block--wide">
@@ -363,6 +366,7 @@
             <li>Our first enterprise client, alongside Area 17, Mark Seliger Studio and Evite.</li>
             <li>Brand, marketing site, Dobbin HQ and its design system, designed and shipped in 3 months.</li>
           </ul>
+          <p style="margin-top: 1.2em;">“There’s something really different happening with what you built.”<span class="quote-cite">A Dobbin customer</span></p>
         </div>
       </div>
     </div>
