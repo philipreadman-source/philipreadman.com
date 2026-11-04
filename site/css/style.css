@@ -691,7 +691,6 @@ div.layered__fg--tags { overflow: visible; }
   background: var(--note-bg-agent); color: var(--text);
   font: 600 var(--fs-pill) / 1.15 var(--font);
   cursor: pointer;
-  box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
   transition: background-color 200ms ease;
 }
 .release-cta:hover { background: color-mix(in srgb, var(--note-bg-agent), #000 6%); }
