@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
-  <link rel="stylesheet" href="/css/style.css?v=6">
+  <link rel="stylesheet" href="/css/style.css?v=7">
   <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-dark.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-light.png" media="(prefers-color-scheme: dark)">
@@ -342,14 +342,11 @@
 <!-- Release notes: a fixed button bottom right opens them in a dialog. Copied from
      quiet-table-ios/release-notes, newest first -->
 <button class="release-cta" type="button" aria-haspopup="dialog" aria-controls="release-notes"><span class="status-dot" aria-hidden="true"></span>Release notes</button>
-<dialog class="release-notes" id="release-notes" aria-labelledby="release-notes-title">
+<dialog class="release-notes" id="release-notes" aria-label="Release notes">
   <button class="note__close" type="button" aria-label="Close release notes">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>
   </button>
-  <h2 class="label" id="release-notes-title">Release notes</h2>
-  <article class="release">
-    <p class="text-small"><time datetime="2026-11-03">3 November 2026</time> · Build 6</p>
-    <h3>Friends, and one card for every restaurant</h3>
+  <article class="release">   <!-- 3 November 2026, build 6: Friends, and one card for every restaurant -->
     <ul class="bullets">
       <li><strong>Friends.</strong> Follow people from the new Friends tab or any review. Friends you’re eating with count most in Find; everyone else is a light nod.</li>
       <li><strong>One restaurant card.</strong> Details and Reviews tabs: read any review in place, tap a name to see that person, and review from the card.</li>
