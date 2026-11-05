@@ -63,7 +63,10 @@
     <figure class="card" data-card="SR" data-icon="eye"><a class="card__link" href="superrare"><img src="img/card-1.jpg" alt="SuperRare case study" draggable="false"></a><figcaption class="card__caption">Digital art market leader</figcaption></figure>
     <figure class="card card--petalite" data-card="Petalite" data-icon="eye">
       <a class="card__link" href="petalite" aria-label="Petalite EV case study">
-        <video src="video/intro.mp4" poster="img/intro-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+        <video poster="img/intro-poster.jpg?v=2" data-autoplay muted loop playsinline preload="none" aria-hidden="true">
+          <source src="video/intro-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+          <source src="video/intro-h264.mp4" type="video/mp4">
+        </video>
       </a>
     <figcaption class="card__caption">Driver-first charging UX</figcaption></figure>
     <figure class="card card--terrex" data-card="Adi-OD" data-icon="eye">
