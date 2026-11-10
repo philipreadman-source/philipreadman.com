@@ -325,9 +325,33 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
       revealIO.unobserve(e.target);
     });
   }, { threshold: 0.25 });
-  document.querySelectorAll("[data-reveal]").forEach((el) => {
+  document.querySelectorAll("[data-reveal]:not([data-reveal='center'])").forEach((el) => {
     el.classList.add("reveal-wait");
     revealIO.observe(el);
+  });
+
+  // data-reveal="center": waits until the middle of the element reaches about the middle of
+  // the screen, so tags on a tall visual don't appear while it's still low in the viewport.
+  // Checks on scroll only while the element is on screen.
+  document.querySelectorAll("[data-reveal='center']").forEach((el) => {
+    el.classList.add("reveal-wait");
+    let ticking = false;
+    const check = () => {
+      ticking = false;
+      const r = el.getBoundingClientRect();
+      if (r.top + r.height / 2 > window.innerHeight * 0.55) return;
+      el.classList.remove("reveal-wait");
+      window.removeEventListener("scroll", onScroll);
+      io.disconnect();
+    };
+    const onScroll = () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(check); }
+    };
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { window.addEventListener("scroll", onScroll, { passive: true }); check(); }
+      else window.removeEventListener("scroll", onScroll);
+    });
+    io.observe(el);
   });
 }
 
