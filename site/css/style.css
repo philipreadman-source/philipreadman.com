@@ -719,7 +719,8 @@ div.layered__fg--tags { overflow: visible; }
 }
 .release-notes::backdrop { background: rgb(30 37 29 / 0.3); }
 .release-notes[open] { animation: note-in 200ms cubic-bezier(.2, .8, .2, 1); }
-.release + .release { margin-top: 32px; }
+.release + .release { margin-top: 24px; padding-top: 24px; border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent); }   /* each new drop gets a faint divider */
+.release__date { display: block; margin-bottom: 10px; font: 11px / 1.2 ui-monospace, "SF Mono", Menlo, Consolas, monospace; color: var(--text-muted); }
 .release li { font-size: 16px; line-height: 1.35; }
 .release li + li { margin-top: 8px; }
 .release strong { font-weight: 600; }
