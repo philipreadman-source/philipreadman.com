@@ -151,6 +151,8 @@
       .layered__fg--tags > img.fg-tag { width: calc(var(--w) * 1.5); }
       /* discovery: desktop and onboarding phone become two cards */
       .only-sm { display: block; }
+      .pn--half:has(> video[poster*="s13-room"]) { --r-sm: 4 / 3; }   /* landscape prototype: a shorter card */
+      .pn.only-sm > .phonev:has(img[src*="s8-phone"]) { --x: 50% !important; height: 82% !important; }
       .pn:has(> img[src*="s8-home"]) > .phonev { display: none; }
       .pn > img[src*="s8-home"] { --x: 50% !important; top: 40px !important; width: 90% !important; height: auto !important; }
     }
