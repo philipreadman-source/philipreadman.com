@@ -43,8 +43,134 @@
   <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-dark.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-light.png" media="(prefers-color-scheme: dark)">
+  <style>
+    /* SR v2 test: deck-style ambient backgrounds (tiny blurred images, crossfade per section) + dark panels */
+    body.sr2 { background: #111; }
+    .ambient { position: fixed; inset: -8%; z-index: -1; pointer-events: none; }
+    .ambient img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(48px); opacity: 0; transition: opacity 1.4s ease; }
+    .ambient img.is-on { opacity: 1; }
+    .sr2 .layered { --layer-bg: rgb(16 16 16 / 0.2); background: rgb(16 16 16 / 0.2); }
+    .pn { position: relative; overflow: hidden; border-radius: var(--radius); background: rgb(16 16 16 / 0.2); aspect-ratio: var(--r, 1673 / 966); }
+    .pn--half { --r: 821 / 700; }
+    .pn > img, .pn > video, .pn > .cms, .pn > .collage, .pn > .phonev, .pn > .photo, .pn > .acards, .pn > .notif { position: absolute; display: block; left: var(--x); top: var(--y); transform: translate(-50%, calc(var(--y) * -1)); height: auto; max-width: none; }
+    .pn > [style*="height:"] { width: auto; }
+    .pn > [style*="top:8%"] { transform: translateX(-50%); }
+    /* CMS structure list (rebuilt from Figma "Page sections", 420 wide; 1u = 1 Figma px) */
+    .cms { container-type: inline-size; aspect-ratio: 420 / 425; }
+    .cms__in { --u: calc(100cqw / 420); position: absolute; inset: 0; font: 600 calc(var(--u) * 13) / calc(var(--u) * 17) Switzer, system-ui, sans-serif; letter-spacing: 0.01em; text-transform: uppercase; color: rgb(255 255 255 / 0.85); }
+    .cms__title, .cms li { position: absolute; left: 0; right: 0; margin: 0; }
+    .cms__title { top: 0; color: rgb(255 255 255 / 0.4); }
+    .cms ol { list-style: none; margin: 0; padding: 0; }
+    .cms ol::before { content: ""; position: absolute; left: calc(var(--u) * 2); top: calc(var(--u) * 81); width: 1px; height: calc(var(--u) * 333); background: rgb(255 255 255 / 0.25); }
+    .cms li { top: calc(var(--u) * var(--top)); padding-left: calc(var(--u) * 21); }
+    .cms li::before { content: ""; position: absolute; left: 0; top: calc(var(--u) * 6); width: calc(var(--u) * 5); height: calc(var(--u) * 5); border-radius: 50%; background: rgb(255 255 255 / 0.8); }
+    .cms b { font-weight: inherit; }
+    .cms span { margin-left: 0.6em; color: rgb(255 255 255 / 0.4); }
+    .cms i { position: absolute; right: 0; top: 0; }
+    .cms__line { top: calc(var(--u) * 10) !important; width: calc(var(--u) * 8); height: 1px; background: rgb(255 255 255 / 0.35); right: calc(var(--u) * 1) !important; }
+    .cms__drag { width: calc(var(--u) * 7); height: calc(var(--u) * 11);
+      background: radial-gradient(circle, rgb(255 255 255 / 0.35) 0 calc(var(--u) * 1), transparent calc(var(--u) * 1.1)) 0 0 / calc(var(--u) * 5) calc(var(--u) * 4.5); }
+    /* load-in: rows arrive one by one */
+    .cms .cms__title, .cms li { opacity: 0; transform: translateY(6px); transition: opacity 0.6s ease, transform 0.7s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 90ms); }
+    .cms.is-in .cms__title, .cms.is-in li { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .cms .cms__title, .cms li { opacity: 1; transform: none; transition: none; } }
+    .collage > img:first-child { display: block; width: 100%; height: auto; }
+    .collage__heart { position: absolute; left: 88.81%; top: 49.84%; width: 9.155%; height: auto; transform: scale(0); opacity: 0; transform-origin: 50% 50%;
+      transition: transform 0.55s cubic-bezier(.34,1.7,.5,1), opacity 0.2s ease; transition-delay: 0.15s; }
+    .collage.is-in .collage__heart { transform: none; opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { .collage__heart { transform: none; opacity: 1; transition: none; } }
+    .photo > img:first-child { display: block; width: 100%; height: auto; }
+    .photo__card { position: absolute; left: 16px; bottom: 16px; width: 55%; height: auto; border-radius: 1.45% / 5.31%; box-shadow: 0 2px 19px rgb(0 0 0 / 0.11); }
+    .notif > img, .notif__avatar { position: absolute; top: 0; height: auto; }
+    .notif__avatar { left: 2.65%; width: 11.5%; aspect-ratio: 44 / 45; }
+    .notif__avatar img { display: block; width: 100%; height: auto; }
+    .notif__avatar i { position: absolute; left: 73.7%; top: 3.6%; width: 15.9%; aspect-ratio: 1; border-radius: 50%; background: #f00; box-sizing: border-box; border: 1px solid rgb(58 49 53); }
+    .notif__card { left: 18.65%; width: 81.35%; }
+    .phonev { overflow: hidden; }
+    .phonev > img:first-child { display: block; width: 100%; height: 100%; }
+    .phonev > video { position: absolute; object-fit: cover; }
+    .phonev__icon { position: absolute; height: auto; }
+    .phonev__nav { position: absolute; left: 0; top: 0; width: 100%; height: auto; }
+    /* Auction cards (Figma group "auction cards", 390 × 429) */
+    .acards > * { position: absolute; display: block; }
+    .acards__card { left: 8%; top: 3.7%; width: 84%; height: 96.3%; border-radius: 12px; background: #fff; overflow: hidden; }
+    .acards__vid { position: absolute; left: 3.57%; top: 13.1%; width: 92.86%; height: 78%; object-fit: cover; }
+    .acards__pill { left: 34.87%; top: 13.75%; width: 30.26%; height: auto; }
+    .acards__bid { left: 18.38%; top: 87.1%; width: 63.25%; height: auto; opacity: 0; transform: translateY(4px); transition: opacity 0.35s ease, transform 0.45s cubic-bezier(.2,.7,.2,1); }
+    .acards.is-bid .acards__bid { opacity: 1; transform: none; }
+    /* Gallery: tap a collector pill, their artwork card opens, holds, closes, loops */
+    .layered__fg > .tap { position: absolute; left: var(--x); top: var(--y); width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; background: rgb(20 20 20 / 0.28); box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.85); opacity: 0; transform: scale(0.3); pointer-events: none; }
+    .layered__fg > .tap::after { content: ""; position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: rgb(20 20 20 / 0.75); box-shadow: 0 0 0 2px #fff; }
+    .is-tap > .layered__fg > .tap { animation: tap 0.55s ease-out; }
+    @keyframes tap { 0% { opacity: 0; transform: scale(0.35); } 22% { opacity: 1; transform: scale(0.65); } 45% { opacity: 1; transform: scale(0.85); } 100% { opacity: 0; transform: scale(1.35); } }
+    .layered__fg > .dd-card { position: absolute; left: -4.375%; top: 67.78%; width: 41.9%; height: auto; border-radius: 0.95% / 1.77%;
+      opacity: 0; transform: scale(0.9); transform-origin: 50% 50%; transition: opacity 0.32s ease, transform 0.3s cubic-bezier(.3,1.4,.5,1); pointer-events: none; }
+    .is-open > .layered__fg > .dd-card { opacity: 1; transform: none; }
+    .tags-live > .layered__fg > img.fg-tag { transition: opacity 0.2s ease; transition-delay: 0s; }
+    .tags-live.is-open > .layered__fg > img.fg-tag:not(.fg-tag--main) { opacity: 0.5; }
+    @media (prefers-reduced-motion: reduce) { .layered__fg > .tap { display: none; } }
+    /* highlights on the dark page: #101010 at 70%, white text */
+    .sr2 .hl, .sr2 .hl--blue, .sr2 .hl--yellow { --hl: rgb(16 16 16 / 0.7); color: inherit; }
+    .only-sm { display: none; }
+    /* ---------- tablet + phones (same breakpoint as the live slots' --ratio-sm) ---------- */
+    @media (max-width: 1100px) {
+      .pn { aspect-ratio: var(--r-sm, 1 / 1); }
+      .pn--half { --r-sm: 4 / 5; }
+      /* desktop screens that run off the bottom: width-led on phones */
+      .pn > [style*="top:8%"] { width: 90% !important; height: auto !important; }
+      /* homepage: sits on the panel's bottom edge, 40px above it */
+      .pn:has(> img[src*="s7-home"]), .pn:has(> img[src*="s12-collection"]), .pn:has(> img[src*="s9-explore"]) { aspect-ratio: auto; }
+      .pn > img[src*="s7-home"], .pn > img[src*="s12-collection"], .pn > img[src*="s9-explore"] { position: relative !important; display: block; left: auto !important; top: auto !important; transform: none !important; width: 90% !important; height: auto !important; margin: 40px auto 0; }
+      /* discovery on tablet: desktop and phone side by side */
+      .pn > img[src*="s8-home"] { --x: 37% !important; width: 64% !important; }
+      .pn > .phonev:has(img[src*="s8-phone"]) { --x: 83% !important; height: 56% !important; }
+      /* phone rows */
+      .pn > img[src*="s13-a"] { --x: 19% !important; height: 62% !important; }
+      .pn > img[src*="s13-d"] { height: 62% !important; }
+      .pn > img[src*="s13-b"] { --x: 81% !important; height: 62% !important; }
+      .pn > img[src*="s16-a"] { --x: 31% !important; height: 76% !important; }
+      .pn > img[src*="s16-b"] { --x: 69% !important; height: 76% !important; }
+      /* half-panel pieces a touch bigger */
+      .pn > .cms { width: 84% !important; }
+      .pn > .collage { width: 74% !important; }
+      .pn > img[src*="s6-pills"] { width: 86% !important; }
+      .pn > .notif { width: 86% !important; }
+      .pn > .photo { width: 90% !important; }
+      .pn > video[poster*="s13-room"] { width: 92% !important; }
+      .pn > video[poster*="exhibition-poster"] { width: 92% !important; }
+      /* MIRAGE bid: show the bid UI, 24px in from the right */
+      .pn > video[poster*="bidcrop"] { left: auto !important; right: 24px; border-radius: 0 16px 0 0 !important; }
+      /* gallery card: bigger so it can be read */
+      .layered:has(img[src*="img13-fg"]) { --fg-radius: 8px !important; }
+    }
+    @media (max-width: 640px) {
+      /* gallery on phones: pills only, no tap or card */
+      .layered__fg > .dd-card, .layered__fg > .tap { display: none; }
+      .tags-live.is-open > .layered__fg > img.fg-tag:not(.fg-tag--main) { opacity: 1; }
+      .layered__fg--tags > img.fg-tag { width: calc(var(--w) * 1.5); }
+      /* discovery: desktop and onboarding phone become two cards */
+      .only-sm { display: block; }
+      .pn:has(> img[src*="s8-home"]) > .phonev { display: none; }
+      .pn > img[src*="s8-home"] { --x: 50% !important; top: 40px !important; width: 90% !important; height: auto !important; }
+    }
+  </style>
 </head>
-<body>
+<body class="theme-dark sr2">
+<div class="ambient" aria-hidden="true">
+  <img src="img/sr2/amb-4.jpg" data-amb="4" alt="" class="is-on">
+  <img src="img/sr2/amb-5.jpg" data-amb="5" alt="">
+  <img src="img/sr2/amb-7.jpg" data-amb="7" alt="" loading="lazy">
+  <img src="img/sr2/amb-8.jpg" data-amb="8" alt="" loading="lazy">
+  <img src="img/sr2/amb-9.jpg" data-amb="9" alt="" loading="lazy">
+  <img src="img/sr2/amb-10.jpg" data-amb="10" alt="" loading="lazy">
+  <img src="img/sr2/amb-11.jpg" data-amb="11" alt="" loading="lazy">
+  <img src="img/sr2/amb-12.jpg" data-amb="12" alt="" loading="lazy">
+  <img src="img/sr2/amb-13.jpg" data-amb="13" alt="" loading="lazy">
+  <img src="img/sr2/amb-14.jpg?v=2" data-amb="14" alt="" loading="lazy">
+  <img src="img/sr2/amb-15.jpg?v=2" data-amb="15" alt="" loading="lazy">
+  <img src="img/sr2/amb-16.jpg?v=2" data-amb="16" alt="" loading="lazy">
+  <img src="img/sr2/amb-17.jpg" data-amb="17" alt="" loading="lazy">
+</div>
 
 <!-- Case studies sit under Work, so the Home button shows as selected -->
 <nav class="nav" aria-label="Main">
@@ -60,12 +186,8 @@
 
   <!-- Layered hero (Figma: SR frame): blurred photo ground + phone, centred.
        Phone is 320 × 693 at 71.7% of the 966px frame; radius 13.65px. -->
-  <figure class="case-hero">
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #141414; --fg-h: 71.74%; --fg-ratio: 320 / 693; --fg-radius: 4.27% / 1.97%; --fg-h-sm: 78%;">
-      <img class="layered__bg" src="img/sr/hero-bg-1x.jpg"
-           srcset="img/sr/hero-bg-1x.jpg 1673w, img/sr/hero-bg-2x.jpg 3346w"
-           sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1100px) calc(100vw - 64px), calc(100vw - 96px)"
-           alt="" fetchpriority="high">
+  <figure class="case-hero" data-ambient="4">
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #141414; --fg-h: 82%; --fg-ratio: 320 / 693; --fg-radius: 4.27% / 1.97%; --fg-h-sm: 78%;">
       <img class="layered__fg" src="img/sr/hero-fg-1x.jpg"
            srcset="img/sr/hero-fg-1x.jpg 320w, img/sr/hero-fg-2x.jpg 640w"
            sizes="(max-width: 1100px) 45vw, 20vw"
@@ -73,7 +195,7 @@
     </div>
   </figure>
 
-  <section class="blocks grid case-text" aria-label="Case study">
+  <section class="blocks grid case-text" aria-label="Case study" data-ambient="5">
     <div class="block block--wide">
       <h2 class="label">Role</h2>
       <div class="prose">
@@ -131,269 +253,98 @@
   <!-- Case images (Figma: Case/SR → Frame 16088, images 1–14). Layered: flat or
        photo ground + foreground. 160px below the text, 32px between images. -->
   <section class="case-media case-media--story" aria-label="Case images">
-    <!-- v2: story order. Slots keep their original numbers (image files); sections group them -->
-    <div class="grid media-text">
+    <div class="grid media-text" data-ambient="5">
       <div class="block block--wide">
         <h2 class="label">Curation</h2>
         <div class="prose"><p>As a team we defined curation as <mark class="hl">“making considered content choices that align with a specific aesthetic, vision or business case.”</mark></p><p class="p-then">A dynamic list of high-performing artists now leads the homepage, and onboarding matches new collectors to them from the first visit.</p></div>
       </div>
     </div>
-
-
-    <!-- 1: homepage, 960 × 721 centred on #f5f5f5 -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f5f5f5; --fg-w: 57.38%; --fg-ratio: 960 / 721; --fg-radius: 0.83% / 1.11%; --fg-shadow: var(--shadow-screen); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
-      <img class="layered__fg" src="img/sr/img1-fg-1x.jpg"
-           srcset="img/sr/img1-fg-1x.jpg 960w, img/sr/img1-fg-2x.jpg 1920w"
-           sizes="(max-width: 1100px) 88vw, 57vw"
-           alt="SuperRare homepage" width="960" height="721" loading="lazy" decoding="async">
-    </div>
-
-
-    <!-- 2: discovery collage + artist list video -->
     <div class="media-pair">
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #f5f5f5; --fg-w: 85.26%; --fg-ratio: 700 / 316; --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
-        <img class="layered__fg" src="img/sr/img2a-fg-1x.jpg"
-             srcset="img/sr/img2a-fg-1x.jpg 700w, img/sr/img2a-fg-2x.jpg 1400w"
-             sizes="(max-width: 640px) 88vw, 43vw"
-             alt="Curated artwork and artist discovery modules" width="700" height="316" loading="lazy" decoding="async">
-      </div>
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #f5f5f5; --fg-h: 78.57%; --fg-ratio: 266 / 550; --fg-radius: 6.02% / 2.91%; --fg-h-sm: 82%;">
-        <video class="layered__fg" poster="img/sr/artistmob-poster.jpg"
-               data-autoplay muted loop playsinline preload="none" aria-label="Artist list on mobile">
-          <source src="video/sr/artistmob-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-          <source src="video/sr/artistmob-h264.mp4" type="video/mp4">
-        </video>
-      </div>
+      <div class="pn pn--half"><video style="--x:50%;--y:50%;height:82%;border-radius:7.69% / 3.72%;" poster="img/sr/artistmob-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Artist list on mobile"><source src="video/sr/artistmob-hevc.mp4" type='video/mp4; codecs="hvc1"'><source src="video/sr/artistmob-h264.mp4" type="video/mp4"></video></div>
+      <div class="pn pn--half"><img class="" style="--x:50%;--y:50%;width:64%" src="img/sr2/s6-pills-1x.png" srcset="img/sr2/s6-pills-1x.png 500w, img/sr2/s6-pills-2x.png 1000w" sizes="(max-width: 640px) 90vw, 50vw" alt="How curation shifted the product: from marketplace habits to gallery thinking" loading="lazy" decoding="async"></div>
     </div>
-
-
-    <!-- 3: collector moments + onboarding video set in a UI card -->
+    <div class="pn" data-ambient="7">
+      <img class="" style="--x:50%;--y:0;top:8%;height:92%;border-radius:1.09% 1.09% 0 0 / 1.47% 1.47% 0 0" src="img/sr2/s7-home-1x.jpg" srcset="img/sr2/s7-home-1x.jpg 960w, img/sr2/s7-home-2x.jpg 1920w" sizes="(max-width: 640px) 90vw, 50vw" alt="Modular SuperRare homepage" loading="lazy" decoding="async">
+    </div>
     <div class="media-pair">
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #f5f5f5; --fg-h: 77.74%; --fg-ratio: 550 / 544.21; --fg-w-sm: 84%;">
-        <img class="layered__fg" src="img/sr/img3a-fg-1x.jpg"
-             srcset="img/sr/img3a-fg-1x.jpg 570w, img/sr/img3a-fg-2x.jpg 1140w"
-             sizes="(max-width: 640px) 84vw, 34vw"
-             alt="Artwork, likes and collector activity" width="570" height="564" loading="lazy" decoding="async">
-      </div>
-      <!-- card 404 × 551 sits on the bottom edge; video 404 × 472 at (0, 76) inside it, full width -->
-      <div class="layered layered--bottom" style="--ratio: 821 / 700; --layer-bg: #e9e9e9; --fg-h: 78.71%; --fg-ratio: 404 / 551; --fg-radius: 7.38% 7.38% 0 0 / 5.41% 5.41% 0 0; --fg-shadow: 0 2.58px 28.43px -5.17px rgb(0 0 0 / 0.2); --fg-h-sm: 82%;">
-        <img class="layered__bg" src="img/sr/img3b-bg-1x.jpg"
-             srcset="img/sr/img3b-bg-1x.jpg 821w, img/sr/img3b-bg-2x.jpg 1641w"
-             sizes="(max-width: 640px) 100vw, 50vw"
-             alt="" loading="lazy" decoding="async">
-        <div class="layered__fg" style="--v-x: 0%; --v-y: 13.78%; --v-w: 100%; --v-h: 85.64%;">
-          <img src="img/sr/img3b-fg-1x.png"
-               srcset="img/sr/img3b-fg-1x.png 404w, img/sr/img3b-fg-2x.png 808w"
-               sizes="(max-width: 640px) 78vw, 26vw"
-               alt="" loading="lazy" decoding="async">
-          <video poster="img/sr/discover-ui-poster.jpg"
-                 data-autoplay muted loop playsinline preload="none" aria-label="Onboarding: choosing favourite types of art">
-            <source src="video/sr/discover-cta-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-            <source src="video/sr/discover-cta-h264.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
+      <div class="pn pn--half"><div class="cms" style="--x:50%;--y:50%;width:60%" role="img" aria-label="CMS structure of the homepage: hero, featured, auctions, trending, recent activity, collections, editorial, then DAO, RARE and help"><div class="cms__in"><p class="cms__title" style="--i:0">CMS structure</p><ol><li style="--top:72;--i:1"><b>Hero</b> <span>Any content type</span><i class="cms__line" aria-hidden="true"></i></li><li style="--top:144;--i:2"><b>Featured</b> <span>CMS hand-picked</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:216;--i:3"><b>Auctions</b> <span>Dynamic, ending soon + featured list</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:288;--i:4"><b>Trending</b> <span>Search terms + override</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:315;--i:5"><b>Recent activity</b> <span>Bids &amp; sales priority</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:342;--i:6"><b>Collections</b> <span>OG NFT collections</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:369;--i:7"><b>Editorial</b> <span>Marketing, artist stories</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:405;--i:8"><b>DAO, RARE, Help</b><i class="cms__line" aria-hidden="true"></i></li></ol></div></div></div>
+      <div class="pn pn--half"><div class="collage" style="--x:50%;--y:50%;width:58%;aspect-ratio:327.68 / 311"><img src="img/sr2/s8-collage-1x.png" srcset="img/sr2/s8-collage-1x.png 492w, img/sr2/s8-collage-2x.png 984w" sizes="(max-width: 640px) 40vw, 20vw" alt="Artist discovery avatars" loading="lazy" decoding="async"><img class="collage__heart" src="img/sr2/s8-heart-2x.png" alt="" aria-hidden="true"></div></div>
     </div>
-
-    <div class="grid media-text">
+    <div class="pn" data-ambient="8">
+      <img class="" style="--x:31%;--y:0;top:8%;width:46%;border-radius:1.53% 1.53% 0 0 / 1.29% 1.29% 0 0" src="img/sr2/s8-home-1x.jpg?v=2" srcset="img/sr2/s8-home-1x.jpg?v=2 800w, img/sr2/s8-home-2x.jpg?v=2 2400w" sizes="(max-width: 640px) 90vw, 42vw" alt="Discovery modules on the homepage" loading="lazy" decoding="async">
+      <div class="phonev" style="--x:76%;--y:50%;height:68%;border-radius:4.29% / 1.98%;;aspect-ratio:280 / 607"><img src="img/sr2/s8-phone-1x.jpg" srcset="img/sr2/s8-phone-1x.jpg 280w, img/sr2/s8-phone-2x.jpg 840w" sizes="(max-width: 640px) 50vw, 17vw" alt="" loading="lazy" decoding="async"><video style="left:0.14%;top:6.69%;width:99.68%;height:52%" poster="img/sr/discover-ui-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Onboarding: choosing favourite types of art"><source src="video/sr/discover-cta-hevc.mp4" type='video/mp4; codecs="hvc1"'><source src="video/sr/discover-cta-h264.mp4" type="video/mp4"></video><img class="phonev__nav" src="img/sr2/s8-phone-nav.png" alt="" aria-hidden="true"></div>
+    </div>
+    <div class="pn pn--half only-sm" aria-hidden="true"><div class="phonev" style="--x:50%;--y:50%;height:82%;border-radius:4.29% / 1.98%;;aspect-ratio:280 / 607"><img src="img/sr2/s8-phone-1x.jpg" srcset="img/sr2/s8-phone-1x.jpg 280w, img/sr2/s8-phone-2x.jpg 840w" sizes="(max-width: 640px) 50vw, 17vw" alt="" loading="lazy" decoding="async"><video style="left:0.14%;top:6.69%;width:99.68%;height:52%" poster="img/sr/discover-ui-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-hidden="true"><source src="video/sr/discover-cta-hevc.mp4" type='video/mp4; codecs="hvc1"'><source src="video/sr/discover-cta-h264.mp4" type="video/mp4"></video><img class="phonev__nav" src="img/sr2/s8-phone-nav.png" alt="" aria-hidden="true"></div></div>
+    <div data-ambient="10" class="grid media-text">
       <div class="block block--wide">
         <h2 class="label">Exhibitions</h2>
         <div class="prose"><p>Expressive landing pages, artist interviews and fast-loading collection pages give work the respect a gallery would.</p><p class="p-then">That presentation justified raising SuperRare’s fee on primary sales of exhibition artworks from 15% to 30%+.</p></div>
       </div>
     </div>
-
-
-
-    <!-- 4: ArchiTextures exhibition page (video) on dark green, centred at 960px
-         wide like the screen in 1, with the same 8px corners and shadow -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #1d2d22; --fg-w: 57.38%; --fg-ratio: 1728 / 1170; --fg-radius: 0.83% / 1.23%; --fg-shadow: var(--shadow-screen); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
-      <video class="layered__fg" poster="img/sr/exhibition-poster.jpg"
-             data-autoplay muted loop playsinline preload="none" aria-label="ArchiTextures exhibition page">
-        <source src="video/sr/exhibition-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-        <source src="video/sr/exhibition.mp4" type="video/mp4">
-      </video>
+    <div class="pn" data-ambient="11">
+      <video style="--x:50%;--y:50%;width:70%;max-width:1100px;border-radius:0.83% / 1.23%" poster="img/sr/exhibition-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="ArchiTextures exhibition page"><source src="video/sr/exhibition-hevc.mp4" type='video/mp4; codecs="hvc1"'><source src="video/sr/exhibition.mp4" type="video/mp4"></video>
     </div>
-
-
-    <!-- 5: offer flow on mobile (top-anchored, runs off the bottom edge) + artist quote -->
     <div class="media-pair">
-      <div class="layered layered--top" style="--ratio: 821 / 700; --layer-bg: #5f6060; --fg-h: 100%; --fg-ratio: 375 / 700; --fg-h-sm: 100%;">
-        <img class="layered__bg" src="img/sr/img5a-bg-1x.jpg"
-             srcset="img/sr/img5a-bg-1x.jpg 821w, img/sr/img5a-bg-2x.jpg 1641w"
-             sizes="(max-width: 640px) 100vw, 50vw"
-             alt="" loading="lazy" decoding="async">
-        <img class="layered__fg" src="img/sr/img5a-v2-fg-1x.jpg"
-             srcset="img/sr/img5a-v2-fg-1x.jpg 375w, img/sr/img5a-v2-fg-2x.jpg 750w"
-             sizes="(max-width: 640px) 67vw, 23vw"
-             alt="Making a global collection offer on mobile" width="375" height="700" loading="lazy" decoding="async">
-      </div>
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #81915c; --fg-w: 76.61%; --fg-ratio: 1258 / 714; --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
-        <!-- interview clip plays over the still thumbnail (213 × 134 at 412, 138 in the
-             group; the export starts 1.5px left of the group); Figma's play icon sits on top -->
-        <div class="layered__fg" style="--v-x: 65.74%; --v-y: 38.66%; --v-w: 33.86%; --v-h: 37.54%; --v-radius: 4.69% / 7.46%;">
-          <img src="img/sr/img5b-fg-1x.png"
-               srcset="img/sr/img5b-fg-1x.png 629w, img/sr/img5b-fg-2x.png 1258w"
-               sizes="(max-width: 640px) 88vw, 39vw"
-               alt="Richard Nadler quote: Blending Life Experiences into Art with AI" width="629" height="357" loading="lazy" decoding="async">
-          <video poster="img/sr/podcast-poster.jpg"
-                 data-autoplay muted loop playsinline preload="none" aria-label="Richard Nadler interview clip">
-            <source src="video/sr/podcast-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-            <source src="video/sr/podcast-h264.mp4" type="video/mp4">
-          </video>
-          <!-- play icon over the clip (Figma: play, 40 × 40 at 428, 219 in the group) -->
-          <svg class="fg-icon" style="left: 68.28%; top: 61.34%; width: 6.36%;" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-            <circle cx="20" cy="20" r="19" stroke="#fff" stroke-width="2" opacity="0.28"/>
-            <path d="M24 20 18 24.667V15.333L24 20Z" fill="#fff"/>
-          </svg>
-        </div>
-      </div>
+      <div class="pn pn--half"><div class="phonev" style="--x:50%;--y:50%;height:82%;aspect-ratio:298 / 618;border-radius:4.03% / 1.94%"><img src="img/sr2/s11-phone-1x.jpg?v=3" srcset="img/sr2/s11-phone-1x.jpg?v=3 298w, img/sr2/s11-phone-2x.jpg?v=3 894w" sizes="(max-width: 640px) 50vw, 17vw" alt="Exhibition on mobile with the artist interview and quote" loading="lazy" decoding="async"><video style="left:7.05%;top:44.01%;width:46.98%;height:14.24%;border-radius:5.71% / 9.09%" poster="img/sr/podcast-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Richard Nadler interview clip"><source src="video/sr/podcast-hevc.mp4" type='video/mp4; codecs="hvc1"'><source src="video/sr/podcast-h264.mp4" type="video/mp4"></video><img class="phonev__icon" style="left:9.73%;top:52.07%;width:10.96%" src="img/sr2/s11-icon.png?v=2" alt="" aria-hidden="true"></div></div>
+      <div class="pn pn--half"><div class="photo" style="--x:50%;--y:50%;width:80%;aspect-ratio:368 / 245"><img style="border-radius:1.09% / 1.63%" src="img/sr2/s11-photo-1x.jpg" srcset="img/sr2/s11-photo-1x.jpg 368w, img/sr2/s11-photo-2x.jpg 736w" sizes="(max-width: 640px) 90vw, 50vw" alt="ArchiTextures at the Offline gallery in New York" loading="lazy" decoding="async"><img class="photo__card" src="img/sr2/s12-card-1x.png?v=2" srcset="img/sr2/s12-card-1x.png?v=2 336w, img/sr2/s12-card-2x.png?v=2 672w" sizes="(max-width: 640px) 50vw, 16vw" alt="Editorial card: behind the scenes with Richard Nadler" loading="lazy" decoding="async"></div></div>
     </div>
-
-
-    <!-- 6: ArchiTextures collection page (Figma: Collection Details), 960 × 650 centred -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f5f5f5; --fg-w: 57.38%; --fg-ratio: 960 / 650; --fg-radius: 0.83% / 1.23%; --fg-shadow: var(--shadow-screen); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
-      <img class="layered__fg" src="img/sr/img6-fg-1x.jpg"
-           srcset="img/sr/img6-fg-1x.jpg 960w, img/sr/img6-fg-2x.jpg 1920w"
-           sizes="(max-width: 1100px) 88vw, 57vw"
-           alt="ArchiTextures collection page" width="960" height="650" loading="lazy" decoding="async">
+    <div class="pn" data-ambient="12">
+      <img class="" style="--x:50%;--y:0;top:8%;height:92%;border-radius:1.53% 1.53% 0 0 / 1.88% 1.88% 0 0" src="img/sr2/s12-collection-1x.jpg?v=2" srcset="img/sr2/s12-collection-1x.jpg?v=2 782w, img/sr2/s12-collection-2x.jpg?v=2 2346w" sizes="(max-width: 640px) 90vw, 42vw" alt="ArchiTextures collection page" loading="lazy" decoding="async">
     </div>
-
-
-    <!-- 7: event photo with the "nugget" card (90% dark, 8px corners, exported with
-         transparency from the plugin so the photo shows through) + explore video -->
     <div class="media-pair">
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #2c3440; --fg-w: 63.38%; --fg-ratio: 520 / 125.4; --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
-        <img class="layered__bg" src="img/sr/img7a-bg-1x.jpg"
-             srcset="img/sr/img7a-bg-1x.jpg 821w, img/sr/img7a-bg-2x.jpg 1641w"
-             sizes="(max-width: 640px) 100vw, 50vw"
-             alt="" loading="lazy" decoding="async">
-        <img class="layered__fg" src="img/sr/img7a-fg-1x.png"
-             srcset="img/sr/img7a-fg-1x.png 520w, img/sr/img7a-fg-2x.png 1040w"
-             sizes="(max-width: 640px) 88vw, 32vw"
-             alt="Exhibition card from the Richard Nadler event" width="520" height="125" loading="lazy" decoding="async">
-      </div>
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #f5f5f5; --fg-w: 77.36%; --fg-ratio: 1920 / 1272; --fg-radius: 0.33% / 0.5%; --ratio-sm: 1 / 1; --fg-w-sm: 92%;">
-        <video class="layered__fg" poster="img/sr/explore-poster.jpg"
-               data-autoplay muted loop playsinline preload="none" aria-label="Browsing artworks shown in a room">
-          <source src="video/sr/explore-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-          <source src="video/sr/explore-h264.mp4" type="video/mp4">
-        </video>
-      </div>
+      <div class="pn pn--half"><img class="" style="--x:50%;--y:50%;height:82%;border-radius:5.71% / 2.64%" src="img/sr2/s12-activity-1x.jpg" srcset="img/sr2/s12-activity-1x.jpg 280w, img/sr2/s12-activity-2x.jpg 560w" sizes="(max-width: 640px) 90vw, 50vw" alt="Collection activity on mobile" loading="lazy" decoding="async"></div>
+      <div class="pn pn--half"><video style="--x:50%;--y:50%;width:82%;aspect-ratio:1312 / 870;object-fit:cover;border-radius:4px" poster="img/sr2/s13-room-2x.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Vibe-coded prototype for previewing artworks in an interior"><source src="video/sr/room-hevc.mp4" type='video/mp4; codecs="hvc1"'><source src="video/sr/room-h264.mp4" type="video/mp4"></video></div>
     </div>
-
-
-    <div class="grid media-text">
+    <div class="pn" data-ambient="13">
+      <img class="" style="--x:28.33%;--y:50%;height:80%;border-radius:4.29% / 1.78%" src="img/sr2/s13-a-1x.jpg?v=2" srcset="img/sr2/s13-a-1x.jpg?v=2 280w, img/sr2/s13-a-2x.jpg?v=2 840w" sizes="(max-width: 640px) 30vw, 19vw" alt="Exhibition artwork on mobile" loading="lazy" decoding="async">
+      <img class="" style="--x:71.67%;--y:50%;height:80%;border-radius:4.29% / 1.78%" src="img/sr2/s13-b-1x.jpg?v=2" srcset="img/sr2/s13-b-1x.jpg?v=2 280w, img/sr2/s13-b-2x.jpg?v=2 840w" sizes="(max-width: 640px) 30vw, 19vw" alt="Confirm purchase" loading="lazy" decoding="async">
+      <img class="" style="--x:50%;--y:50%;height:80%;border-radius:4.29% / 1.78%" src="img/sr2/s13-d-1x.jpg?v=2" srcset="img/sr2/s13-d-1x.jpg?v=2 280w, img/sr2/s13-d-2x.jpg?v=2 840w" sizes="(max-width: 640px) 30vw, 19vw" alt="Collection offer" loading="lazy" decoding="async">
+    </div>
+    <div data-ambient="14" class="grid media-text">
       <div class="block block--wide">
         <h2 class="label">Auctions</h2>
         <div class="prose"><p>Auctions spark the most excitement from collectors, so <mark class="hl hl--yellow">the redesign amplifies the best moment: getting a bid</mark>.</p><p class="p-then">Collectors can bid quickly with real-time feedback, and artists can set up and schedule an auction in seconds. Auctions make up ~38% of sales, and auction sales grew steadily through Q2 2025.</p></div>
       </div>
     </div>
-
-
-    <!-- 8: bid video on grey (desktop: 10% larger than Figma's 960 wide, so the bid detail reads) -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f5f5f5; --fg-w: 63.12%; --fg-ratio: 960 / 655; --fg-radius: 0.83% / 1.22%; --fg-shadow: var(--shadow-screen); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
-      <video class="layered__fg" poster="img/sr/bid-poster.jpg"
-             data-autoplay muted loop playsinline preload="none" aria-label="Placing a bid on an artwork">
-        <!-- full original at native frame rate, 2× size; HEVC first, H.264 fallback -->
-        <source src="video/sr/bid-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-        <source src="video/sr/bid-h264.mp4" type="video/mp4">
-      </video>
+    <div class="pn" data-ambient="15">
+      <video style="left:0;top:auto;bottom:0;transform:none;height:92.5%;width:auto;aspect-ratio:2396 / 1572;object-fit:cover;border-radius:0 24px 0 0" poster="img/sr2/bidcrop-poster.jpg?v=2" data-autoplay muted loop playsinline preload="none" aria-label="Placing a bid on an auction"><source src="video/sr/bidcrop-hevc.mp4?v=2" type='video/mp4; codecs="hvc1"'><source src="video/sr/bidcrop-h264.mp4?v=2" type="video/mp4"></video>
     </div>
-
-
-    <!-- 9: jitter animation on white, bid pills on grey -->
-    <div class="media-pair">
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #ffffff; --fg-w: 48.51%; --fg-ratio: 398 / 369; --ratio-sm: 1 / 1; --fg-w-sm: 57%;">
-        <video class="layered__fg" poster="img/sr/jitter-poster.jpg"
-               data-autoplay muted loop playsinline preload="none" aria-label="Bid amount animation">
-          <!-- original export, untouched (HEVC); H.264 copy for browsers without HEVC -->
-          <source src="video/sr/jitter-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-          <source src="video/sr/jitter-h264.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #f5f5f5; --fg-w: 83.24%; --fg-ratio: 683 / 42; --ratio-sm: 1 / 1; --fg-w-sm: 92%;">
-        <img class="layered__fg" src="img/sr/img9b-fg-1x.png"
-             srcset="img/sr/img9b-fg-1x.png 683w, img/sr/img9b-fg-2x.png 1366w"
-             sizes="(max-width: 640px) 92vw, 42vw"
-             alt="Quick bid amount options" width="683" height="42" loading="lazy" decoding="async">
-      </div>
+    <div class="media-pair" data-ambient="16">
+      <div class="pn pn--half"><div class="acards" style="--x:50%;--y:50%;height:78%;aspect-ratio:390 / 405"><div class="acards__card"><video class="acards__vid" poster="img/sr/jitter-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="A new bid arrives: the leading bidder's avatar changes"><source src="video/sr/jitter-hevc.mp4" type='video/mp4; codecs="hvc1"'><source src="video/sr/jitter-h264.mp4" type="video/mp4"></video></div><img class="acards__pill" src="img/sr2/ac-pill.png" alt="5 auctions"><img class="acards__bid" src="img/sr2/ac-text.png" alt="@diogosampaio_art placed a bid of 0.300Ξ"></div></div>
+      <div class="pn pn--half"><img class="" style="--x:50%;--y:50%;height:82%;border-radius:4.29% / 2.05%" src="img/sr2/configure-1x.jpg?v=4" srcset="img/sr2/configure-1x.jpg?v=4 280w, img/sr2/configure-2x.jpg?v=4 840w" sizes="(max-width: 640px) 50vw, 17vw" alt="Configure your auction on mobile: scheduled start and end, currency and starting price" loading="lazy" decoding="async"></div>
     </div>
-
-
-    <!-- 11: three phone screens on grey. Desktop as Figma (315 wide, 164 apart in 1673);
-         tablet: closer together; phone: first two only -->
-    <div class="screens" style="--layer-bg: #f5f5f5;">
-      <img src="img/sr/img11a-1x.jpg" srcset="img/sr/img11a-1x.jpg 315w, img/sr/img11a-2x.jpg 630w"
-           sizes="(max-width: 640px) 40vw, (max-width: 1100px) 25vw, 18vw" alt="Activity feed with a live auction" width="315" height="683" loading="lazy" decoding="async">
-      <img src="img/sr/img11b-1x.png" srcset="img/sr/img11b-1x.png 315w, img/sr/img11b-2x.png 630w"
-           sizes="(max-width: 640px) 40vw, (max-width: 1100px) 25vw, 18vw" alt="Auction filters" width="315" height="683" loading="lazy" decoding="async">
-      <img src="img/sr/img11c-1x.jpg" srcset="img/sr/img11c-1x.jpg 315w, img/sr/img11c-2x.jpg 630w"
-           sizes="(max-width: 640px) 40vw, (max-width: 1100px) 25vw, 18vw" alt="Configuring a scheduled auction" width="315" height="683" loading="lazy" decoding="async">
+    <div class="pn">
+      <img class="" style="--x:39.17%;--y:50%;height:80%;border-radius:4.29% / 1.78%" src="img/sr2/s16-a-1x.jpg?v=2" srcset="img/sr2/s16-a-1x.jpg?v=2 280w, img/sr2/s16-a-2x.jpg?v=2 840w" sizes="(max-width: 640px) 30vw, 19vw" alt="Auction activity tab" loading="lazy" decoding="async">
+      <img class="" style="--x:60.83%;--y:50%;height:80%;border-radius:4.29% / 1.78%" src="img/sr2/s16-b-1x.jpg?v=2" srcset="img/sr2/s16-b-1x.jpg?v=2 280w, img/sr2/s16-b-2x.jpg?v=2 840w" sizes="(max-width: 640px) 30vw, 19vw" alt="Place a bid" loading="lazy" decoding="async">
     </div>
-
-    <div class="grid media-text">
+    <div data-ambient="9" class="grid media-text">
       <div class="block block--wide">
         <h2 class="label">Explore</h2>
         <div class="prose"><p>More ways to explore: bringing the NYC gallery online, magazine-style layouts, artwork drops, immersive mobile galleries and ways to showcase physical works alongside NFTs.</p></div>
       </div>
     </div>
-
-
-    <!-- 10: gallery photo over a blurred copy; collector usernames fade in once on first view -->
-    <div class="layered" data-reveal="center" style="--ratio: 1673 / 966; --layer-bg: #222222; --fg-w: 57.38%; --fg-ratio: 960 / 613; --ratio-sm: 1 / 1; --fg-w-sm: 92%;">
-      <!-- AVIF (10-bit) keeps the dark blurred gradient smooth; JPG bands, so it's only the fallback -->
-      <picture>
-        <source type="image/avif" srcset="img/sr/img10-bg-1x.avif 1673w, img/sr/img10-bg-2x.avif 3346w" sizes="100vw">
-        <img class="layered__bg" src="img/sr/img10-bg-1x.jpg"
-             srcset="img/sr/img10-bg-1x.jpg 1673w, img/sr/img10-bg-2x.jpg 3346w"
-             sizes="100vw" alt="" loading="lazy" decoding="async">
-      </picture>
-      <div class="layered__fg layered__fg--tags">
-        <img src="img/sr/img10-fg-1x.jpg" srcset="img/sr/img10-fg-1x.jpg 960w, img/sr/img10-fg-2x.jpg 1920w"
-             sizes="(max-width: 1100px) 92vw, 55vw" alt="Gallery space showing digital artworks, tagged with collector usernames"
-             width="960" height="613" loading="lazy" decoding="async">
-        <img class="fg-tag" style="--x: 16.51%; --y: 57.59%; --w: 7.813%; --pw: 75px; --i: 0;"
-             src="img/sr/users/emi-1x.png" srcset="img/sr/users/emi-1x.png 150w, img/sr/users/emi-2x.png 300w"
-             sizes="(max-width: 1100px) 75px, 4.3vw" alt="emi" width="75" height="42" loading="lazy" decoding="async">
-        <img class="fg-tag" style="--x: 51.61%; --y: 20.72%; --x-sm: 49.6%; --y-sm: 17.7%; --w: 14.479%; --pw: 139px; --i: 1;"
-             src="img/sr/users/brendandawes-1x.png" srcset="img/sr/users/brendandawes-1x.png 278w, img/sr/users/brendandawes-2x.png 556w"
-             sizes="(max-width: 1100px) 139px, 8.0vw" alt="brendandawes" width="139" height="42" loading="lazy" decoding="async">
-        <img class="fg-tag" style="--x: 73.18%; --y: 55.3%; --x-sm: 71.2%; --y-sm: 57.3%; --w: 11.146%; --pw: 107px; --i: 2;"
-             src="img/sr/users/quietluke-1x.png" srcset="img/sr/users/quietluke-1x.png 214w, img/sr/users/quietluke-2x.png 428w"
-             sizes="(max-width: 1100px) 107px, 6.1vw" alt="quietluke" width="107" height="42" loading="lazy" decoding="async">
-        <img class="fg-tag" style="--x: 86.77%; --y: 28.22%; --y-sm: 25.2%; --w: 12.708%; --pw: 122px; --i: 3;"
-             src="img/sr/users/videodrome-1x.png" srcset="img/sr/users/videodrome-1x.png 244w, img/sr/users/videodrome-2x.png 488w"
-             sizes="(max-width: 1100px) 122px, 7.0vw" alt="videodrome" width="122" height="42" loading="lazy" decoding="async">
-      </div>
+    <div class="pn" data-ambient="9">
+      <img class="" style="--x:50%;--y:0;top:8%;height:92%;border-radius:1% 1% 0 0 / 1.07% 1.07% 0 0" src="img/sr2/s9-explore-1x.jpg?v=2" srcset="img/sr2/s9-explore-1x.jpg?v=2 800w, img/sr2/s9-explore-2x.jpg?v=2 2400w" sizes="(max-width: 640px) 90vw, 42vw" alt="Explore with filters" loading="lazy" decoding="async">
     </div>
-
-
-    <!-- 12: physical artwork listing + blind releases mint on mobile (runs off the bottom edge) -->
     <div class="media-pair">
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #f5f5f5; --fg-w: 83.48%; --fg-ratio: 685 / 420; --ratio-sm: 1 / 1; --fg-w-sm: 92%;">
-        <img class="layered__fg" src="img/sr/img12a-1x.jpg"
-             srcset="img/sr/img12a-1x.jpg 685w, img/sr/img12a-2x.jpg 1370w"
-             sizes="(max-width: 640px) 92vw, 42vw" alt="Physical artwork listing with an enquiry option" width="685" height="420" loading="lazy" decoding="async">
-      </div>
-      <div class="layered layered--bottom" style="--ratio: 821 / 700; --layer-bg: #f5f5f5; --fg-h: 89.71%; --fg-ratio: 320 / 628; --ratio-sm: 1 / 1; --fg-h-sm: 89.71%;">
-        <img class="layered__fg" src="img/sr/img12b-v2-1x.png"
-             srcset="img/sr/img12b-v2-1x.png 320w, img/sr/img12b-v2-2x.png 640w"
-             sizes="(max-width: 640px) 46vw, 20vw" alt="Blind releases: choosing how many artworks to mint on mobile" width="320" height="628" loading="lazy" decoding="async">
+      <div class="pn pn--half"><img class="" style="--x:50%;--y:50%;height:82%" src="img/sr2/s9-filters-1x.png" srcset="img/sr2/s9-filters-1x.png 280w, img/sr2/s9-filters-2x.png 560w" sizes="(max-width: 640px) 90vw, 50vw" alt="Explore filters on mobile" loading="lazy" decoding="async"></div>
+      <div class="pn pn--half"><div class="notif" style="--x:50%;--y:50%;width:63.9%;aspect-ratio:311 / 193.73"><span class="notif__avatar" aria-hidden="true"><img src="img/sr2/s9-avatar.png" alt=""><i></i></span><img class="notif__card" src="img/sr2/s9-notif-1x.png" srcset="img/sr2/s9-notif-1x.png 253w, img/sr2/s9-notif-2x.png 506w" sizes="(max-width: 640px) 90vw, 50vw" alt="Notifications for offers and bids" loading="lazy" decoding="async"></div></div>
+    </div>
+    <!-- Gallery: Emi Kusano's work with a collector pill; a tap opens the artwork card (Figma group 483730) -->
+    <div class="layered" data-reveal="center" style="--ratio: 1673 / 966; --fg-w: 72%; --fg-ratio: 1920 / 1226; --ratio-sm: 1 / 1; --fg-w-sm: 92%;">
+      <div class="layered__fg layered__fg--tags">
+        <img src="img/sr2/g2-photo-1x.jpg" srcset="img/sr2/g2-photo-1x.jpg 960w, img/sr2/g2-photo-2x.jpg 1920w" sizes="(max-width: 1100px) 92vw, 70vw" alt="Gallery space showing digital artworks, with Emi Kusano's Plastic Nirvana on the wall" width="960" height="613" loading="lazy" decoding="async">
+        <img class="fg-tag fg-tag--main" style="--x: 17.27%; --y: 52.37%; --w: 10.35%; --pw: 99px; --i: 0;" src="img/sr2/g2-pill.png" alt="Emi" width="105" height="48" loading="lazy" decoding="async">
+        <img class="fg-tag" style="--x: 51.61%; --y: 20.72%; --x-sm: 49.6%; --y-sm: 17.7%; --w: 15.63%; --pw: 150px; --i: 1;" src="img/sr/users/brendandawes-1x.png" srcset="img/sr/users/brendandawes-1x.png 278w, img/sr/users/brendandawes-2x.png 556w" sizes="(max-width: 1100px) 167px, 12vw" alt="brendandawes" width="139" height="42" loading="lazy" decoding="async">
+        <img class="fg-tag" style="--x: 73.18%; --y: 55.3%; --x-sm: 71.2%; --y-sm: 57.3%; --w: 12.04%; --pw: 115px; --i: 2;" src="img/sr/users/quietluke-1x.png" srcset="img/sr/users/quietluke-1x.png 214w, img/sr/users/quietluke-2x.png 428w" sizes="(max-width: 1100px) 128px, 9.5vw" alt="quietluke" width="107" height="42" loading="lazy" decoding="async">
+        <img class="fg-tag" style="--x: 86.77%; --y: 28.22%; --y-sm: 25.2%; --w: 13.73%; --pw: 131px; --i: 3;" src="img/sr/users/videodrome-1x.png" srcset="img/sr/users/videodrome-1x.png 244w, img/sr/users/videodrome-2x.png 488w" sizes="(max-width: 1100px) 146px, 11vw" alt="videodrome" width="122" height="42" loading="lazy" decoding="async">
+        <span class="tap" style="--x: 14.64%; --y: 52.37%;" aria-hidden="true"></span>
+        <img class="dd-card" src="img/sr2/g2-card.png?v=3" width="838" height="451" alt="Tapping a collector opens the artwork: Plastic Nirvana by Emi Kusano, with Make an offer" loading="lazy" decoding="async">
       </div>
     </div>
-
-
-    <!-- 15: top art collectors (collector portfolios), 1410 × 590 on white -->
-    <div class="layered layered--pair-h" style="--ratio: 1673 / 700; --layer-bg: #ffffff; --fg-w: 84.28%; --fg-ratio: 1410 / 590; --ratio-sm: 1 / 1; --fg-w-sm: 102.46%; --fg-cx-sm: 51.4%;">
-      <img class="layered__fg" src="img/sr/img15-fg-1x.jpg"
-           srcset="img/sr/img15-fg-1x.jpg 1410w, img/sr/img15-fg-2x.jpg 2821w"
-           sizes="(max-width: 1100px) 100vw, 84vw"
-           alt="Top art collectors, with featured collector portfolios" width="1410" height="590" loading="lazy" decoding="async">
-    </div>
-
 
     <!-- 13: Urban Anomalies exhibition page on dark grey, 960 wide like the other desktop screens -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #222222; --fg-w: 57.38%; --fg-ratio: 960 / 755; --fg-shadow: var(--shadow-screen); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #222222; --fg-w: 64%; --fg-ratio: 960 / 755; --fg-radius: 12px; --fg-shadow: var(--shadow-screen); --ratio-sm: 1 / 1; --fg-w-sm: 88%;">
       <img class="layered__fg" src="img/sr/img13-fg-1x.jpg"
            srcset="img/sr/img13-fg-1x.jpg 960w, img/sr/img13-fg-2x.jpg 1920w"
            sizes="(max-width: 1100px) 88vw, 55vw" alt="Urban Anomalies exhibition page" width="960" height="755" loading="lazy" decoding="async">
@@ -402,12 +353,12 @@
 
     <!-- 14: Drops on mobile: countdown screen, then the gallery walkthrough (video) -->
     <div class="media-pair">
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #222222; --fg-w: 31.69%; --fg-ratio: 260 / 564.49; --fg-h-sm: 80.64%;">
+      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #222222; --fg-h: 82%; --fg-ratio: 260 / 564.49; --fg-radius: 3.9% / 1.79%; --fg-h-sm: 82%;">
         <img class="layered__fg" src="img/sr/img14a-fg-1x.jpg"
              srcset="img/sr/img14a-fg-1x.jpg 280w, img/sr/img14a-fg-2x.jpg 560w"
              sizes="(max-width: 640px) 40vw, 16vw" alt="Drops countdown with email sign-up" width="260" height="564" loading="lazy" decoding="async">
       </div>
-      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #222222; --fg-w: 31.69%; --fg-ratio: 588 / 1280; --fg-h-sm: 80.64%;">
+      <div class="layered" style="--ratio: 821 / 700; --layer-bg: #222222; --fg-h: 82%; --fg-ratio: 588 / 1280; --fg-radius: 3.9% / 1.79%; --fg-h-sm: 82%;">
         <video class="layered__fg" poster="img/sr/drops-poster.jpg"
                data-autoplay muted loop playsinline preload="none" aria-label="Scrolling a drop gallery on mobile">
           <source src="video/sr/drops-hevc.mp4" type='video/mp4; codecs="hvc1"'>
@@ -415,8 +366,7 @@
         </video>
       </div>
     </div>
-
-    <div class="grid media-text">
+    <div data-ambient="17" class="grid media-text">
       <div class="block block--wide">
         <h2 class="label">Outcome</h2>
         <div class="prose">
@@ -429,7 +379,6 @@
         </div>
       </div>
     </div>
-
   </section>
 
   <!-- Prev / next case study (Figma: Case/SR → Next). 160px below the images. -->
@@ -475,5 +424,75 @@
 </div>
 
 <script src="js/main.js?v=6"></script>
+<script>
+  // SR v2 test: switch the ambient background to the last marked section above mid-screen
+  (function () {
+    var marks = [].slice.call(document.querySelectorAll('[data-ambient]'));
+    var imgs = [].slice.call(document.querySelectorAll('.ambient img'));
+    var cur = '4';
+    function pick() {
+      var mid = innerHeight * 0.55, k = marks[0].dataset.ambient;
+      marks.forEach(function (m) { if (m.getBoundingClientRect().top < mid) k = m.dataset.ambient; });
+      if (k === cur) return; cur = k;
+      imgs.forEach(function (i) { i.classList.toggle('is-on', i.dataset.amb === k); });
+    }
+    addEventListener('scroll', pick, { passive: true }); pick();
+  })();
+</script>
+<script>
+  // CMS list: stagger rows in the first time it scrolls into view
+  (function () {
+    var els = document.querySelectorAll('.cms');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: 0.4 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script>
+  // Heart pops in when the collage reaches the middle of the screen
+  (function () {
+    var els = document.querySelectorAll('.collage');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { rootMargin: '-50% 0px -50% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script>
+  // Auction cards: the bid line shows while the new bidder's avatar is on screen (2.35s to the loop's end)
+  (function () {
+    document.querySelectorAll('.acards').forEach(function (card) {
+      var v = card.querySelector('video');
+      function tick() {
+        var t = v.currentTime, d = v.duration || 5.02;
+        card.classList.toggle('is-bid', t >= 2.35 && t < d - 0.08);
+        if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(tick); else requestAnimationFrame(tick);
+      }
+      if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(tick); else requestAnimationFrame(tick);
+    });
+  })();
+</script>
+<script>
+  // Gallery: when the photo reaches the middle of the screen, tap Emi and open the card;
+  // when it scrolls away, the card closes. Repeats every time it comes back into the middle.
+  (function () {
+    var el = document.querySelector('[data-reveal="center"]');
+    if (!el || !('IntersectionObserver' in window)) return;
+    var t;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        clearTimeout(t);
+        if (e.isIntersecting) {
+          el.classList.add('tags-live');
+          el.classList.remove('is-tap'); void el.offsetWidth; el.classList.add('is-tap');
+          t = setTimeout(function () { el.classList.add('is-open'); }, 240);
+        } else {
+          el.classList.remove('is-open', 'is-tap');
+        }
+      });
+    }, { rootMargin: '-47% 0px -47% 0px' });
+    // start once the pills have revealed
+    var w = setInterval(function () { if (!el.classList.contains('reveal-wait')) { clearInterval(w); setTimeout(function () { io.observe(el); }, 700); } }, 200);
+  })();
+</script>
 </body>
 </html>
