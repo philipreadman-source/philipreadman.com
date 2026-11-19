@@ -52,7 +52,15 @@
     .sr2 .layered { --layer-bg: rgb(16 16 16 / 0.2); background: rgb(16 16 16 / 0.2); }
     .pn { position: relative; overflow: hidden; border-radius: var(--radius); background: rgb(16 16 16 / 0.2); aspect-ratio: var(--r, 1673 / 966); }
     .pn--half { --r: 821 / 700; }
-    .pn > img, .pn > video, .pn > .cms, .pn > .collage, .pn > .phonev, .pn > .photo, .pn > .acards, .pn > .notif { position: absolute; display: block; left: var(--x); top: var(--y); transform: translate(-50%, calc(var(--y) * -1)); height: auto; max-width: none; }
+    .ld { border-radius: 8px; overflow: hidden; background: #111; box-shadow: var(--shadow-screen); }
+    .ld img { display: block; width: 100%; height: 100%; }
+    .ld .ld__light { position: absolute; inset: 0; transition: opacity .35s ease; }   /* dark sits underneath so no light hairline shows at the edge */
+    .ld.is-dark .ld__light { opacity: 0; }
+    .ld-toggle { position: absolute; top: 32px; right: 32px; z-index: 1; display: flex; align-items: center; gap: 8px; padding: 8px 16px 8px 10px;
+      border: 0; border-radius: 999px; background: rgb(102 102 102 / 0.2); color: #fff; font: inherit; font-size: 16px; line-height: 1; cursor: pointer; }
+    .ld-toggle svg { display: block; width: 24px; height: 24px; transition: transform .35s ease, opacity .35s ease; }
+    .ld-toggle[aria-pressed="true"] svg { transform: rotate(180deg); opacity: .65; }   /* dark: icon turns and dims a little */
+    .pn > img, .pn > video, .pn > .cms, .pn > .collage, .pn > .phonev, .pn > .photo, .pn > .acards, .pn > .notif, .pn > .ld { position: absolute; display: block; left: var(--x); top: var(--y); transform: translate(-50%, calc(var(--y) * -1)); height: auto; max-width: none; }
     .pn > [style*="height:"] { width: auto; }
     .pn > [style*="top:8%"] { transform: translateX(-50%); }
     /* CMS structure list (rebuilt from Figma "Page sections", 420 wide; 1u = 1 Figma px) */
@@ -133,6 +141,9 @@
       .pn > img[src*="s16-b"] { --x: 81% !important; height: 62% !important; }
       /* half-panel pieces a touch bigger */
       .pn > .cms { width: 84% !important; }
+      .pn:has(> .ld) { --r-sm: 4 / 3; }
+      .pn > .ld { width: 88% !important; }
+      .pn > img[src*="ed-list"], .pn > img[src*="article-"] { width: 86% !important; height: auto !important; }
       .pn > .collage { width: 74% !important; }
       .pn > img[src*="s6-pills"] { width: 86% !important; }
       .pn > .notif { width: 86% !important; }
@@ -173,6 +184,7 @@
   <img src="img/sr2/amb-15.jpg?v=2" data-amb="15" alt="" loading="lazy">
   <img src="img/sr2/amb-16.jpg?v=2" data-amb="16" alt="" loading="lazy">
   <img src="img/sr2/amb-17.jpg" data-amb="17" alt="" loading="lazy">
+  <img src="img/sr2/amb-18.jpg?v=2" data-amb="18" alt="" loading="lazy">
 </div>
 
 <!-- Case studies sit under Work, so the Home button shows as selected -->
@@ -264,7 +276,7 @@
       <div class="pn pn--half"><img class="" style="--x:50%;--y:50%;width:64%" src="img/sr2/s6-pills-1x.png?v=3" srcset="img/sr2/s6-pills-1x.png?v=3 500w, img/sr2/s6-pills-2x.png?v=3 1200w" sizes="(max-width: 640px) 90vw, 50vw" alt="How curation shifted the product: from marketplace habits to gallery thinking" loading="lazy" decoding="async"></div>
     </div>
     <div class="pn" data-ambient="7">
-      <img class="" style="--x:50%;--y:0;top:8%;height:92%;border-radius:1.09% 1.09% 0 0 / 1.47% 1.47% 0 0" src="img/sr2/s7-home-1x.jpg?v=2" srcset="img/sr2/s7-home-1x.jpg?v=2 1300w, img/sr2/s7-home-2x.jpg?v=2 2600w" sizes="(max-width: 640px) 90vw, 50vw" alt="Modular SuperRare homepage" loading="lazy" decoding="async">
+      <img class="" style="--x:50%;--y:0;top:8%;height:92%;border-radius:1.09% 1.09% 0 0 / 1.47% 1.47% 0 0" src="img/sr2/s7-home-1x.jpg?v=3" srcset="img/sr2/s7-home-1x.jpg?v=3 1300w, img/sr2/s7-home-2x.jpg?v=3 2600w" sizes="(max-width: 640px) 90vw, 50vw" alt="Modular SuperRare homepage" loading="lazy" decoding="async">
     </div>
     <div class="media-pair">
       <div class="pn pn--half"><div class="cms" style="--x:50%;--y:50%;width:60%" role="img" aria-label="CMS structure of the homepage: hero, featured, auctions, trending, recent activity, collections, editorial, then DAO, RARE and help"><div class="cms__in"><p class="cms__title" style="--i:0">CMS structure</p><ol><li style="--top:72;--i:1"><b>Hero</b> <span>Any content type</span><i class="cms__line" aria-hidden="true"></i></li><li style="--top:144;--i:2"><b>Featured</b> <span>CMS hand-picked</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:216;--i:3"><b>Auctions</b> <span>Dynamic, ending soon + featured list</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:288;--i:4"><b>Trending</b> <span>Search terms + override</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:315;--i:5"><b>Recent activity</b> <span>Bids &amp; sales priority</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:342;--i:6"><b>Collections</b> <span>OG NFT collections</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:369;--i:7"><b>Editorial</b> <span>Marketing, artist stories</span><i class="cms__drag" aria-hidden="true"></i></li><li style="--top:405;--i:8"><b>DAO, RARE, Help</b><i class="cms__line" aria-hidden="true"></i></li></ol></div></div></div>
@@ -366,6 +378,24 @@
           <source src="video/sr/drops-h264.mp4" type="video/mp4">
         </video>
       </div>
+    </div>
+    <div data-ambient="18" class="grid media-text">
+      <div class="block block--wide">
+        <h2 class="label">Profiles</h2>
+        <div class="prose"><p>Profile UX covers the needs of both artists and collectors. Profiles showcase the best artwork and provide sales data, and if someone is mentioned in any editorial or exhibition, it’s all visible here.</p></div>
+      </div>
+    </div>
+    <!-- Profiles: light and dark versions of the artist profile, identical crops; the switch below flips between them -->
+    <div class="pn">
+      <div class="ld" style="--x:50%;--y:50%;width:64%;aspect-ratio:1728 / 1120">
+        <img src="img/sr2/profile-dark-1x.jpg?v=4" srcset="img/sr2/profile-dark-1x.jpg?v=4 1080w, img/sr2/profile-dark-2x.jpg?v=4 2160w" sizes="(max-width: 1100px) 90vw, 55vw" alt="Artist profile for Richard Nadler in dark mode" loading="lazy" decoding="async">
+        <img class="ld__light" src="img/sr2/profile-light-1x.jpg?v=4" srcset="img/sr2/profile-light-1x.jpg?v=4 1080w, img/sr2/profile-light-2x.jpg?v=4 2160w" sizes="(max-width: 1100px) 90vw, 55vw" alt="The same profile in light mode" loading="lazy" decoding="async">
+      </div>
+      <button class="ld-toggle" type="button" aria-pressed="false" aria-label="Show the profile in dark mode"><svg viewBox="0 0 15 15" aria-hidden="true"><path fill="currentColor" d="M7.49902 0.876953C11.1564 0.876953 14.1217 3.84169 14.1221 7.49902C14.1221 11.1567 11.1567 14.1221 7.49902 14.1221C3.84169 14.1217 0.876953 11.1564 0.876953 7.49902C0.877365 3.84194 3.84194 0.877364 7.49902 0.876953ZM7.49902 1.82617C4.36661 1.82658 1.82658 4.36661 1.82617 7.49902C1.82617 10.6318 4.36636 13.1715 7.49902 13.1719L7.5 13.1709V1.82617H7.49902Z"/></svg><span class="ld-toggle__label">Light</span></button>
+    </div>
+    <div class="media-pair">
+      <div class="pn pn--half"><img class="" style="--x:50%;--y:50%;height:70%;border-radius:8px" src="img/sr2/ed-list-1x.jpg?v=3" srcset="img/sr2/ed-list-1x.jpg?v=3 900w, img/sr2/ed-list-2x.jpg?v=3 1800w" sizes="(max-width: 640px) 90vw, 32vw" alt="Editorial list in light mode" loading="lazy" decoding="async"></div>
+      <div class="pn pn--half"><img class="" style="--x:50%;--y:50%;height:70%;border-radius:8px" src="img/sr2/article-1x.jpg?v=8" srcset="img/sr2/article-1x.jpg?v=8 900w, img/sr2/article-2x.jpg?v=8 1800w" sizes="(max-width: 640px) 90vw, 32vw" alt="Editorial article: A Contemporary Homage to Josef Albers" loading="lazy" decoding="async"></div>
     </div>
   </section>
 
@@ -480,6 +510,18 @@
     }, { rootMargin: '-47% 0px -47% 0px' });
     // start once the pills have revealed
     var w = setInterval(function () { if (!el.classList.contains('reveal-wait')) { clearInterval(w); setTimeout(function () { io.observe(el); }, 700); } }, 200);
+  })();
+</script>
+<script>
+  // Profiles: light / dark switch under the panel
+  (function () {
+    var b = document.querySelector('.ld-toggle'), ld = document.querySelector('.ld'); if (!b || !ld) return;
+    b.addEventListener('click', function () {
+      var dark = ld.classList.toggle('is-dark');
+      b.setAttribute('aria-pressed', dark);
+      b.setAttribute('aria-label', dark ? 'Show the profile in light mode' : 'Show the profile in dark mode');
+      b.querySelector('.ld-toggle__label').textContent = dark ? 'Dark' : 'Light';
+    });
   })();
 </script>
 </body>
