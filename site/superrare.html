@@ -141,7 +141,7 @@
       .pn > img[src*="s16-b"] { --x: 81% !important; height: 62% !important; }
       /* half-panel pieces a touch bigger */
       .pn > .cms { width: 84% !important; }
-      .pn:has(> .ld) { --r-sm: 4 / 3; }
+      .pn:has(> .ld) { --r-sm: 5 / 4; }   /* tablet: room for the switch above the image */
       .pn > .ld { width: 88% !important; }
       .pn > img[src*="ed-list"], .pn > img[src*="article-"] { width: 86% !important; height: auto !important; }
       .pn > .collage { width: 74% !important; }
@@ -162,7 +162,10 @@
       .layered__fg--tags > img.fg-tag { width: calc(var(--w) * 1.5); }
       /* discovery: desktop and onboarding phone become two cards */
       .only-sm { display: block; }
-      .pn--half:has(> video[poster*="s13-room"]) { --r-sm: 4 / 3; }   /* landscape prototype: a shorter card */
+      .pn--half:has(> video[poster*="s13-room"]) { --r-sm: 4 / 3; }
+      .pn:has(> .ld) { --r-sm: 1 / 1 !important; }   /* square slot on phones so the switch clears the image */
+      .ld-toggle { top: 16px; right: 16px; gap: 6px; padding: 6px 12px 6px 8px; font-size: 14px; }
+      .ld-toggle svg { width: 20px; height: 20px; }   /* landscape prototype: a shorter card */
       .pn.only-sm > .phonev:has(img[src*="s8-phone"]) { --x: 50% !important; height: 82% !important; }
       .pn:has(> img[src*="s8-home"]) > .phonev { display: none; }
       .pn > img[src*="s8-home"] { --x: 50% !important; top: 40px !important; width: 90% !important; height: auto !important; }
