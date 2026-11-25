@@ -1,4 +1,6 @@
 # Publish the site/ folder to GitHub Pages on every push to main.
+# Build and deploy are separate jobs (GitHub's own template does this) so the
+# artifact is fully registered before deploy-pages looks for it.
 name: Deploy site
 on:
   push:
@@ -12,16 +14,20 @@ concurrency:
   group: pages
   cancel-in-progress: true
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
