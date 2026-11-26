@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=19">
+  <link rel="stylesheet" href="css/style.css?v=21">
   <!-- Favicon: square with a centred dot (from the old site), contrasting with the browser's tab bar -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-dark.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-light.png" media="(prefers-color-scheme: dark)">
@@ -143,48 +143,49 @@
     </div>
 
     <!-- 1 -->
-    <img class="media-img" src="img/dobbin/01-v3-1x.png" srcset="img/dobbin/01-v3-1x.png 1673w, img/dobbin/01-v3-2x.png 3346w"
+    <img class="media-img" src="img/dobbin/01-v4-1x.png" srcset="img/dobbin/01-v4-1x.png 1673w, img/dobbin/01-v4-2x.png 3346w"
        sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ Foundation: the brand guide behind your team, as editable cards" width="1673" height="966" loading="lazy" decoding="async">
 
     <!-- 2 -->
     <div class="media-pair">
       <img class="media-img" src="img/dobbin/02a-1x.png" srcset="img/dobbin/02a-1x.png 821w, img/dobbin/02a-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin's weekly Foundation update in Slack: changes going live, last week's changes and gaps to fill" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img" src="img/dobbin/02b-1x.png" srcset="img/dobbin/02b-1x.png 821w, img/dobbin/02b-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Dobbin HQ: a Foundation section's usage, showing it shaped 14 answers since Oct 15" width="821" height="700" loading="lazy" decoding="async">
+      <img class="media-img" src="img/dobbin/02b-v2-1x.png" srcset="img/dobbin/02b-v2-1x.png 821w, img/dobbin/02b-v2-2x.png 1641w"
+           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Reviewing Dobbin's suggested change to a Foundation section: old text struck out in red, the new text in green, applied with the option to undo" width="821" height="700" loading="lazy" decoding="async">
     </div>
 
-    <!-- new: Foundation walkthrough (Philip's Area.mp4, 3840 × 2104, 45s): opening cards, editing, then review.
-         Cropped 98px each side to the panel shape (3644 × 2104), at 2560 × 1478. HEVC 5.7MB, H.264 9.2MB. Full width
-         on every screen, its landscape background running edge to edge -->
-    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #c9d3d6; --fg-w: 100%; --fg-ratio: 1673 / 966; --ratio-sm: 1673 / 966; --fg-w-sm: 100%;">
-      <video class="layered__fg" poster="img/dobbin/foundation-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin HQ Foundation: opening a card, editing it, then reviewing suggested changes">
-        <source src="video/dobbin/foundation-hevc.mp4" type='video/mp4; codecs="hvc1"'>
-        <source src="video/dobbin/foundation-h264.mp4" type="video/mp4">
+    <!-- Foundation review (Philip's updateFND.mov, 2944 × 2058, 18.6s at its own ~44fps): the cards, Review, a
+         suggestion applied and one dismissed, back to the page. Cropped 22px off the right (scrollbar room),
+         at 1664 × 1172. HEVC 1.2MB, H.264 1.7MB. On the light panel with a 1px edge, like the screens -->
+    <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f6f6f6; --fg-w: 64.5%; --fg-ratio: 2922 / 2058; --fg-radius: 8px; --ratio-sm: 821 / 700; --fg-w-sm: 92%; /* phones: the pair panel shape, video near edge to edge */">
+      <video class="layered__fg" poster="img/dobbin/foundation-review-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin HQ Foundation: reviewing suggested changes, applying one and dismissing another">
+        <source src="video/dobbin/foundation-review-hevc.mp4" type='video/mp4; codecs="hvc1"'>
+        <source src="video/dobbin/foundation-review-h264.mp4" type="video/mp4">
       </video>
+      <span class="layered__fg fg-ring" aria-hidden="true"></span>
     </div>
 
     <div class="grid media-text">
       <div class="block block--wide">
         <h2 class="label">Knowledge</h2>
-        <div class="prose"><p>Every company runs on documents it relies on: strategy docs, contracts, product lists and more.</p><p class="p-then">The Knowledge Base brings them together in Dobbin HQ. Each document can be global, across every Slack channel, or kept to specific channels, so departments keep their privacy. HQ shows how often each document is used, and when a conversation is missing context, Dobbin writes a new “learned” document to fill the gap.</p></div>
+        <div class="prose"><p>Every company runs on documents it relies on: strategy docs, contracts, product lists and more.</p><p class="p-then">The Knowledge Base brings them together in Dobbin HQ. Each document can be global, across every Slack channel, or kept to specific channels, so departments keep their privacy. HQ shows how often each document is used, and when a conversation is missing context, Dobbin writes a new “learned” document to fill the gap.</p><p>Customers can also connect the tools they already use, like Google Drive and HubSpot, and these work just like documents.</p></div>
       </div>
     </div>
 
     <!-- 3 -->
-    <picture>   <!-- phones: cropped to the screen's top left, running off right and bottom, like slot 4 -->
-      <source media="(max-width: 640px)" srcset="img/dobbin/03-v3-sm.png" width="1029" height="877">
-      <img class="media-img" src="img/dobbin/03-v3-1x.png" srcset="img/dobbin/03-v3-1x.png 1673w, img/dobbin/03-v3-2x.png 3346w"
+    <picture>   <!-- phones: cropped to the screen's top left, running off right and bottom, like the integrations slot below -->
+      <source media="(max-width: 640px)" srcset="img/dobbin/03-v4-sm.png" width="1029" height="877">
+      <img class="media-img" src="img/dobbin/03-v4-1x.png" srcset="img/dobbin/03-v4-1x.png 1673w, img/dobbin/03-v4-2x.png 3346w"
          sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="Dobbin HQ Knowledge Base: documents with their usage, channels, source and whether they were uploaded, integrated or learned" width="1673" height="966" loading="lazy" decoding="async">
     </picture>
 
     <!-- new: knowledge pair (Figma: new: knowledge pair) -->
     <div class="media-pair">
-      <img class="media-img" src="img/dobbin/kb-a-v2-1x.png" srcset="img/dobbin/kb-a-v2-1x.png 821w, img/dobbin/kb-a-v2-2x.png 1641w"
+      <img class="media-img" src="img/dobbin/kb-a-v3-1x.png" srcset="img/dobbin/kb-a-v3-1x.png 821w, img/dobbin/kb-a-v3-2x.png 1641w"
            sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Filtering documents by channel, usage, integration and team member" width="821" height="700" loading="lazy" decoding="async">
       <!-- the upload pill is live HTML over the image (bar fills, status line changes); the image has the pill taken out -->
       <div class="kb-load" data-kb-load>
-        <img class="media-img" src="img/dobbin/kb-b-v2-1x.png" srcset="img/dobbin/kb-b-v2-1x.png 821w, img/dobbin/kb-b-v2-2x.png 1641w"
+        <img class="media-img" src="img/dobbin/kb-b-v3-1x.png" srcset="img/dobbin/kb-b-v3-1x.png 821w, img/dobbin/kb-b-v3-2x.png 1641w"
              sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Adding a file to the Knowledge Base: Dobbin checks it for overlaps, then lists the documents it produced" width="821" height="700" loading="lazy" decoding="async">
         <div class="kb-load__pill" aria-hidden="true">
           <span class="kb-load__add"><svg viewBox="0 0 17 17"><path d="M8.5 0v17M0 8.5h17"/></svg></span>
@@ -195,25 +196,10 @@
       </div>
     </div>
 
-    <div class="grid media-text">
-      <div class="block block--wide">
-        <h2 class="label">Integrations</h2>
-        <div class="prose"><p>A company’s knowledge lives in the tools it already uses.</p><p class="p-then">Customers can connect them to Dobbin through integrations, which work just like documents and give Dobbin the company’s real data to answer with.</p></div>
-      </div>
-    </div>
-
     <!-- 4: the integrations screen (live Figma UI, exported at 2×), cropped in close and running off the right and bottom edges
          (Figma). Phones: the half-panel shape, kept to the left so the sidebar and table stay in view -->
-    <img class="media-img media-img--fill-sm" style="--pos-sm: 28% 50%;" src="img/dobbin/04-v2-1x.png" srcset="img/dobbin/04-v2-1x.png 1673w, img/dobbin/04-v2-2x.png 3346w"
+    <img class="media-img media-img--fill-sm" style="--pos-sm: 28% 50%;" src="img/dobbin/04-v4-1x.png" srcset="img/dobbin/04-v4-1x.png 1673w, img/dobbin/04-v4-2x.png 3346w"
          sizes="(max-width: 640px) calc((100vw - 32px) * 1.48), calc(100vw - 96px)" alt="Dobbin HQ integrations: 88 connected sources across Slack, Google Drive, email and more" width="1673" height="966" loading="lazy" decoding="async">
-
-    <!-- new: integrations pair (Figma: new: integrations pair) -->
-    <div class="media-pair">
-      <img class="media-img" src="img/dobbin/int-a-1x.png" srcset="img/dobbin/int-a-1x.png 821w, img/dobbin/int-a-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="Managing integrations: the accounts and keys Dobbin signs in with, from Google Drive to HubSpot" width="821" height="700" loading="lazy" decoding="async">
-      <img class="media-img media-img--outline" style="--stroke-soft: rgb(0 0 0 / 0.07);" src="img/dobbin/int-b-1x.png" srcset="img/dobbin/int-b-1x.png 821w, img/dobbin/int-b-2x.png 1641w"
-           sizes="(max-width: 640px) calc(100vw - 32px), 47vw" alt="design-rules.md dragged into Dobbin, which asks which channel to save it to" width="821" height="700" loading="lazy" decoding="async">
-    </div>
 
     <!-- 5: usage overview (video), placed as in Figma: 1250 × 484 at (212, 241) -->
     <div class="layered" style="--ratio: 1673 / 966; --layer-bg: #f6f6f6; --fg-w: 74.72%; --fg-ratio: 2282 / 884; --fg-cx: 50.03%; --ratio-sm: 1673 / 966; --fg-w-sm: 92%;">   <!-- v2: wide on every screen, like the Foundation video; the strip fills more of it on smaller screens -->
@@ -261,13 +247,14 @@
          b = the Team usage card from Dobbin HQ, built in HTML (Figma: 419 × 300, centred), sized off the
          panel width so it scales with it; it fades in the first time it's seen -->
     <div class="media-pair">
-      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #e0e0e0; --fg-w: 81.12%; --fg-w-sm: 92%; /* phones: as wide as the slot 5 video */ --fg-ratio: 1152 / 246; --fg-cx: 49.94%;">
+      <div class="layered" style="--ratio: 821 / 700; --ratio-sm: 821 / 700; --layer-bg: #f6f6f6; --fg-w: 81.12%; --fg-w-sm: 92%; /* phones: as wide as the slot 5 video */ --fg-ratio: 1152 / 246; --fg-cx: 49.94%;">
         <video class="layered__fg blocks-mask" poster="img/dobbin/blocks-poster.jpg" data-autoplay muted loop playsinline preload="none" aria-label="Dobbin building a company's Foundation and Knowledge Base">
           <source src="video/dobbin/blocks-hevc.mp4" type='video/mp4; codecs="hvc1"'>
           <source src="video/dobbin/blocks-h264.mp4" type="video/mp4">
         </video>
+        <span class="layered__fg blocks-ring" aria-hidden="true"><i></i><i></i></span>   <!-- 1px #e0e0e0 edge round each block, like the screens -->
       </div>
-      <div class="stat-panel" data-reveal>
+      <div class="stat-panel" style="background: #f6f6f6;" data-reveal>
         <div class="stat-card" role="group" aria-label="Team usage: 13% up, 24,987 total interactions in the last 30 days">
           <p class="stat-card__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>Team usage</p>
           <div class="stat-card__figure">
@@ -304,10 +291,10 @@
     </div>
 
     <!-- 7 -->
-    <picture>   <!-- phones: the two boards 8px apart, with more room either side -->
-      <source media="(max-width: 640px)" srcset="img/dobbin/07-v2-sm.png" width="1029" height="877">
-      <img class="media-img" style="--box-bg: #333333; --zoom-ratio: 1480 / 966; --pad-top-sm: 4%; /* phones: the boards nearly edge to edge (their 1448 of 1673), less empty top */" src="img/dobbin/07-v2-1x.png" srcset="img/dobbin/07-v2-1x.png 1673w, img/dobbin/07-v2-2x.png 3346w"
-           sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="The Dobbin design system in Figma: tokens, colour styles and the component library" width="1673" height="966" loading="lazy" decoding="async">
+    <picture>   <!-- an exception to the slot sizes: twice the usual height, so both boards show at full length (Figma frames exported at their final size). Phones: the same, side by side -->
+      <source media="(max-width: 640px)" srcset="img/dobbin/07-v4-sm.png" width="1029" height="1754">
+      <img class="media-img" src="img/dobbin/07-v4-1x.png" srcset="img/dobbin/07-v4-1x.png 1673w, img/dobbin/07-v4-2x.png 3346w"
+           sizes="(max-width: 640px) calc(100vw - 32px), calc(100vw - 96px)" alt="The Dobbin design system in Figma: tokens, colour styles and the component library" width="1673" height="1932" loading="lazy" decoding="async">
     </picture>
 
     <div class="grid media-text">
