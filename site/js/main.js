@@ -591,3 +591,63 @@ if (releaseNotes) {
     if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) releaseNotes.close();
   });
 }
+
+// ---------- Dobbin knowledge pair: the upload pill fills while its status line changes ----------
+// Light blue → dark blue as it loads. Loops while on screen; one still frame with reduced motion.
+const kbLoad = document.querySelector("[data-kb-load]");
+if (kbLoad) {
+  const bar = kbLoad.querySelector(".kb-load__bar");
+  const status = kbLoad.querySelector(".kb-load__status");
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(([e]) => kbLoad.style.setProperty("--panel-u", `${e.contentRect.width / 821}px`)).observe(kbLoad);
+  }
+  const from = [9, 98, 211], to = [8, 48, 104];   // #0962D3 → #083068
+  const paint = (p) => {
+    bar.style.width = `${p * 100}%`;
+    bar.style.background = `rgb(${from.map((c, i) => Math.round(c + (to[i] - c) * p)).join(" ")})`;
+  };
+  // [status, progress at the end of the step, ms]
+  const steps = [
+    ["Reading the file", 0.22, 1300],
+    ["Looking for overlaps", 0.48, 1700],
+    ["Checking it against your Foundation", 0.75, 1700],
+    ["Writing 2 new documents", 1, 1400],
+    ["2 documents ready", 1, 1900],
+  ];
+  const setStatus = (text) => {
+    if (status.textContent === text) return;
+    status.classList.add("is-out");
+    setTimeout(() => {
+      status.textContent = text;
+      status.classList.replace("is-out", "is-in");
+      status.offsetWidth;   // restart the transition from below
+      status.classList.remove("is-in");
+    }, 180);
+  };
+  paint(0.48);
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+    const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
+    let step = 0, start = 0, p0 = 0, raf = 0, onScreen = false, paused = 0;
+    const tick = (now) => {
+      if (!start) { start = now; setStatus(steps[step][0]); }
+      const [, p1, dur] = steps[step];
+      const t = Math.min((now - start) / dur, 1);
+      paint(p0 + (p1 - p0) * ease(t));
+      if (t === 1) {
+        p0 = p1; step++; start = 0;
+        if (step === steps.length) { step = 0; p0 = 0; paint(0); }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    new IntersectionObserver(([e]) => {
+      onScreen = e.isIntersecting;
+      if (onScreen && !raf) {
+        if (paused && start) start += performance.now() - paused;
+        raf = requestAnimationFrame(tick);
+      } else if (!onScreen && raf) {
+        cancelAnimationFrame(raf); raf = 0; paused = performance.now();
+      }
+    }, { rootMargin: "0px 0px -10% 0px" }).observe(kbLoad);
+    paint(0); status.textContent = steps[0][0];
+  }
+}

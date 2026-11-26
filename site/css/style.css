@@ -1016,3 +1016,23 @@ div.layered__fg--tags { overflow: visible; }
 @media (max-width: 640px) {
   .layered__fg > img.fg-tag { left: var(--x-sm, var(--x)); top: var(--y-sm, var(--y)); }
 }
+
+/* Dobbin, knowledge pair (right): the upload pill, built in HTML over the image so the bar can fill
+   and the status line can change. Sizes are Figma's, in units of the panel width (--u = 1/821 of it,
+   set in px by JS; cqw is the fallback). js/main.js runs the loop; without it this is one still frame */
+.kb-load { position: relative; container-type: inline-size; }
+.kb-load__pill {
+  --u: var(--panel-u, calc(100cqw / 821));
+  position: absolute; left: calc(var(--u) * 41); top: calc(var(--u) * 197); width: calc(var(--u) * 739); height: calc(var(--u) * 76);
+  border-radius: calc(var(--u) * 38); background: #fafafa;
+  font-family: "Host Grotesk", var(--font);
+}
+.kb-load__pill p { margin: 0; position: absolute; left: calc(var(--u) * 69.5); white-space: nowrap; }
+.kb-load__add { position: absolute; left: calc(var(--u) * 17); top: calc(var(--u) * 17); width: calc(var(--u) * 42); height: calc(var(--u) * 42); border-radius: 50%; background: #fff; display: grid; place-items: center; }
+.kb-load__add svg { width: calc(var(--u) * 17); height: calc(var(--u) * 17); fill: none; stroke: #000; stroke-width: 1.1; overflow: visible; }
+.kb-load__name { top: calc(var(--u) * 16.25); font-size: calc(var(--u) * 11); line-height: calc(var(--u) * 12.67); font-weight: 500; color: #000; }
+.kb-load__track { position: absolute; left: calc(var(--u) * 69.5); right: calc(var(--u) * 44.5); top: calc(var(--u) * 36); height: calc(var(--u) * 3.25); border-radius: 99px; background: #e0e0e0; overflow: hidden; }
+.kb-load__bar { display: block; height: 100%; width: 60%; border-radius: inherit; background: #0962d3; }
+.kb-load__status { top: calc(var(--u) * 44.75); font-size: calc(var(--u) * 9.5); line-height: calc(var(--u) * 14.25); color: #999; transition: opacity 0.18s ease, translate 0.18s ease; }
+.kb-load__status.is-out { opacity: 0; translate: 0 calc(var(--u) * -3); }
+.kb-load__status.is-in { opacity: 0; translate: 0 calc(var(--u) * 3); transition: none; }
