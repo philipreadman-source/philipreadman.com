@@ -472,7 +472,9 @@ if (dobHero && "ResizeObserver" in window) {
     // loading: the text, then the red bar
     track(q(".dob-hero__load"), [[0, { opacity: 0, transform: go(0, 8) }], [1950, { opacity: 0, transform: go(0, 8) }, out], [2200, { opacity: 1, transform: "none" }],
       [3500, { opacity: 1, transform: "none" }], [3650, { opacity: 0, transform: "none" }]]);
-    track(q(".dob-hero__bar span"), [[0, { translate: "-100% 0" }], [2150, { translate: "-100% 0" }, "cubic-bezier(0.5, 0, 0.2, 1)"], [3200, { translate: "0 0" }], [3700, { translate: "0 0" }, "step-end"], [3701, { translate: "-100% 0" }]]);
+    // light blue → dark blue as it loads (#0962D3 → #083068), like the upload pill further down
+    const lo = "#0962d3", hi = "#083068";
+    track(q(".dob-hero__bar span"), [[0, { translate: "-100% 0", backgroundColor: lo }], [2150, { translate: "-100% 0", backgroundColor: lo }, "cubic-bezier(0.5, 0, 0.2, 1)"], [3200, { translate: "0 0", backgroundColor: hi }], [3700, { translate: "0 0", backgroundColor: hi }, "step-end"], [3701, { translate: "-100% 0", backgroundColor: lo }]]);
     // the mark becomes a teammate, who comes online…
     const swap = (el, inAt, outAt) => {
       const on = { opacity: 1, transform: "none" }, off = { opacity: 0, transform: "scale(0.7)" };
