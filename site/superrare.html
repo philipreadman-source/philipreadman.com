@@ -45,10 +45,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-light.png" media="(prefers-color-scheme: dark)">
   <style>
     /* SR v2 test: deck-style ambient backgrounds (tiny blurred images, crossfade per section) + dark panels */
-    body.sr2 { background: #111; }
+    html:has(body.sr2), body.sr2 { background: #111; transition: background-color 1.4s ease; }
     .ambient { position: fixed; inset: -8%; z-index: -1; pointer-events: none; }
+    @supports (height: 1lvh) { .ambient { inset: auto -8%; top: -8lvh; height: 116lvh; } }   /* sized to the largest viewport, so it doesn't resize (and re-step) as Safari's address bar moves */
     .ambient img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s ease; }   /* blur baked into the files: a live CSS blur bands on phones */
-    .ambient::after { content: ""; position: absolute; inset: 0; z-index: 1; background: url(img/sr2/grain-v2.png) 0 0 / 128px; }   /* fine grain dithers the dark gradients so they don't band */
+    .ambient::after { content: ""; position: absolute; inset: 0; z-index: 1; background: url(img/sr2/grain-v3.png) 0 0 / 128px; }   /* fine grain dithers the dark gradients so they don't band */
     .ambient img.is-on { opacity: 1; }
     .sr2 .layered { --layer-bg: rgb(16 16 16 / 0.2); background: rgb(16 16 16 / 0.2); }
     .pn { position: relative; overflow: hidden; border-radius: var(--radius); background: rgb(16 16 16 / 0.2); aspect-ratio: var(--r, 1673 / 966); }
@@ -457,7 +458,16 @@
       marks.forEach(function (m) { if (m.getBoundingClientRect().top < mid) k = m.dataset.ambient; });
       if (k === cur) return; cur = k;
       imgs.forEach(function (i) { i.classList.toggle('is-on', i.dataset.amb === k); });
+      tint(k);
     }
+    // Safari blends the page into its toolbars using the page colour, so keep it matched to the
+    // background on show (edge colours of each ambient image); a #111 page over these bands near the bars
+    var edge = {4:'rgb(22 22 22)',5:'rgb(22 22 22)',7:'rgb(79 56 46)',8:'rgb(58 62 55)',9:'rgb(47 42 46)',10:'rgb(56 67 59)',11:'rgb(58 69 61)',
+      12:'rgb(144 147 152)',13:'rgb(144 147 152)',14:'rgb(66 64 67)',15:'rgb(66 64 67)',16:'rgb(66 64 67)',17:'rgb(22 22 22)',18:'rgb(59 28 23)'};
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) { meta = document.createElement('meta'); meta.name = 'theme-color'; document.head.appendChild(meta); }
+    function tint(k) { var c = edge[k] || '#111'; document.documentElement.style.backgroundColor = c; document.body.style.backgroundColor = c; meta.content = c; }
+    tint(cur);
     addEventListener('scroll', pick, { passive: true }); pick();
   })();
 </script>
